@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ডিজাইন · আখি ফার্নিচার</title>
+<link rel="icon" href="../assets/akhi-mark.png">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body data-page="designs" data-lang="bn" data-sticky="general">
+<main>
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="home.html">হোম</a><i data-icon="chev-right"></i><span id="crumb-mid" hidden><a href="designs.html">ডিজাইন</a><i data-icon="chev-right"></i></span><span aria-current="page" id="crumb-cur">ডিজাইন</span></nav>
+    <header class="page-head">
+      <h1 class="t-display" id="cat-title">ডিজাইন</h1>
+      <p class="page-head__intro t-body-lg" id="cat-intro">আমাদের কারখানায় তৈরি আসল কাজ। প্রতিটি ডিজাইন আপনার মাপ, কাঠ ও ফিনিশে বানানো যায়। বিস্তারিত দেখতে ও জিজ্ঞেস করতে যেকোনো ডিজাইনে চাপুন।</p>
+    </header>
+  </div>
+
+  <div class="container" style="display:grid;gap:12px;padding-bottom:var(--space-8)">
+    <div class="chips" data-group="room" role="group" aria-label="রুম">
+      <button class="chip" aria-pressed="true" id="room-all">সব রুম <span class="chip__count">১২</span></button>
+      <button class="chip" aria-pressed="false" id="room-bed">বেডরুম <span class="chip__count">৫</span></button>
+      <button class="chip" aria-pressed="false">লিভিং রুম <span class="chip__count">৬</span></button>
+      <button class="chip" aria-pressed="false">ডাইনিং <span class="chip__count">১</span></button>
+      <button class="chip" aria-pressed="false">অফিস <span class="chip__count">০</span></button>
+    </div>
+    <div class="chips" data-group="type" role="group" aria-label="ধরন">
+      <button class="chip" aria-pressed="true">সব ধরন</button>
+      <button class="chip" aria-pressed="false">খাট</button>
+      <button class="chip" aria-pressed="false">সোফা</button>
+      <button class="chip" aria-pressed="false">ডাইনিং সেট</button>
+      <button class="chip" aria-pressed="false">আলমারি ও ওয়ার্ডরোব</button>
+      <button class="chip" aria-pressed="false">ড্রেসিং টেবিল</button>
+      <button class="chip" aria-pressed="false">শোকেস</button>
+      <button class="chip" aria-pressed="false">টেবিল</button>
+      <button class="chip" aria-pressed="false">চেয়ার</button>
+      <button class="chip" aria-pressed="false">অফিস</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid var(--line);padding-top:16px;margin-top:8px">
+      <p class="t-caption" id="result-count">১২টি ডিজাইন · বাছাই করা আগে</p>
+      <button class="text-btn" id="clear-filters" hidden>ফিল্টার মুছুন<i data-icon="x" class="icon--16"></i></button>
+    </div>
+  </div>
+
+  <section class="container" style="padding-bottom:var(--section-y)" aria-label="ডিজাইন">
+    <div class="card-grid" data-cards="all" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <i data-icon="search"></i>
+      <h2 class="t-h2">এই ফিল্টারে এখনো কোনো ডিজাইন নেই</h2>
+      <p class="t-muted measure">এখানে যা দেখানো আছে, আমরা তার চেয়ে অনেক বেশি তৈরি করি। কী খুঁজছেন জানালে একই রকম কাজের ছবি পাঠিয়ে দেব।</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn btn--primary" href="#"><i data-icon="whatsapp"></i>হোয়াটসঅ্যাপে জিজ্ঞেস করুন</a><button class="btn btn--secondary">ফিল্টার মুছুন</button></div>
+    </div>
+    <p class="t-caption" style="text-align:center;margin-top:var(--space-12)">২৪টির বেশি ডিজাইন হলে এখানে “আরও দেখুন” বাটন আসবে।</p>
+  </section>
+
+  <section class="container" style="padding-bottom:var(--section-y)">
+    <div class="cta-band">
+      <p class="t-eyebrow">খুঁজে পাচ্ছেন না?</p>
+      <h2 class="t-display">আপনি যা ভাবছেন, আমরা তা বানাতে পারি</h2>
+      <p class="t-body-lg">যেকোনো জায়গার একটি ছবি পাঠান, বা আইডিয়াটা লিখে জানান। আমাদের বেশিরভাগ কাজই অর্ডার অনুযায়ী তৈরি।</p>
+      <div class="btn-row">
+        <a class="btn btn--primary btn--lg" href="#"><i data-icon="whatsapp"></i>হোয়াটসঅ্যাপে আপনার আইডিয়া জানান</a>
+        <a class="btn btn--secondary btn--lg" href="custom-furniture.html">কাস্টম অর্ডার যেভাবে হয়</a>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+  // Mockup states: ?state=filtered · ?state=category · ?state=empty
+  (function () {
+    const s = new URLSearchParams(location.search).get("state");
+    const $ = (id) => document.getElementById(id);
+    if (s === "filtered" || s === "empty" || s === "category") {
+      $("grid").dataset.cards = s === "empty" ? "none" : "bedroom";
+      $("room-all").setAttribute("aria-pressed", "false");
+      $("room-bed").setAttribute("aria-pressed", "true");
+      $("clear-filters").hidden = false;
+      $("result-count").textContent = s === "empty" ? "এই ফিল্টারে কোনো ডিজাইন নেই" : "বেডরুমে ৫টি ডিজাইন";
+    }
+    if (s === "category") {
+      $("crumb-mid").hidden = false; $("crumb-cur").textContent = "বেডরুম";
+      $("cat-title").textContent = "বেডরুমের ডিজাইন";
+      $("cat-intro").textContent = "খাট, ওয়ার্ডরোব ও ড্রেসিং টেবিল, আপনার ঘরের মাপে তৈরি। একটি ডিজাইন বেছে আমাদের জিজ্ঞেস করুন, অথবা আপনার প্রয়োজনটা জানান।";
+    }
+    if (s === "empty") {
+      $("grid").hidden = true; $("empty").hidden = false;
+      document.querySelectorAll('[data-group="type"] .chip').forEach((c, i) => c.setAttribute("aria-pressed", i === 9));
+    }
+  })();
+</script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

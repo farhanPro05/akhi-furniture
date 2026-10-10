@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Akhi Furniture · Designs</title>
+<link rel="icon" href="../assets/akhi-mark.png">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body data-page="designs" data-lang="en" data-sticky="general">
+<main>
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="home.html">Home</a><i data-icon="chev-right"></i><span id="crumb-mid" hidden><a href="designs.html">Designs</a><i data-icon="chev-right"></i></span><span aria-current="page" id="crumb-cur">Designs</span></nav>
+    <header class="page-head">
+      <h1 class="t-display" id="cat-title">Designs</h1>
+      <p class="page-head__intro t-body-lg" id="cat-intro">Real pieces from our workshop. Every design can be made to your size, wood and finish. Tap one to see details and ask us about it.</p>
+    </header>
+  </div>
+
+  <!-- Filters: room (single) + type (single). Chips scroll sideways on phones, wrap on tablet+ -->
+  <div class="container" style="display:grid;gap:12px;padding-bottom:var(--space-8)">
+    <div class="chips" data-group="room" role="group" aria-label="Room">
+      <button class="chip" aria-pressed="true" id="room-all">All rooms <span class="chip__count">12</span></button>
+      <button class="chip" aria-pressed="false" id="room-bed">Bedroom <span class="chip__count">5</span></button>
+      <button class="chip" aria-pressed="false">Living <span class="chip__count">6</span></button>
+      <button class="chip" aria-pressed="false">Dining <span class="chip__count">1</span></button>
+      <button class="chip" aria-pressed="false">Office <span class="chip__count">0</span></button>
+    </div>
+    <div class="chips" data-group="type" role="group" aria-label="Type">
+      <button class="chip" aria-pressed="true">All types</button>
+      <button class="chip" aria-pressed="false">Beds</button>
+      <button class="chip" aria-pressed="false">Sofas</button>
+      <button class="chip" aria-pressed="false">Dining sets</button>
+      <button class="chip" aria-pressed="false">Wardrobes &amp; storage</button>
+      <button class="chip" aria-pressed="false">Dressing tables</button>
+      <button class="chip" aria-pressed="false">Showcases &amp; cabinets</button>
+      <button class="chip" aria-pressed="false">Tables</button>
+      <button class="chip" aria-pressed="false">Chairs</button>
+      <button class="chip" aria-pressed="false">Office</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid var(--line);padding-top:16px;margin-top:8px">
+      <p class="t-caption" id="result-count">Showing 12 designs · featured first</p>
+      <button class="text-btn" id="clear-filters" hidden>Clear filters<i data-icon="x" class="icon--16"></i></button>
+    </div>
+  </div>
+
+  <section class="container" style="padding-bottom:var(--section-y)" aria-label="Designs">
+    <div class="card-grid" data-cards="all" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <i data-icon="search"></i>
+      <h2 class="t-h2">No designs in this filter yet</h2>
+      <p class="t-muted measure">We make far more than we show here. Tell us what you are looking for and we will send photos of similar work.</p>
+      <div class="btn-row" style="justify-content:center"><a class="btn btn--primary" href="#"><i data-icon="whatsapp"></i>Ask on WhatsApp</a><button class="btn btn--secondary">Clear filters</button></div>
+    </div>
+    <p class="t-caption" style="text-align:center;margin-top:var(--space-12)">“Load more” appears here once there are more than 24 designs.</p>
+  </section>
+
+  <section class="container" style="padding-bottom:var(--section-y)">
+    <div class="cta-band">
+      <p class="t-eyebrow">Can't find it?</p>
+      <h2 class="t-display">We can make what you have in mind</h2>
+      <p class="t-body-lg">Send a photo from anywhere, or describe your idea. Most of our work is made to order.</p>
+      <div class="btn-row">
+        <a class="btn btn--primary btn--lg" href="#"><i data-icon="whatsapp"></i>Discuss your idea on WhatsApp</a>
+        <a class="btn btn--secondary btn--lg" href="custom-furniture.html">How custom works</a>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+  // Mockup states: ?state=filtered (Bedroom chip) · ?state=category (/designs/bedroom/ page) · ?state=empty
+  (function () {
+    const s = new URLSearchParams(location.search).get("state");
+    const $ = (id) => document.getElementById(id);
+    if (s === "filtered" || s === "empty" || s === "category") {
+      $("grid").dataset.cards = s === "empty" ? "none" : "bedroom";
+      $("room-all").setAttribute("aria-pressed", "false");
+      $("room-bed").setAttribute("aria-pressed", "true");
+      $("clear-filters").hidden = false;
+      $("result-count").textContent = s === "empty" ? "No designs match these filters" : "Showing 5 designs in Bedroom";
+    }
+    if (s === "category") {
+      $("crumb-mid").hidden = false; $("crumb-cur").textContent = "Bedroom";
+      $("cat-title").textContent = "Bedroom designs";
+      $("cat-intro").textContent = "Beds, wardrobes and dressing tables, made to the size of your room. Pick a design and ask us about it, or tell us what you need.";
+    }
+    if (s === "empty") {
+      $("grid").hidden = true; $("empty").hidden = false;
+      document.querySelectorAll('[data-group="type"] .chip').forEach((c, i) => c.setAttribute("aria-pressed", i === 9));
+    }
+  })();
+</script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

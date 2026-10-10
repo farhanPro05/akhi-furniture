@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Akhi Furniture · Design system for the website</title>
+<link rel="icon" href="../assets/akhi-mark.png">
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+  .ds-sec { padding-block: var(--space-12); border-top: 1px solid var(--line); scroll-margin-top: 140px; }
+  .ds-sec > h2 { margin-bottom: var(--space-6); }
+  .ds-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: var(--space-2); }
+  .ds-icons div { display: grid; justify-items: center; gap: 6px; padding: 12px 4px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-raised); font-size: 11px; color: var(--ink-muted); }
+  .ds-icons .icon { width: 24px; height: 24px; color: var(--ink); }
+  .ds-space { display: grid; gap: 8px; }
+  .ds-space div { display: grid; grid-template-columns: 90px 1fr; align-items: center; gap: 12px; font-size: 12px; }
+  .ds-space i { display: block; height: 12px; background: var(--swoosh-soft); border: 1px solid var(--swoosh); border-radius: 2px; }
+  .ds-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6) var(--space-3); }
+  @media (min-width: 768px) { .ds-cards { grid-template-columns: repeat(4, 1fr); gap: var(--space-6); } }
+  .ds-phone { width: 390px; max-width: 100%; border: 1px solid var(--line); border-radius: 24px; overflow: hidden; position: relative; height: 180px; background: var(--surface-sunken); }
+  .ds-phone .sticky-bar { position: absolute; display: flex !important; }
+  .ds-phone .toast { position: absolute; display: flex; bottom: 84px; }
+</style>
+</head>
+<body data-page="" data-lang="en" data-alt="home-bn.html" data-sticky="none">
+<main>
+  <div class="container">
+    <header class="page-head">
+      <p class="t-eyebrow">Design system · website</p>
+      <h1 class="t-display">Akhi Furniture, on the web</h1>
+      <p class="page-head__intro t-body-lg">The Akhi Furniture design system (colours, type, spacing, radii, logo) applied to the showroom website, plus the web additions: fluid type, a Bengali type pair, layout, components and their states. Tokens live in <code>assets/tokens.css</code>.</p>
+    </header>
+  </div>
+  <nav class="ds-nav" aria-label="Sections"><div class="container"><div class="chips">
+    <a class="chip" href="#color">Colour</a><a class="chip" href="#type">Type</a><a class="chip" href="#space">Space &amp; shape</a><a class="chip" href="#buttons">Buttons</a><a class="chip" href="#chips">Chips &amp; tags</a><a class="chip" href="#cards">Cards</a><a class="chip" href="#contact">Contact UI</a><a class="chip" href="#forms">Forms</a><a class="chip" href="#icons">Icons</a><a class="chip" href="#logo">Logo</a>
+  </div></div></nav>
+
+  <div class="container">
+    <!-- COLOUR -->
+    <section class="ds-sec" id="color" style="border-top:0">
+      <h2 class="t-h1">Colour</h2>
+      <p class="t-muted measure" style="margin-bottom:24px">Warm paper surfaces, charcoal ink. Crimson is the one loud colour: primary buttons, links, the WhatsApp CTA, selected filters. Swoosh orange is a small accent only. No prices, so no sale red.</p>
+      <div class="ds-grid">
+        <div class="ds-swatch"><i style="background:var(--surface)"></i><div><b>surface</b>#faf6f0 · page</div></div>
+        <div class="ds-swatch"><i style="background:var(--surface-sunken)"></i><div><b>surface-sunken</b>#f2eadf · bands, wells, footer</div></div>
+        <div class="ds-swatch"><i style="background:var(--surface-raised)"></i><div><b>surface-raised</b>#ffffff · cards, sheets</div></div>
+        <div class="ds-swatch"><i style="background:var(--line)"></i><div><b>line</b>#e3d8ca · hairlines</div></div>
+        <div class="ds-swatch"><i style="background:var(--line-strong)"></i><div><b>line-strong</b>#8f8378 · inputs, controls</div></div>
+        <div class="ds-swatch"><i style="background:var(--ink)"></i><div><b>ink</b>#191b1a · text</div></div>
+        <div class="ds-swatch"><i style="background:var(--ink-muted)"></i><div><b>ink-muted</b>#62584f · secondary</div></div>
+        <div class="ds-swatch"><i style="background:var(--crimson)"></i><div><b>crimson</b>#c3061d · primary</div></div>
+        <div class="ds-swatch"><i style="background:var(--crimson-deep)"></i><div><b>crimson-deep</b>#880c0c · hover</div></div>
+        <div class="ds-swatch"><i style="background:var(--crimson-soft)"></i><div><b>crimson-soft</b>#fbe8e8 · selected</div></div>
+        <div class="ds-swatch"><i style="background:var(--swoosh)"></i><div><b>swoosh</b>#a83c09 · accent</div></div>
+        <div class="ds-swatch"><i style="background:var(--swoosh-soft)"></i><div><b>swoosh-soft</b>#f8e7da · callouts, tags</div></div>
+        <div class="ds-swatch"><i style="background:var(--success)"></i><div><b>success</b>#2f6b3f · copied, sent</div></div>
+      </div>
+      <div class="theme-dark" style="margin-top:24px;border-radius:8px;padding:24px">
+        <p class="t-eyebrow">Dark bands (.theme-dark)</p>
+        <p class="t-muted" style="margin:12px 0 16px;max-width:60ch">The design system's dark theme, scoped to a few bands: From the workshop, For business hero, dark CTA. Crimson lightens to #ff6b74 with dark text on it.</p>
+        <div class="cluster"><a class="btn btn--primary" href="#"><i data-icon="whatsapp"></i>WhatsApp us</a><a class="btn btn--secondary" href="#">Secondary</a><a class="link" href="#">Text link</a></div>
+      </div>
+    </section>
+
+    <!-- TYPE -->
+    <section class="ds-sec" id="type">
+      <h2 class="t-h1">Type</h2>
+      <p class="t-muted measure" style="margin-bottom:24px">Space Grotesk (display) and Inter (text) from the design system. For Bengali, Anek Bangla pairs with Space Grotesk and Hind Siliguri with Inter. Bengali is set about 12% larger with taller lines, and never uppercase or letter-spaced. Sizes are fluid from phone to desktop.</p>
+      <div class="ds-row"><div class="ds-meta">display-xl<br>40 → 64 / 1.06<br>home hero only</div><div class="ds-pair"><p class="t-display-xl">Furniture made for your space.</p><p class="t-display-xl" lang="bn">আপনার মাপে তৈরি আসবাব।</p></div></div>
+      <div class="ds-row"><div class="ds-meta">display<br>32 → 44 / 1.14<br>page heroes, CTA</div><div class="ds-pair"><p class="t-display">Made to your measure</p><p class="t-display" lang="bn">আপনার মাপে তৈরি</p></div></div>
+      <div class="ds-row"><div class="ds-meta">heading-1<br>26 → 32 / 1.25<br>section titles</div><div class="ds-pair"><p class="t-h1">How custom ordering works</p><p class="t-h1" lang="bn">কাস্টম অর্ডার যেভাবে হয়</p></div></div>
+      <div class="ds-row"><div class="ds-meta">heading-2<br>21 → 24 / 1.33</div><div class="ds-pair"><p class="t-h2">Choose how to reach us</p><p class="t-h2" lang="bn">কীভাবে যোগাযোগ করবেন?</p></div></div>
+      <div class="ds-row"><div class="ds-meta">heading-3<br>19 / 26 · 600<br>card titles</div><div class="ds-pair"><p class="t-h3">Contemporary wooden bed</p><p class="t-h3" lang="bn">কনটেম্পোরারি কাঠের খাট</p></div></div>
+      <div class="ds-row"><div class="ds-meta">eyebrow<br>12 / 16 · +0.12em<br>BN: 14, no caps</div><div class="ds-pair"><p class="t-eyebrow">Featured designs</p><p class="t-eyebrow" lang="bn">বাছাই করা ডিজাইন</p></div></div>
+      <div class="ds-row"><div class="ds-meta">body-lg<br>17 → 18 / 30</div><div class="ds-pair"><p class="t-body-lg">Every piece is built in our Dhaka workshop and made to fit your room.</p><p class="t-body-lg" lang="bn">প্রতিটি আসবাব ঢাকায় আমাদের কারখানায় তৈরি, আপনার ঘরের মাপে।</p></div></div>
+      <div class="ds-row"><div class="ds-meta">body<br>16 / 26 (BN 17 / 30)</div><div class="ds-pair"><p class="t-body">Send us a photo, a design code or a sketch on WhatsApp.</p><p class="t-body" lang="bn">হোয়াটসঅ্যাপে একটি ছবি, ডিজাইন কোড বা স্কেচ পাঠান।</p></div></div>
+      <div class="ds-row"><div class="ds-meta">label / caption<br>14 / 20 · 13 / 20</div><div class="ds-pair"><p><span class="t-label">Ask about this design</span><br><span class="t-caption">Standard: 180 × 200 cm</span></p><p lang="bn"><span class="t-label">এই ডিজাইন নিয়ে জানতে চাই</span><br><span class="t-caption">স্ট্যান্ডার্ড: ১৮০ × ২০০ সেমি</span></p></div></div>
+      <div class="ds-row"><div class="ds-meta">design code<br>Space Grotesk 500, tabular</div><div><span class="d-card__code" style="font-size:15px">AF-BED-014 · AF-SOF-007 · AF-CNF-002</span></div></div>
+    </section>
+
+    <!-- SPACE -->
+    <section class="ds-sec" id="space">
+      <h2 class="t-h1">Space &amp; shape</h2>
+      <div class="ds-pair">
+        <div class="ds-space">
+          <div><span>space-1 · 4</span><i style="width:4px"></i></div><div><span>space-2 · 8</span><i style="width:8px"></i></div><div><span>space-3 · 12</span><i style="width:12px"></i></div><div><span>space-4 · 16</span><i style="width:16px"></i></div><div><span>space-6 · 24</span><i style="width:24px"></i></div><div><span>space-8 · 32</span><i style="width:32px"></i></div><div><span>space-12 · 48</span><i style="width:48px"></i></div><div><span>space-14 · 56</span><i style="width:56px"></i></div><div><span>space-20 · 80</span><i style="width:80px"></i></div>
+        </div>
+        <div class="stack">
+          <p><b>Sections:</b> 56 px apart on phones, 80 px (space-20) from 768 px.</p>
+          <p><b>Gutters:</b> 16 phone · 24 from 600 · 32 from 1024 · 48 from 1440. Container caps at 1440 px, so 1920+ screens get calm side margins.</p>
+          <p><b>Grid gap:</b> design cards 24 px (12 px between columns on phones).</p>
+          <p><b>Radii:</b> 4 px chips, inputs, code chip · 8 px buttons, cards, image wells · pill only for filter chips · 16 px top corners of the phone bottom sheet.</p>
+          <p><b>Depth:</b> 1 px line borders. shadow-card only on card hover, dropdown and sheets.</p>
+          <p><b>Breakpoints:</b> 600 · 768 · 1024 · 1200 (full nav) · 1440.</p>
+          <p><b>Motion:</b> 200 to 300 ms ease-out; image hover zoom 1.03 over 600 ms (desktop only); all off with reduced motion.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUTTONS -->
+    <section class="ds-sec" id="buttons">
+      <h2 class="t-h1">Buttons</h2>
+      <div class="ds-row"><div class="ds-meta">primary<br>default · hover · focus · pressed · disabled</div><div class="ds-states"><a class="btn btn--primary" href="#">Explore designs</a><a class="btn btn--primary is-hover" href="#">Hover</a><a class="btn btn--primary is-focus" href="#">Focus</a><a class="btn btn--primary is-pressed" href="#">Pressed</a><button class="btn btn--primary" disabled>Disabled</button></div></div>
+      <div class="ds-row"><div class="ds-meta">WhatsApp (primary + glyph)</div><div class="ds-states"><a class="btn btn--primary btn--lg" href="#"><i data-icon="whatsapp"></i>Ask about this design</a><a class="btn btn--primary" href="#"><i data-icon="whatsapp"></i>WhatsApp us</a><a class="btn btn--primary btn--sm" href="#"><i data-icon="whatsapp"></i>WhatsApp us</a></div></div>
+      <div class="ds-row"><div class="ds-meta">secondary (outline)</div><div class="ds-states"><a class="btn btn--secondary" href="#"><i data-icon="phone"></i>Call</a><a class="btn btn--secondary is-hover" href="#">Hover</a><a class="btn btn--secondary is-focus" href="#">Focus</a><button class="btn btn--secondary" disabled>Disabled</button></div></div>
+      <div class="ds-row"><div class="ds-meta">sizes<br>sm 40 · md 48 · lg 56</div><div class="ds-states"><a class="btn btn--primary btn--sm" href="#">Small</a><a class="btn btn--primary" href="#">Medium</a><a class="btn btn--primary btn--lg" href="#">Large</a></div></div>
+      <div class="ds-row"><div class="ds-meta">text link · link with arrow · icon button (44)</div><div class="ds-states"><a class="link" href="#">Read the FAQ</a><a class="link-arrow" href="#">View all designs<i data-icon="arrow"></i></a><button class="btn-icon" aria-label="More"><i data-icon="more"></i></button><button class="btn-icon" aria-label="Menu"><i data-icon="menu" class="icon--24"></i></button><button class="btn-icon" aria-label="Full screen"><i data-icon="expand"></i></button></div></div>
+      <div class="ds-row"><div class="ds-meta">language switcher</div><div class="ds-states"><nav class="lang-switch"><a href="#" lang="en" aria-current="true">EN</a><a href="#" lang="bn">বাং</a></nav><nav class="lang-switch"><a href="#" lang="en">EN</a><a href="#" lang="bn" aria-current="true">বাং</a></nav></div></div>
+    </section>
+
+    <!-- CHIPS -->
+    <section class="ds-sec" id="chips">
+      <h2 class="t-h1">Chips, tags &amp; code</h2>
+      <div class="ds-row"><div class="ds-meta">filter chips<br>selected · unselected</div><div class="ds-states"><button class="chip" aria-pressed="true">Bedroom <span class="chip__count">4</span></button><button class="chip" aria-pressed="false">Living <span class="chip__count">4</span></button><button class="chip" aria-pressed="false">Dining</button><button class="text-btn">Clear<i data-icon="x" class="icon--16"></i></button></div></div>
+      <div class="ds-row"><div class="ds-meta">tags</div><div class="ds-states"><span class="tag">Customizable</span><span class="tag" lang="bn">কাস্টমাইজযোগ্য</span><span class="tag tag--plain">Home</span><span class="tag tag--plain">Office</span><span class="tag tag--plain">Renewal</span><span class="badge-rec">Recommended</span></div></div>
+      <div class="ds-row"><div class="ds-meta">design code chip<br>default · copied</div><div class="ds-states"><button class="code-chip">AF-BED-014<i data-icon="copy"></i></button><span class="code-chip is-copied">AF-BED-014<i data-icon="check"></i></span></div></div>
+      <div class="ds-row"><div class="ds-meta">placeholder markers<br>(mockups only)</div><div class="ds-states"><span class="verify">Unverified fact</span><span class="verify-tag">TODO-VERIFY</span><span class="verify-tag">SAMPLE REVIEW</span></div></div>
+    </section>
+
+    <!-- CARDS -->
+    <section class="ds-sec" id="cards">
+      <h2 class="t-h1">Cards</h2>
+      <p class="t-muted measure" style="margin-bottom:24px">Design card: 4:5 photo, code, Customizable tag, name, room · type. On desktop, hover shows a second photo and the material; on touch screens the material is always shown as a line of text. The heart is the v1.1 shortlist and is not in v1.</p>
+      <div class="ds-cards" id="ds-cards"></div>
+      <div class="ds-pair" style="margin-top:32px">
+        <a class="cat-tile" href="#"><div class="zoom-wrap"><div class="ph" data-ph="category tile"></div></div><div class="cat-tile__row"><span class="t-h3">Bedroom</span><i data-icon="arrow"></i></div></a>
+        <a class="p-card" href="#"><div class="zoom-wrap"><div class="ph" data-ph="project card, 3:2"></div></div><div class="p-card__meta"><span class="tag tag--plain">Office</span><span class="t-caption">Gulshan</span></div><h3 class="t-h3">A mahogany boardroom for twelve</h3></a>
+      </div>
+      <div class="ds-pair" style="margin-top:32px">
+        <figure class="quote-card is-translated"><span class="quote-card__mark">“</span><blockquote lang="bn">খাটটা ঠিক আমাদের ঘরের মাপে বানিয়ে দিয়েছে।</blockquote><p class="quote-card__tr">They made the bed to the exact size of our room.</p><figcaption class="quote-card__foot"><span class="avatar">RH</span><span class="quote-card__who"><b>Rafiq H.</b><span>Translation shown</span></span></figcaption></figure>
+        <a class="video" href="#"><div class="ph ph--scene" data-ph="video block, click to load"></div><span class="video__play"><i data-icon="play"></i></span><span class="video__dur">4:12</span></a>
+      </div>
+    </section>
+
+    <!-- CONTACT UI -->
+    <section class="ds-sec" id="contact">
+      <h2 class="t-h1">Contact UI</h2>
+      <div class="ds-pair">
+        <div class="stack-lg">
+          <p class="ds-meta">Sticky contact bar (phones, tablet portrait) + toast</p>
+          <div class="ds-phone"><div class="toast" role="status"><i data-icon="check-circle"></i><span>Design code AF-BED-014 copied, paste it in your message</span></div><div class="sticky-bar"><a class="btn btn--secondary" href="#"><i data-icon="phone"></i>Call</a><a class="btn btn--primary" href="#"><i data-icon="whatsapp"></i>WhatsApp us</a><button class="btn-icon" aria-label="More"><i data-icon="more"></i></button></div></div>
+          <div class="ds-phone" style="height:96px"><div class="sticky-bar"><a class="btn btn--primary" href="#"><i data-icon="whatsapp"></i>Ask about AF-BED-014</a><button class="btn-icon" aria-label="More"><i data-icon="more"></i></button></div></div>
+        </div>
+        <div class="stack-lg">
+          <p class="ds-meta">Channel chooser rows</p>
+          <div class="channel-list">
+            <a class="channel channel--rec" href="#"><span class="channel__ico"><i data-icon="whatsapp"></i></span><span><b>WhatsApp <span class="badge-rec">Recommended</span></b><span>Your message opens with this design's code</span></span><i data-icon="chev-right"></i></a>
+            <a class="channel" href="#"><span class="channel__ico"><i data-icon="messenger"></i></span><span><b>Messenger</b><span>We copy the design code for you to paste</span></span><i data-icon="chev-right"></i></a>
+            <a class="channel" href="#"><span class="channel__ico"><i data-icon="phone"></i></span><span><b>Call</b><span>01600-297923</span></span><i data-icon="chev-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="cta-band" style="margin-top:32px"><h2 class="t-h1">CTA band, light</h2><div class="btn-row"><a class="btn btn--primary" href="#"><i data-icon="whatsapp"></i>WhatsApp</a><a class="btn btn--secondary" href="#"><i data-icon="messenger"></i>Messenger</a><a class="btn btn--secondary" href="#"><i data-icon="phone"></i>Call</a></div></div>
+      <div class="cta-band theme-dark" style="margin-top:16px"><h2 class="t-h1">CTA band, dark</h2><div class="btn-row"><a class="btn btn--primary" href="#"><i data-icon="whatsapp"></i>WhatsApp</a><a class="btn btn--secondary" href="#"><i data-icon="messenger"></i>Messenger</a><a class="btn btn--secondary" href="#"><i data-icon="phone"></i>Call</a></div></div>
+    </section>
+
+    <!-- FORMS -->
+    <section class="ds-sec" id="forms">
+      <h2 class="t-h1">Forms &amp; accordions</h2>
+      <div class="ds-pair">
+        <div class="stack-lg">
+          <div class="field"><label for="f1">Your area or city <small>(optional)</small></label><input class="input" id="f1" placeholder="e.g. Bashundhara, Dhaka"></div>
+          <div class="field"><label for="f2">Anything else? <small>(optional)</small></label><textarea class="textarea" id="f2" placeholder="Tell us about the room"></textarea></div>
+          <div class="progress"><div class="progress__txt"><span>Step 2 of 4</span><span>Brief progress</span></div><div class="progress__bar"><i class="is-done"></i><i class="is-current"></i><i></i><i></i></div></div>
+        </div>
+        <div class="faq"><details open><summary>Open state<i data-icon="plus"></i></summary><p class="faq__a">Answer text in ink-muted, 68 character measure.</p></details><details><summary>Closed state<i data-icon="plus"></i></summary><p class="faq__a">Hidden.</p></details></div>
+      </div>
+    </section>
+
+    <!-- ICONS -->
+    <section class="ds-sec" id="icons">
+      <h2 class="t-h1">Icons</h2>
+      <p class="t-muted measure" style="margin-bottom:24px">One outline set, 1.5 px stroke, rounded joins (Lucide in the build). 20 px in UI, 24 px in navigation. The WhatsApp, Messenger, Instagram, Facebook and YouTube icons here are stand-ins: the build uses each brand's official glyph, always with a text label.</p>
+      <div class="ds-icons" id="ds-icons"></div>
+    </section>
+
+    <!-- LOGO -->
+    <section class="ds-sec" id="logo" style="padding-bottom:var(--section-y)">
+      <h2 class="t-h1">Logo</h2>
+      <div class="ds-pair">
+        <div class="ds-box" style="display:grid;place-items:center;min-height:240px"><img src="../assets/akhi-logo-full.png" alt="Akhi Furniture logo" style="width:220px"></div>
+        <div class="stack">
+          <p><b>Header lockup (proposed):</b> the AF mark at 34 to 42 px next to “Akhi Furniture” set in Space Grotesk 600. The stacked full logo becomes unreadable at header height, and the design system asks for the mark in tight spaces.</p>
+          <div class="ds-box"><span class="brand" style="margin:0"><img src="../assets/akhi-mark.png" alt="" style="height:42px"><span class="brand__word">Akhi Furniture<small>Dhaka</small></span></span></div>
+          <p><b>Footer:</b> full logo, 72 px tall. <b>Dark bands:</b> never place the logo directly on dark; use a light plate. <b>Minimums:</b> full logo 120 px wide, mark 32 px.</p>
+          <p class="t-caption">Source is the 480 px Facebook image. Ask the client for a vector original before launch. <span class="verify-tag">TODO-VERIFY</span></p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+<script src="../assets/app.js"></script>
+<script>
+  (function () {
+    const I = window.AKHI_ICON;
+    const names = ["menu","x","chev-down","chev-right","arrow","plus","phone","whatsapp","messenger","instagram","facebook","youtube","pin","clock","mail","copy","check","play","more","expand","ruler","wood","finish","fabric","storage","sparkle","home","building","refresh","store","users","image","heart","hammer","shield","nav","external","search","send","edit","calendar","translate","grid","bed","sofa","dining","chair","wardrobe","dresser","showcase","desk","conference"];
+    document.getElementById("ds-icons").innerHTML = names.map((n) => `<div>${I(n)}<span>${n}</span></div>`).join("");
+    const c = window.AKHI_CARD;
+    const wrap = document.getElementById("ds-cards");
+    wrap.innerHTML = c(["AF-BED-014","Contemporary wooden bed","","bedroom",["Beds",""],["Solid wood, walnut finish",""]])
+      + c(["AF-SOF-007","Three-seat fabric sofa","","living",["Sofas",""],["Fabric of your choice",""]])
+      + c(["AF-DIN-021","Six-seat dining set","","dining",["Dining sets",""],["Solid wood top",""]], { heart: true })
+      + `<div class="d-card d-card--skeleton"><div class="d-card__media"><div class="ph skel" style="--ratio:4/5;border-radius:0"></div></div><div class="d-card__meta" style="gap:8px"><div class="skel" style="height:12px;width:40%"></div><div class="skel" style="height:18px;width:85%"></div><div class="skel" style="height:12px;width:60%"></div></div></div>`;
+    wrap.children[1].classList.add("is-hover");
+    wrap.querySelectorAll(".ph[data-ph]").forEach((el) => { if (!el.querySelector(".ph__label")) el.insertAdjacentHTML("beforeend", `<span class="ph__label">${I("image")}AKHI photo · ${el.dataset.ph}</span>`); });
+    const labels = ["Default", "Hover (desktop)", "With v1.1 shortlist heart", "Loading skeleton"];
+    [...wrap.children].forEach((el, i) => el.insertAdjacentHTML("afterbegin", `<p class="ds-meta" style="margin-bottom:4px">${labels[i]}</p>`));
+  })();
+</script>
+</body>
+</html>

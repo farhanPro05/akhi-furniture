@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akhi Furniture · Website mockups</title>
+<link rel="icon" href="assets/akhi-mark.png">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  body { background: var(--surface-sunken); }
+  .top { background: var(--surface); border-bottom: 1px solid var(--line); }
+  .top .container { display: flex; align-items: center; gap: 16px; min-height: 72px; flex-wrap: wrap; padding-block: 12px; }
+  .top img { height: 40px; }
+  .layout { display: grid; gap: 24px; padding-block: 24px 64px; }
+  @media (min-width: 1100px) { .layout { grid-template-columns: 300px 1fr; align-items: start; } .side { position: sticky; top: 24px; } }
+  .side { display: grid; gap: 20px; }
+  .group h2 { font: 500 12px/16px var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; }
+  .pages { display: grid; gap: 2px; }
+  .pages button { all: unset; box-sizing: border-box; cursor: pointer; display: flex; justify-content: space-between; gap: 8px; width: 100%; min-height: 40px; align-items: center; padding: 0 12px; border-radius: 6px; font-size: 14px; }
+  .pages button:hover { background: var(--surface-raised); }
+  .pages button[aria-current="true"] { background: var(--ink); color: var(--surface); }
+  .pages small { font-size: 11px; opacity: .7; }
+  .stage { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 16px; min-width: 0; }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+  .frame-wrap { overflow: hidden; border-radius: 8px; background: var(--surface-sunken); display: grid; justify-items: center; padding: 16px 0; }
+  .device { background: #fff; border: 1px solid var(--line-strong); border-radius: 16px; overflow: hidden; transform-origin: top center; box-shadow: var(--shadow-card); }
+  .device iframe { border: 0; display: block; background: var(--surface); }
+  .states { display: flex; flex-wrap: wrap; gap: 6px; }
+  .states a { font-size: 13px; }
+</style>
+</head>
+<body data-no-shell>
+<header class="top"><div class="container">
+  <img src="assets/akhi-logo-full.png" alt="Akhi Furniture">
+  <div style="margin-right:auto"><p class="t-h3">Website mockups</p><p class="t-caption">Responsive HTML designs · phone, tablet, desktop · English + বাংলা</p></div>
+  <a class="btn btn--secondary btn--sm" href="README.md">Handoff notes (README.md)</a>
+  <a class="btn btn--secondary btn--sm" href="screenshots/">Screenshots</a>
+</div></header>
+
+<div class="container layout">
+  <aside class="side">
+    <div class="group"><h2>Round 1 · Foundations + core</h2><div class="pages" data-round="1"></div></div>
+    <div class="group"><h2>Round 2 · Conversion pages</h2><div class="pages" data-round="2"></div></div>
+    <div class="group"><h2>Round 3 · Remaining</h2><div class="pages" data-round="3"></div></div>
+  </aside>
+
+  <section class="stage">
+    <div class="bar">
+      <div><p class="t-h3" id="pname"></p><a class="link t-caption" id="popen" href="#" target="_blank">Open full page in a new tab</a></div>
+      <div class="chips" id="sizes" data-group="size" style="margin:0;padding:0"></div>
+    </div>
+    <div class="states" id="states"></div>
+    <div class="frame-wrap" id="wrap"><div class="device" id="device"><iframe id="frame" title="Page preview"></iframe></div></div>
+  </section>
+</div>
+
+<script>
+const PAGES = [
+  [1, "design-system.html", "Design system", []],
+  [1, "home.html", "Home", ["menu", "dropdown", "sheet"]],
+  [1, "home-bn.html", "Home · বাংলা", ["menu"]],
+  [1, "designs.html", "Designs catalog", ["filtered", "category", "empty", "shortlist"]],
+  [1, "designs-bn.html", "Designs · বাংলা", ["category", "shortlist"]],
+  [1, "design-detail.html", "Design detail", ["lightbox", "sheet", "copied"]],
+  [1, "design-detail-bn.html", "Design detail · বাংলা", ["sheet", "copied"]],
+  [2, "custom-furniture.html", "Custom furniture + brief", ["brief1", "brief2", "brief3", "brief4"]],
+  [2, "custom-furniture-bn.html", "Custom furniture · বাংলা", ["brief2", "brief4"]],
+  [2, "our-work.html", "Our work", []],
+  [2, "our-work-bn.html", "Our work · বাংলা", []],
+  [2, "project.html", "Project page", []],
+  [2, "project-bn.html", "Project page · বাংলা", []],
+  [2, "visit.html", "Visit & contact", []],
+  [2, "visit-bn.html", "Visit & contact · বাংলা", []],
+  [3, "about.html", "About", []],
+  [3, "about-bn.html", "About · বাংলা", []],
+  [3, "for-business.html", "For business", []],
+  [3, "for-business-bn.html", "For business · বাংলা", []],
+  [3, "sofa-renewal.html", "Sofa renewal (conditional)", []],
+  [3, "sofa-renewal-bn.html", "Sofa renewal · বাংলা", []],
+  [3, "faq.html", "FAQ", []],
+  [3, "faq-bn.html", "FAQ · বাংলা", []],
+  [3, "404.html", "404 (bilingual)", []],
+  [3, "privacy.html", "Privacy", []],
+  [3, "privacy-bn.html", "Privacy · বাংলা", []],
+  [3, "og-template.html", "Share preview (OG) template", []],
+];
+const SIZES = [["Small phone", 360, 740], ["Phone", 390, 844], ["Tablet", 834, 1194], ["Tablet landscape", 1194, 834], ["Laptop", 1280, 800], ["Desktop", 1440, 900], ["Large desktop", 1920, 1080]];
+let cur = PAGES[1], size = SIZES[1], state = "";
+const $ = (s) => document.querySelector(s);
+PAGES.forEach((p) => {
+  const b = document.createElement("button"); b.innerHTML = `<span>${p[2]}</span><small>${p[1]}</small>`;
+  b.onclick = () => { cur = p; state = ""; render(); }; p.btn = b;
+  document.querySelector(`.pages[data-round="${p[0]}"]`).appendChild(b);
+});
+SIZES.forEach((s) => {
+  const c = document.createElement("button"); c.className = "chip"; c.textContent = `${s[0]} ${s[1]}`;
+  c.onclick = () => { size = s; render(); }; s.btn = c; $("#sizes").appendChild(c);
+});
+function render() {
+  PAGES.forEach((p) => p.btn.setAttribute("aria-current", p === cur));
+  SIZES.forEach((s) => s.btn.setAttribute("aria-pressed", s === size));
+  const url = "pages/" + cur[1] + (state ? "?state=" + state : "");
+  $("#pname").textContent = cur[2]; $("#popen").href = url;
+  $("#states").innerHTML = cur[3].length ? `<span class="t-caption">States:</span>` + ["", ...cur[3]].map((s) => `<button class="chip" aria-pressed="${s === state}" data-s="${s}" style="min-height:36px">${s || "default"}</button>`).join("") : "";
+  $("#states").querySelectorAll("button").forEach((b) => b.onclick = () => { state = b.dataset.s; render(); });
+  const f = $("#frame"); f.src = url; f.width = size[1]; f.height = size[2];
+  fit();
+}
+function fit() {
+  const avail = $("#wrap").clientWidth - 32, k = Math.min(1, avail / size[1]);
+  const d = $("#device"); d.style.transform = `scale(${k})`; d.style.width = size[1] + "px";
+  $("#wrap").style.height = (size[2] * k + 34) + "px";
+}
+addEventListener("resize", fit); render();
+</script>
+</body>
+</html>
