@@ -1,0 +1,11 @@
+dist/
+.astro/
+node_modules/
+pnpm-lock.yaml
+design/
+media/
+plans/
+tests/screenshots/
+src/styles/components.css
+src/styles/tokens.css
+*.md
