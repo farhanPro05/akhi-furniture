@@ -1,0 +1,305 @@
+---
+/**
+ * Design Brief helper (Master Plan §7.4, design/README §7.12).
+ * Four optional steps; the preview bubble updates live and becomes the WhatsApp message,
+ * in the page's language, ending with "sent from akhifurniture.com". Nothing is stored or sent
+ * anywhere except to WhatsApp when the visitor taps Send.
+ */
+import mark from "../assets/brand/akhi-mark.png";
+import { Image } from "astro:assets";
+import { settings } from "../content/settings";
+import { dict, fmt, type Lang } from "../i18n";
+import { contactTrack } from "../lib/analytics";
+import { normalizeWhatsappNumber } from "../lib/contact";
+import { localDigits } from "../lib/digits";
+import type { ContactLinks } from "../lib/links";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+  links: ContactLinks;
+}
+const { lang, links } = Astro.props;
+const d = dict(lang);
+const b = d.brief;
+const text = {
+  intro: d.messages.brief,
+  sentFrom: d.messages.sentFrom,
+  step: b.step,
+  labels: { what: b.labelFurniture, for: b.labelFor, size: b.labelSize, material: b.labelMaterial, area: b.labelArea, when: b.labelWhen },
+};
+const total = localDigits(4, lang);
+---
+
+<div
+  class="brief"
+  id="brief"
+  data-brief
+  data-lang={lang}
+  data-wa={normalizeWhatsappNumber(settings.whatsappNumber)}
+  data-text={JSON.stringify(text)}
+>
+  <div class="brief__form">
+    <div class="progress">
+      <div class="progress__txt">
+        <span class="progress__step" aria-live="polite" data-progress>
+          {fmt(b.step, { n: localDigits(1, lang), total })}
+        </span>
+        <span>{b.duration}</span>
+      </div>
+      <div class="progress__bar" aria-hidden="true">
+        <i class="is-current"></i>
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+    </div>
+
+    <fieldset aria-labelledby="bq1" class="brief__step is-current" tabindex="-1" data-step>
+      <div class="brief__q">
+        <h3 class="t-h2" id="bq1">
+          {b.q1}
+        </h3>
+        <p class="t-muted">{b.q1Hint}</p>
+      </div>
+      <div class="cluster" role="group" aria-labelledby="bq1" data-q="what" data-multi>
+        {b.what.map((o) => (
+          <button class="chip" type="button" aria-pressed="false">
+            {o}
+          </button>
+        ))}
+      </div>
+    </fieldset>
+
+    <fieldset aria-labelledby="bq2" class="brief__step" tabindex="-1" data-step hidden>
+      <div class="brief__q">
+        <h3 class="t-h2" id="bq2">
+          {b.q2}
+        </h3>
+      </div>
+      <div class="cluster" role="group" aria-labelledby="bq2" data-q="where">
+        {b.where.map((o) => (
+          <button class="chip" type="button" aria-pressed="false">
+            {o}
+          </button>
+        ))}
+      </div>
+      <div class="brief__q">
+        <h3 class="t-h3" id="bq2b">
+          {b.q2b}
+        </h3>
+      </div>
+      <div class="cluster" role="group" aria-labelledby="bq2b" data-q="room">
+        {b.room.map((o) => (
+          <button class="chip" type="button" aria-pressed="false">
+            {o}
+          </button>
+        ))}
+      </div>
+    </fieldset>
+
+    <fieldset aria-labelledby="bq3" class="brief__step" tabindex="-1" data-step hidden>
+      <div class="brief__q">
+        <h3 class="t-h2" id="bq3">
+          {b.q3}
+        </h3>
+        <p class="t-muted">{b.q3Hint}</p>
+      </div>
+      <div class="field">
+        <label for="b-size">
+          {b.sizeLabel} <small>{b.optional}</small>
+        </label>
+        <input class="input" id="b-size" data-field="size" placeholder={b.sizePlaceholder} autocomplete="off" maxlength="200" />
+      </div>
+      <div class="field">
+        <span class="t-label" id="b-mat">
+          {b.materialLabel} <small class="t-muted">{b.optional}</small>
+        </span>
+        <div class="cluster" role="group" aria-labelledby="b-mat" data-q="material" data-multi>
+          {b.material.map((o) => (
+            <button class="chip" type="button" aria-pressed="false">
+              {o}
+            </button>
+          ))}
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset aria-labelledby="bq4" class="brief__step" tabindex="-1" data-step hidden>
+      <div class="brief__q">
+        <h3 class="t-h2" id="bq4">
+          {b.q4}
+        </h3>
+      </div>
+      <div class="field">
+        <label for="b-area">
+          {b.areaLabel} <small>{b.optional}</small>
+        </label>
+        <input class="input" id="b-area" data-field="area" placeholder={b.areaPlaceholder} autocomplete="address-level2" maxlength="120" />
+      </div>
+      <div class="field">
+        <label for="b-when">
+          {b.whenLabel} <small>{b.optional}</small>
+        </label>
+        <input class="input" id="b-when" data-field="when" placeholder={b.whenPlaceholder} autocomplete="off" maxlength="120" />
+      </div>
+    </fieldset>
+
+    <div class="brief__nav">
+      <button class="btn btn--secondary" type="button" disabled data-back>
+        <Icon name="arrow-left" />
+        {b.back}
+      </button>
+      <div class="cluster">
+        <button class="text-btn text-ink-muted" type="button" data-skip>
+          {b.skip}
+        </button>
+        <button class="btn btn--primary" type="button" data-next>
+          {b.next}
+          <Icon name="arrow" />
+        </button>
+        <a class="btn btn--primary" href={links.whatsapp} hidden data-send {...contactTrack("whatsapp", "brief", lang)}>
+          <Icon name="whatsapp" />
+          {b.send}
+        </a>
+      </div>
+    </div>
+    <!-- prettier-ignore -->
+    <p class="brief__escape">{b.escape} <a class="link" href={links.whatsapp} {...contactTrack("whatsapp", "brief", lang)}>{b.escapeLink}</a>{b.escapeAfter}</p>
+  </div>
+
+  <div class="brief__preview">
+    <p class="t-eyebrow">{b.previewEyebrow}</p>
+    <div class="chat">
+      <div class="chat__head">
+        <Image src={mark} alt="" width={36} height={36} densities={[2]} />
+        <div>
+          <b>{d.meta.siteName}</b>
+          <span>{d.contact.whatsapp}</span>
+        </div>
+      </div>
+      <div class="bubble" aria-live="polite" data-bubble>
+        {d.messages.brief}
+        {"\n\n"}
+        {d.messages.sentFrom}
+      </div>
+    </div>
+    <p class="t-caption">{b.previewNote}</p>
+  </div>
+</div>
+
+<script>
+  import { $, $$, trackEvent } from "../scripts/dom";
+
+  const BN = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+  type Text = {
+    intro: string;
+    sentFrom: string;
+    step: string;
+    labels: Record<"what" | "for" | "size" | "material" | "area" | "when", string>;
+  };
+
+  $$<HTMLElement>("[data-brief]").forEach((brief) => {
+    const t = JSON.parse(brief.dataset.text ?? "{}") as Text;
+    const digits = (n: number) => (brief.dataset.lang === "bn" ? String(n).replace(/\d/g, (x) => BN[Number(x)]!) : String(n));
+    const steps = $$<HTMLElement>("[data-step]", brief);
+    const bars = $$<HTMLElement>(".progress__bar i", brief);
+    const progress = $<HTMLElement>("[data-progress]", brief)!;
+    const back = $<HTMLButtonElement>("[data-back]", brief)!;
+    const next = $<HTMLButtonElement>("[data-next]", brief)!;
+    const skip = $<HTMLButtonElement>("[data-skip]", brief)!;
+    const send = $<HTMLAnchorElement>("[data-send]", brief)!;
+    const bubble = $<HTMLElement>("[data-bubble]", brief)!;
+    let current = 0;
+    let started = false;
+    let furthest = 0;
+
+    const picked = (q: string) =>
+      $$<HTMLButtonElement>(`[data-q="${q}"] .chip[aria-pressed="true"]`, brief).map((c) => c.textContent?.trim() ?? "");
+    const value = (f: string) => $<HTMLInputElement>(`[data-field="${f}"]`, brief)?.value.trim() ?? "";
+
+    function lines(): [string, string][] {
+      const rows: [string, string][] = [];
+      const add = (label: string, v: string) => v && rows.push([label, v]);
+      add(t.labels.what, picked("what").join(", "));
+      add(t.labels.for, [...picked("where"), ...picked("room")].join(", "));
+      add(t.labels.size, value("size"));
+      add(t.labels.material, picked("material").join(", "));
+      add(t.labels.area, value("area"));
+      add(t.labels.when, value("when"));
+      return rows;
+    }
+
+    function render() {
+      const rows = lines();
+      // Preview bubble, built with DOM nodes (visitor text is never parsed as HTML)
+      const nodes: (Node | string)[] = [t.intro, "\n"];
+      if (rows.length) nodes.push("\n");
+      rows.forEach(([label, v]) => {
+        const b = document.createElement("b");
+        b.textContent = `${label}:`;
+        nodes.push(b, ` ${v}\n`);
+      });
+      nodes.push("\n", t.sentFrom);
+      bubble.replaceChildren(...nodes);
+      // WhatsApp message: *bold* labels
+      const message = [t.intro, "", ...rows.map(([label, v]) => `*${label}:* ${v}`), ...(rows.length ? [""] : []), t.sentFrom].join("\n");
+      send.href = `https://wa.me/${brief.dataset.wa}?text=${encodeURIComponent(message)}`;
+    }
+
+    function go(k: number) {
+      current = Math.max(0, Math.min(steps.length - 1, k));
+      furthest = Math.max(furthest, current);
+      steps.forEach((s, i) => {
+        s.hidden = i !== current;
+        s.classList.toggle("is-current", i === current);
+      });
+      bars.forEach((bar, i) => {
+        bar.classList.toggle("is-done", i < current);
+        bar.classList.toggle("is-current", i === current);
+      });
+      progress.textContent = t.step.replace("{n}", digits(current + 1)).replace("{total}", digits(steps.length));
+      back.disabled = current === 0;
+      const last = current === steps.length - 1;
+      next.hidden = last;
+      skip.hidden = last;
+      send.hidden = !last;
+      render();
+    }
+
+    function markStarted() {
+      if (started) return;
+      started = true;
+      trackEvent("brief_start", { category: picked("what")[0] ?? "" });
+    }
+
+    brief.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      const chip = target.closest<HTMLButtonElement>(".chip");
+      if (chip) {
+        const group = chip.closest<HTMLElement>("[data-q]");
+        const on = chip.getAttribute("aria-pressed") !== "true";
+        if (group && !group.hasAttribute("data-multi"))
+          $$<HTMLButtonElement>(".chip", group).forEach((c) => c.setAttribute("aria-pressed", "false"));
+        chip.setAttribute("aria-pressed", String(on));
+        markStarted();
+        render();
+      }
+      if (target.closest("[data-next]") || target.closest("[data-skip]")) {
+        markStarted();
+        go(current + 1);
+        steps[current]?.focus({ preventScroll: true });
+      }
+      if (target.closest("[data-back]")) {
+        go(current - 1);
+        steps[current]?.focus({ preventScroll: true });
+      }
+      if (target.closest("[data-send]")) trackEvent("brief_send", { category: picked("what")[0] ?? "", steps_completed: furthest + 1 });
+    });
+    brief.addEventListener("input", () => {
+      markStarted();
+      render();
+    });
+    go(0);
+  });
+</script>

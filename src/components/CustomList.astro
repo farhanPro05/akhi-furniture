@@ -1,0 +1,26 @@
+---
+/** Customization list (Design Brief §5.17): icon + label + one-line description. */
+import type { IconName } from "../lib/icons";
+import Icon from "./Icon.astro";
+
+interface Props {
+  items: { icon: IconName; title: string; text: string }[];
+  twoCol?: boolean;
+  class?: string;
+}
+const { items, twoCol = false, class: className } = Astro.props;
+---
+
+<ul class:list={["custom-list", twoCol && "custom-list--2col", className]} role="list">
+  {items.map((item) => (
+    <li>
+      <span class="ico">
+        <Icon name={item.icon} />
+      </span>
+      <div>
+        <strong>{item.title}</strong>
+        <span>{item.text}</span>
+      </div>
+    </li>
+  ))}
+</ul>

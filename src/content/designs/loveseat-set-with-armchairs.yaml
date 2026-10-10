@@ -1,0 +1,37 @@
+# AF-SOF-015 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-SOF-015
+title:
+  en: "Loveseat set with armchairs"
+  bn: "আর্মচেয়ারসহ লাভসিট সেট"
+room: living
+type: sofas
+kind: completed-work
+summary:
+  en: "A carved loveseat with two oval-back armchairs in a painted finish and damask upholstery."
+  bn: "রঙিন ফিনিশ ও ড্যামাস্ক কাপড়ে একটি খোদাই করা লাভসিট আর দুটি ডিম্বাকৃতি পিঠের আর্মচেয়ার।"
+material:
+  en: "Painted frame, damask fabric"
+  bn: "রঙিন ফ্রেম, ড্যামাস্ক কাপড়"
+images:
+  - photo: d-sof-015
+    pos: "50% 60%"
+    caption:
+      en: "The set in a sitting room"
+      bn: "বসার ঘরে পুরো সেট"
+  - photo: d-sof-015-b
+    pos: "50% 55%"
+    caption:
+      en: "Another view"
+      bn: "অন্য দিক থেকে"
+  - photo: p-sitting-chair
+    pos: "50% 50%"
+    caption:
+      en: "Oval-back armchair"
+      bn: "ডিম্বাকৃতি পিঠের আর্মচেয়ার"
+hoverPhoto: d-sof-015-b
+featured: false
+order: 10
+status: published
+source: "https://www.facebook.com/photo/?fbid=1736103271856423"
+rights: pending
+clientApproved: false

@@ -1,0 +1,5 @@
+---
+// "/" → /en/ (Master Plan §6). On Cloudflare, public/_redirects serves this as a permanent 301;
+// this page is the static fallback (meta refresh + canonical) for any other host.
+return Astro.redirect("/en/", 301);
+---

@@ -1,0 +1,25 @@
+---
+/** Process steps (Design Brief §5.19): vertical timeline on phones, 2 × 2 on tablets, one row on desktop. */
+import type { Lang } from "../i18n";
+import { stepNumber } from "../lib/digits";
+
+interface Props {
+  lang: Lang;
+  steps: { title: string; text: string }[];
+}
+const { lang, steps } = Astro.props;
+---
+
+<ol class="steps" role="list" style={`--steps: ${steps.length}`}>
+  {steps.map((step, i) => (
+    <li class="step">
+      <span class="step__num" aria-hidden="true">
+        {stepNumber(i, lang)}
+      </span>
+      <div>
+        <h3 class="t-h3">{step.title}</h3>
+        <p>{step.text}</p>
+      </div>
+    </li>
+  ))}
+</ol>

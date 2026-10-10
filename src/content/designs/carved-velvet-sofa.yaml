@@ -1,0 +1,32 @@
+# AF-SOF-007 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-SOF-007
+title:
+  en: "Carved velvet sofa"
+  bn: "খোদাই করা ভেলভেট সোফা"
+room: living
+type: sofas
+kind: design-reference
+summary:
+  en: "A sofa with a hand-carved wooden frame and deep velvet upholstery."
+  bn: "হাতে খোদাই করা কাঠের ফ্রেম আর গাঢ় ভেলভেট কাপড়ের সোফা।"
+material:
+  en: "Carved wood, velvet"
+  bn: "খোদাই করা কাঠ, ভেলভেট"
+images:
+  - photo: c-sof-007
+    pos: "50% 55%"
+    caption:
+      en: "The sofa on its own"
+      bn: "শুধু সোফাটি"
+  - photo: d-sof-007-b
+    pos: "50% 55%"
+    caption:
+      en: "In a room setting"
+      bn: "ঘরে সাজানো"
+hoverPhoto: d-sof-007-b
+featured: true
+order: 2
+status: published
+source: "https://www.facebook.com/photo/?fbid=1746052594194824"
+rights: pending
+clientApproved: false

@@ -1,0 +1,177 @@
+---
+/**
+ * Design gallery (design/README §7.8–7.9).
+ * Phones: full-width swipe with scroll-snap, dots and a "1 / 6" counter.
+ * Tablet: thumbnails under the main photo. Desktop: thumbnail rail on the left.
+ * Tap a photo (or the expand button) for the PhotoSwipe lightbox, loaded only on first use.
+ */
+import type { PhotoId } from "../data/photos";
+import { getPhoto } from "../data/photos";
+import { dict, type Lang } from "../i18n";
+import { localDigits } from "../lib/digits";
+import { fallbackImage } from "../lib/images";
+import Icon from "./Icon.astro";
+import Photo from "./Photo.astro";
+
+interface Props {
+  lang: Lang;
+  images: { photo: PhotoId; caption: { en: string; bn: string }; pos?: string | undefined }[];
+}
+const { lang, images } = Astro.props;
+const d = dict(lang);
+const slides = await Promise.all(
+  images.map(async (img) => {
+    const photo = getPhoto(img.photo);
+    const large = photo.publishable ? await fallbackImage(photo.src, 1600) : undefined;
+    return { ...img, publishable: photo.publishable, large };
+  }),
+);
+const total = localDigits(slides.length, lang);
+---
+
+<div
+  class="gallery"
+  data-gallery
+  data-lang={lang}
+  data-close={d.nav.close}
+  data-prev={d.common.previous}
+  data-next={d.common.next}
+  data-hint={d.common.pinchToZoom}
+>
+  {slides.length > 1 && (
+    <div class="gallery__thumbs" role="group" aria-label={d.common.photos}>
+      {slides.map((s, i) => (
+        <button
+          type="button"
+          aria-current={i === 0 ? "true" : "false"}
+          aria-label={`${i + 1} / ${slides.length}: ${s.caption[lang]}`}
+          data-thumb={i}
+        >
+          <Photo id={s.photo} lang={lang} pos={s.pos} sizes="88px" widths={[176]} alt="" />
+        </button>
+      ))}
+    </div>
+  )}
+  <div class="gallery__main">
+    <div class="gallery__track" tabindex="0" role="group" aria-label={d.common.gallery} data-track>
+      {slides.map((s, i) => (
+        <button
+          type="button"
+          class="gallery__slide"
+          aria-label={`${d.common.viewFullScreen}: ${s.caption[lang]}`}
+          data-slide={i}
+          data-caption={s.caption[lang]}
+          data-src={s.large?.src}
+          data-width={s.large?.attributes.width ?? s.large?.options.width}
+          data-height={s.large?.attributes.height}
+        >
+          <Photo
+            id={s.photo}
+            lang={lang}
+            pos={s.pos}
+            class="r-4x5"
+            eager={i === 0}
+            sizes="(min-width: 1440px) 720px, (min-width: 1024px) 52vw, (min-width: 768px) calc(100vw - 48px), 100vw"
+          />
+        </button>
+      ))}
+    </div>
+    {slides.length > 1 && (
+      <span class="gallery__count t-num" aria-hidden="true" data-count>
+        {localDigits(1, lang)} / {total}
+      </span>
+    )}
+    <button class="btn-icon gallery__zoom" type="button" aria-label={d.common.viewFullScreen} data-zoom>
+      <Icon name="expand" />
+    </button>
+    {slides.length > 1 && (
+      <div class="swipe-dots" aria-hidden="true">
+        {slides.map((_, i) => (
+          <i class:list={[i === 0 && "is-on"]} />
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+
+<script>
+  import "photoswipe/style.css";
+  import { $, $$ } from "../scripts/dom";
+
+  const BN = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+
+  $$<HTMLElement>("[data-gallery]").forEach((gallery) => {
+    const track = $<HTMLElement>("[data-track]", gallery)!;
+    const slides = $$<HTMLButtonElement>("[data-slide]", gallery);
+    const thumbs = $$<HTMLButtonElement>("[data-thumb]", gallery);
+    const dots = $$<HTMLElement>(".swipe-dots i", gallery);
+    const count = $<HTMLElement>("[data-count]", gallery);
+    const digits = (n: number) => (gallery.dataset.lang === "bn" ? String(n).replace(/\d/g, (x) => BN[Number(x)]!) : String(n));
+    let index = 0;
+
+    const set = (i: number) => {
+      index = i;
+      if (count) count.textContent = `${digits(i + 1)} / ${digits(slides.length)}`;
+      dots.forEach((dot, k) => dot.classList.toggle("is-on", k === i));
+      thumbs.forEach((t, k) => t.setAttribute("aria-current", String(k === i)));
+    };
+    track.addEventListener("scroll", () => set(Math.round(track.scrollLeft / track.clientWidth)), { passive: true });
+    thumbs.forEach((t, k) =>
+      t.addEventListener("click", () => {
+        track.scrollTo({
+          left: k * track.clientWidth,
+          behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        });
+        set(k);
+      }),
+    );
+
+    async function open(start: number) {
+      const { default: PhotoSwipeLightbox } = await import("photoswipe/lightbox");
+      const items = slides
+        .filter((s) => s.dataset.src)
+        .map((s) => ({
+          src: s.dataset.src!,
+          width: Number(s.dataset.width),
+          height: Number(s.dataset.height),
+          alt: s.dataset.caption ?? "",
+          caption: s.dataset.caption ?? "",
+        }));
+      if (items.length === 0) return;
+      const lightbox = new PhotoSwipeLightbox({
+        dataSource: items,
+        pswpModule: () => import("photoswipe"),
+        closeTitle: gallery.dataset.close,
+        arrowPrevTitle: gallery.dataset.prev,
+        arrowNextTitle: gallery.dataset.next,
+        bgOpacity: 1,
+        showHideAnimationType: matchMedia("(prefers-reduced-motion: reduce)").matches ? "none" : "fade",
+        returnFocus: true,
+      });
+      lightbox.on("uiRegister", () => {
+        lightbox.pswp?.ui?.registerElement({
+          name: "caption",
+          order: 9,
+          isButton: false,
+          appendTo: "root",
+          onInit: (el, pswp) => {
+            const update = () => {
+              const caption = document.createElement("span");
+              caption.textContent = String((pswp.currSlide?.data as { caption?: string } | undefined)?.caption ?? "");
+              const hint = document.createElement("small");
+              hint.textContent = gallery.dataset.hint ?? "";
+              el.replaceChildren(caption, hint);
+            };
+            pswp.on("change", update);
+            update();
+          },
+        });
+      });
+      lightbox.init();
+      lightbox.loadAndOpen(Math.min(start, items.length - 1));
+    }
+
+    slides.forEach((s, k) => s.addEventListener("click", () => open(k)));
+    $<HTMLButtonElement>("[data-zoom]", gallery)?.addEventListener("click", () => open(index));
+  });
+</script>

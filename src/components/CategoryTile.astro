@@ -1,0 +1,38 @@
+---
+/** Room tile (Design Brief §5.11): 1:1 photo on phones, 4:5 on desktop, room name + arrow. */
+import type { PhotoId } from "../data/photos";
+import { dict, type Lang } from "../i18n";
+import Icon from "./Icon.astro";
+import Photo from "./Photo.astro";
+import Placeholder from "./Placeholder.astro";
+
+interface Props {
+  lang: Lang;
+  href: string;
+  name: string;
+  cover?: { photo: PhotoId; pos?: string | undefined } | undefined;
+}
+const { lang, href, name, cover } = Astro.props;
+const d = dict(lang);
+---
+
+<a class="cat-tile" href={href}>
+  <div class="zoom-wrap">
+    {cover ? (
+      <Photo
+        id={cover.photo}
+        lang={lang}
+        pos={cover.pos}
+        alt=""
+        sizes="(min-width: 1440px) 330px, (min-width: 768px) 25vw, 50vw"
+        widths={[320, 480, 640, 800]}
+      />
+    ) : (
+      <Placeholder lang={lang} label={`${name}, ${d.common.noPhotoYet}`} variant="alt" />
+    )}
+  </div>
+  <div class="cat-tile__row">
+    <span class="t-h3">{name}</span>
+    <Icon name="arrow" />
+  </div>
+</a>

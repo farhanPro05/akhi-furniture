@@ -1,0 +1,32 @@
+# Sample entry made from the mockups and real photos. Details need AKHI's confirmation; area and year only with the customer's permission.
+title:
+  en: "A champagne bedroom suite in a family home"
+  bn: "একটি পারিবারিক বাসায় শ্যাম্পেন রঙের বেডরুম সেট"
+shortTitle:
+  en: "Champagne bedroom suite"
+  bn: "শ্যাম্পেন বেডরুম সেট"
+type: home
+scope:
+  en: "Bed, loveseat and bedside tables"
+  bn: "খাট, লাভসিট ও বেডসাইড টেবিল"
+made:
+  en: "A carved bed with matching bedside tables and a loveseat, all finished in champagne so the whole room reads as one set."
+  bn: "মিলিয়ে বানানো বেডসাইড টেবিল ও একটি লাভসিটসহ খোদাই করা খাট, সবই শ্যাম্পেন ফিনিশে, যাতে পুরো ঘরটা একটা সেটের মতো লাগে।"
+cover:
+  photo: p-bedroom-suite
+  pos: "50% 52%"
+hero:
+  photo: p-bedroom-suite
+  pos: "50% 52%"
+gallery:
+  - photo: p-bedroom-suite
+    pos: "50% 52%"
+  - photo: p-bedroom-suite-b
+    pos: "50% 50%"
+designs: []
+featured: true
+order: 1
+status: published
+source: "https://www.facebook.com/photo/?fbid=1736097278523689"
+rights: pending
+clientApproved: false

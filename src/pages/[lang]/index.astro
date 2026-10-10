@@ -1,0 +1,266 @@
+---
+/** Home (Master Plan §7.1, design/pages/home.html): impress in 3 seconds, then route to designs, custom work or a chat. */
+import Btn from "../../components/Btn.astro";
+import CategoryTile from "../../components/CategoryTile.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import CustomList from "../../components/CustomList.astro";
+import DesignCard from "../../components/DesignCard.astro";
+import HeroPicture from "../../components/HeroPicture.astro";
+import Icon from "../../components/Icon.astro";
+import Photo from "../../components/Photo.astro";
+import Placeholder from "../../components/Placeholder.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import QuoteCard from "../../components/QuoteCard.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import ShowroomCard from "../../components/ShowroomCard.astro";
+import Steps from "../../components/Steps.astro";
+import VideoBlock from "../../components/VideoBlock.astro";
+import { settings } from "../../content/settings";
+import { dict } from "../../i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { contactTrack } from "../../lib/analytics";
+import { getDesigns, getProjects, getRooms, getTestimonials } from "../../lib/content";
+import type { IconName } from "../../lib/icons";
+import { pageEnabled } from "../../lib/launch-gate";
+import { contactLinks } from "../../lib/links";
+import { langParam, langPaths } from "../../lib/paths";
+import { website } from "../../lib/schema";
+import { localUrl } from "../../lib/urls";
+
+export const getStaticPaths = langPaths;
+
+const lang = langParam(Astro.params.lang);
+const d = dict(lang);
+const h = d.home;
+const links = contactLinks(lang);
+const rooms = await getRooms();
+const featured = (await getDesigns()).filter((x) => x.data.featured).slice(0, 8);
+const projects = (await getProjects()).filter((p) => p.data.featured).slice(0, 3);
+const reviews = (await getTestimonials()).slice(0, 3);
+const showroom = settings.showrooms[0]!;
+
+const trustIcons: IconName[] = ["ruler", "building", "pin", "users"];
+const measureIcons: IconName[] = ["ruler", "wood", "finish", "fabric", "storage"];
+---
+
+<BaseLayout lang={lang} description={h.description} jsonLd={[website(lang)]}>
+  <!-- 1 · Hero: phone 4:5 crop + copy below; tablet 4:3; desktop 16:9 with copy on a soft scrim -->
+  <section class="hero container" aria-labelledby="hero-title">
+    <div class="hero__frame">
+      <div class="hero__media">
+        <HeroPicture lang={lang} mobile="hero-living-m" desktop="hero-living" posMobile="50% 60%" posDesktop="50% 72%" />
+      </div>
+      <div class="hero__copy">
+        <p class="t-eyebrow">{h.heroEyebrow}</p>
+        <h1 class="t-display-xl" id="hero-title">
+          {h.heroTitle}
+        </h1>
+        <p class="t-body-lg">{h.heroText}</p>
+        <div class="btn-row">
+          <Btn href={localUrl(lang, "designs")} size="lg" iconAfter="arrow">
+            {h.exploreDesigns}
+          </Btn>
+          <Btn href={links.whatsapp} variant="secondary" size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "hero", lang)}>
+            {d.contact.discussIdea}
+          </Btn>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Trust strip -->
+  <div class="container">
+    <ul class="trust" role="list">
+      {h.trust.map((item, i) => (
+        <li class="trust__item">
+          <Icon name={trustIcons[i]!} />
+          <div>
+            <strong>{item.title}</strong>
+            <span>{item.text}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- 3 · Shop by room -->
+  <section class="section container" aria-labelledby="rooms-title">
+    <SectionHead
+      id="rooms-title"
+      eyebrow={h.roomsEyebrow}
+      title={h.roomsTitle}
+      action={{ label: d.common.viewAllDesigns, href: localUrl(lang, "designs") }}
+    />
+    <div class="cat-grid">
+      {rooms.map((room) => (
+        <CategoryTile
+          lang={lang}
+          href={localUrl(lang, `designs/${room.id}`)}
+          name={d.rooms[room.id as keyof typeof d.rooms]}
+          cover={room.data.cover}
+        />
+      ))}
+    </div>
+  </section>
+
+  <!-- 4 · Featured designs: swipe row with a peek on phones, 3 columns on tablet, 4 on desktop -->
+  {featured.length > 0 && (
+    <section class="section section--sunken" aria-labelledby="feat-title">
+      <div class="container">
+        <SectionHead
+          id="feat-title"
+          eyebrow={h.featuredEyebrow}
+          title={h.featuredTitle}
+          intro={h.featuredIntro}
+          action={{ label: d.common.viewAllDesigns, href: localUrl(lang, "designs") }}
+        />
+        <div class="swipe-row swipe-row--grid cols-4" id="feat-row">
+          {featured.map((design) => (
+            <DesignCard
+              design={design}
+              lang={lang}
+              sizes="(min-width: 1440px) 330px, (min-width: 1200px) 25vw, (min-width: 768px) 33vw, (min-width: 600px) 44vw, 72vw"
+            />
+          ))}
+        </div>
+        <div class="swipe-dots swipe-dots--phone" data-dots-for="feat-row" aria-hidden="true" />
+      </div>
+    </section>
+  )}
+
+  <!-- 5 · Made to your measure -->
+  <section class="section container" aria-labelledby="measure-title">
+    <div class="split">
+      <Photo id="c-chr-004" lang={lang} ratio="4 / 4.4" sizes="(min-width: 1440px) 760px, (min-width: 768px) 55vw, 100vw" />
+      <div class="stack-lg">
+        <p class="t-eyebrow">{h.measureEyebrow}</p>
+        <h2 class="t-h1" id="measure-title">
+          {h.measureTitle}
+        </h2>
+        <p class="t-body-lg t-muted">{h.measureText}</p>
+        <CustomList items={h.measureList.map((item, i) => ({ ...item, icon: measureIcons[i]! }))} />
+        <Btn href={localUrl(lang, "custom-furniture")} variant="secondary" iconAfter="arrow">
+          {h.measureLink}
+        </Btn>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · How it works -->
+  <section class="section section--sunken" aria-labelledby="how-title">
+    <div class="container">
+      <SectionHead id="how-title" eyebrow={h.howEyebrow} title={h.howTitle} intro={h.howIntro} />
+      <Steps lang={lang} steps={h.steps} />
+    </div>
+  </section>
+
+  <!-- 7 · Selected projects: 1 large + 2 small on desktop -->
+  {projects.length > 0 && (
+    <section class="section container" aria-labelledby="proj-title">
+      <SectionHead
+        id="proj-title"
+        eyebrow={h.projectsEyebrow}
+        title={h.projectsTitle}
+        action={{ label: d.common.seeAllProjects, href: localUrl(lang, "our-work") }}
+      />
+      <div class="projects-editorial">
+        {projects.map((project, i) => (
+          <ProjectCard
+            project={project}
+            lang={lang}
+            titleClass={i === 0 ? "t-h2" : "t-h3"}
+            sizes={
+              i === 0
+                ? "(min-width: 1440px) 780px, (min-width: 1024px) 56vw, 100vw"
+                : "(min-width: 1440px) 560px, (min-width: 1024px) 40vw, (min-width: 768px) 50vw, 100vw"
+            }
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- 8 · From the workshop (dark band) -->
+  <section class="section theme-dark" aria-labelledby="ws-title">
+    <div class="container split">
+      <VideoBlock lang={lang} video={settings.videos.workshop} />
+      <div class="stack-lg">
+        <p class="t-eyebrow">{h.workshopEyebrow}</p>
+        <h2 class="t-h1" id="ws-title">
+          {h.workshopTitle}
+        </h2>
+        <p class="t-body-lg t-muted">{h.workshopText}</p>
+        <Btn href={settings.social.youtube} variant="secondary" icon="youtube" external>
+          {h.watchMore}
+        </Btn>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · What customers say: original language first, translation on tap -->
+  {reviews.length > 0 && (
+    <section class="section container" aria-labelledby="rev-title">
+      <SectionHead
+        id="rev-title"
+        eyebrow={h.reviewsEyebrow}
+        title={h.reviewsTitle}
+        action={{ label: d.common.readReviews, href: settings.social.facebook, external: true }}
+      />
+      <div class="swipe-row quotes-row" id="q-row">
+        {reviews.map((t) => (
+          <QuoteCard testimonial={t} lang={lang} />
+        ))}
+      </div>
+      <div class="swipe-dots swipe-dots--phone" data-dots-for="q-row" aria-hidden="true" />
+    </section>
+  )}
+
+  <!-- 10 · For business -->
+  {pageEnabled.forBusiness && (
+    <section class="section section--sunken" aria-labelledby="biz-title">
+      <div class="container split split--rev">
+        <Placeholder lang={lang} label={`${d.projectTypes.office}, ${d.common.noPhotoYet}`} ratio="3 / 2" />
+        <div class="stack-lg">
+          <p class="t-eyebrow">{h.businessEyebrow}</p>
+          <h2 class="t-h1" id="biz-title">
+            {h.businessTitle}
+          </h2>
+          <p class="t-body-lg t-muted">{h.businessText}</p>
+          <div class="btn-row">
+            <Btn href={localUrl(lang, "for-business")} iconAfter="arrow">
+              {h.businessLink}
+            </Btn>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 11 · Visit the showroom -->
+  <section class="section container" aria-labelledby="visit-title">
+    <SectionHead id="visit-title" eyebrow={h.visitEyebrow} title={h.visitTitle} />
+    <ShowroomCard lang={lang} showroom={showroom} links={links} placement="showroom" />
+  </section>
+
+  <!-- 12 · Closing call to action -->
+  <section class="container pb-section">
+    <CtaBand title={h.ctaTitle} text={h.ctaText}>
+      <Btn href={links.whatsapp} size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "cta_band", lang)}>
+        {d.contact.discussIdea}
+      </Btn>
+      <Btn
+        href={links.messenger}
+        variant="secondary"
+        size="lg"
+        icon="messenger"
+        external
+        attrs={contactTrack("messenger", "cta_band", lang)}
+      >
+        {d.contact.messenger}
+      </Btn>
+      <Btn href={links.tel} variant="secondary" size="lg" icon="phone" attrs={contactTrack("call", "cta_band", lang)}>
+        {d.contact.call}
+      </Btn>
+    </CtaBand>
+  </section>
+</BaseLayout>

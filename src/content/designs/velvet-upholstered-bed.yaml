@@ -1,0 +1,32 @@
+# AF-BED-014 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-BED-014
+title:
+  en: "Velvet upholstered bed"
+  bn: "ভেলভেট কুশন খাট"
+room: bedroom
+type: beds
+kind: design-reference
+summary:
+  en: "A bed with a padded velvet headboard and an upholstered base."
+  bn: "ভেলভেট কুশনের হেডবোর্ড আর কুশন মোড়ানো বেসের খাট।"
+material:
+  en: "Velvet headboard and base"
+  bn: "ভেলভেট হেডবোর্ড ও বেস"
+images:
+  - photo: d-bed-014
+    pos: "50% 55%"
+    caption:
+      en: "The bed with its headboard"
+      bn: "হেডবোর্ডসহ খাট"
+  - photo: d-bed-014-b
+    pos: "50% 55%"
+    caption:
+      en: "Another angle"
+      bn: "অন্য দিক থেকে"
+hoverPhoto: d-bed-014-b
+featured: true
+order: 3
+status: published
+source: "https://www.facebook.com/photo/?fbid=1746049824195101"
+rights: pending
+clientApproved: false

@@ -1,0 +1,32 @@
+# Sample entry made from the mockups and real photos. Details need AKHI's confirmation; area and year only with the customer's permission.
+title:
+  en: "A living room set in a family home"
+  bn: "একটি পারিবারিক বাসার লিভিং রুম সেট"
+shortTitle:
+  en: "Living room set"
+  bn: "লিভিং রুম সেট"
+type: home
+scope:
+  en: "Sofa set and center table"
+  bn: "সোফা সেট ও সেন্টার টেবিল"
+made:
+  en: "A carved sofa set with velvet upholstery and embroidered cushions, with a marble-top center table and a side table to match."
+  bn: "ভেলভেট কাপড় আর এমব্রয়ডারি করা কুশনের খোদাই করা সোফা সেট, সঙ্গে মিলিয়ে মার্বেল টপের সেন্টার টেবিল ও সাইড টেবিল।"
+cover:
+  photo: hero-living
+  pos: "50% 70%"
+hero:
+  photo: hero-living
+  pos: "50% 72%"
+gallery:
+  - photo: hero-living
+    pos: "50% 60%"
+  - photo: hero-living-m
+    pos: "50% 60%"
+designs: []
+featured: false
+order: 5
+status: published
+source: "https://www.facebook.com/photo/?fbid=1737578311708919"
+rights: pending
+clientApproved: false

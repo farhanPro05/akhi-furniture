@@ -1,0 +1,26 @@
+# AF-CHR-004 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-CHR-004
+title:
+  en: "Carved velvet armchair"
+  bn: "খোদাই করা ভেলভেট আর্মচেয়ার"
+room: living
+type: chairs
+kind: design-reference
+summary:
+  en: "An armchair with a carved wooden frame and velvet seat and back, made to match our carved sofas."
+  bn: "খোদাই করা কাঠের ফ্রেম আর ভেলভেটের বসা ও হেলানসহ আর্মচেয়ার, আমাদের খোদাই করা সোফার সঙ্গে মিলিয়ে।"
+material:
+  en: "Carved wood, velvet"
+  bn: "খোদাই করা কাঠ, ভেলভেট"
+images:
+  - photo: c-chr-004
+    pos: "50% 50%"
+    caption:
+      en: "The armchair on its own"
+      bn: "শুধু আর্মচেয়ারটি"
+featured: true
+order: 5
+status: published
+source: "https://www.facebook.com/photo/?fbid=1746052540861496"
+rights: pending
+clientApproved: false

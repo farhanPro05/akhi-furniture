@@ -1,0 +1,146 @@
+---
+/** Project case study (Master Plan §7.5, design/pages/project.html). */
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import Btn from "../../../components/Btn.astro";
+import CtaBand from "../../../components/CtaBand.astro";
+import DesignCard from "../../../components/DesignCard.astro";
+import Photo from "../../../components/Photo.astro";
+import QuoteCard from "../../../components/QuoteCard.astro";
+import SectionHead from "../../../components/SectionHead.astro";
+import { getPhoto } from "../../../data/photos";
+import { dict, fmt, LOCALES } from "../../../i18n";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { contactTrack } from "../../../lib/analytics";
+import { getDesignByCode, getProjects, getTestimonial, type Design, type Project } from "../../../lib/content";
+import { localDigits } from "../../../lib/digits";
+import { croppedImage } from "../../../lib/images";
+import { contactLinks } from "../../../lib/links";
+import { langParam } from "../../../lib/paths";
+import { absoluteUrl, localUrl } from "../../../lib/urls";
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return LOCALES.flatMap((lang) => projects.map((project) => ({ params: { lang, slug: project.id }, props: { project } })));
+}
+
+interface Props {
+  project: Project;
+}
+const lang = langParam(Astro.params.lang);
+const { project } = Astro.props;
+const d = dict(lang);
+const p = d.project;
+const data = project.data;
+const title = data.title[lang];
+const path = localUrl(lang, `our-work/${project.id}`);
+const links = contactLinks(lang, { kind: "project", name: title, url: absoluteUrl(path) });
+const designs = (await Promise.all(data.designs.map((code) => getDesignByCode(code)))).filter((x): x is Design => Boolean(x));
+const testimonial = await getTestimonial(data.testimonial);
+
+const facts = [
+  { label: p.type, value: d.projectTypes[data.type] },
+  data.area && { label: p.area, value: data.area[lang] },
+  data.year && { label: p.year, value: localDigits(data.year, lang) },
+  data.pieces && { label: p.pieces, value: fmt(p.piecesCount, { count: localDigits(data.pieces, lang) }) },
+].filter((f): f is { label: string; value: string } => Boolean(f));
+
+const heroPhoto = getPhoto(data.hero.photo);
+const og = heroPhoto.publishable ? (await croppedImage(heroPhoto.src, 1200, 630)).src : undefined;
+const crumbs = [
+  { label: d.nav.work, href: localUrl(lang, "our-work") },
+  { label: title, href: path },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={title}
+  description={`${data.scope[lang]}. ${data.made[lang]}`}
+  current="work"
+  message={{ kind: "project", name: title, url: absoluteUrl(path) }}
+  ogImage={og}
+  ogType="article"
+  crumbs={crumbs}
+>
+  <div class="container">
+    <Breadcrumbs lang={lang} trail={crumbs.slice(0, 1)} current={data.shortTitle[lang]} />
+    <header class="page-head pb-6">
+      <p class="t-eyebrow">{p.eyebrow[data.type]}</p>
+      <h1 class="t-display">{title}</h1>
+    </header>
+  </div>
+  <div class="container">
+    <Photo id={data.hero.photo} lang={lang} pos={data.hero.pos} class="r-21x9 hero-ph" eager sizes="(min-width: 1440px) 1344px, 100vw" />
+  </div>
+
+  <div class="container py-8">
+    <dl class="fact-row">
+      {facts.map((f) => (
+        <div>
+          <dt>{f.label}</dt>
+          <dd>{f.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+
+  <section class="container section pt-8" aria-label={p.madeEyebrow}>
+    <div class="split items-start">
+      {data.need && (
+        <div class="stack-lg">
+          <p class="t-eyebrow">{p.needEyebrow}</p>
+          <p class="t-body-lg measure">{data.need[lang]}</p>
+        </div>
+      )}
+      <div class="stack-lg">
+        <p class="t-eyebrow">{p.madeEyebrow}</p>
+        <p class="t-body-lg measure">{data.made[lang]}</p>
+        <p class="t-caption">{data.scope[lang]}</p>
+      </div>
+    </div>
+  </section>
+
+  {data.gallery.length > 0 && (
+    <section class="section section--sunken" aria-label={p.galleryLabel}>
+      <div class="container mosaic">
+        {data.gallery.map((g, i) => (
+          <Photo
+            id={g.photo}
+            lang={lang}
+            pos={g.pos}
+            class={i === 0 ? "r-4x3" : "r-1x1"}
+            sizes={i === 0 ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 25vw, 50vw"}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  {designs.length > 0 && (
+    <section class="section container" aria-labelledby="used-title">
+      <SectionHead id="used-title" eyebrow={p.designsEyebrow} title={p.designsTitle} />
+      <div class="swipe-row swipe-row--grid cols-4">
+        {designs.map((x) => (
+          <DesignCard design={x} lang={lang} sizes="(min-width: 1440px) 330px, (min-width: 1200px) 25vw, (min-width: 768px) 33vw, 72vw" />
+        ))}
+      </div>
+    </section>
+  )}
+
+  {testimonial && (
+    <section class="container pb-section">
+      <QuoteCard testimonial={testimonial} lang={lang} large />
+    </section>
+  )}
+
+  <section class="container pb-section">
+    <CtaBand title={p.ctaTitle} text={p.ctaText}>
+      <Btn href={links.whatsapp} size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "cta_band", lang)}>
+        {d.contact.discussIdea}
+      </Btn>
+      <Btn href={localUrl(lang, "our-work")} variant="secondary" size="lg">
+        {d.common.moreProjects}
+      </Btn>
+    </CtaBand>
+  </section>
+</BaseLayout>

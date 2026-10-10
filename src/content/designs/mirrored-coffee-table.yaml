@@ -1,0 +1,37 @@
+# AF-TBL-006 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-TBL-006
+title:
+  en: "Mirrored coffee table"
+  bn: "আয়না বসানো কফি টেবিল"
+room: living
+type: tables
+kind: completed-work
+summary:
+  en: "A coffee table finished with mirror panels that reflect light around the room."
+  bn: "আয়নার প্যানেল বসানো কফি টেবিল, যা ঘরজুড়ে আলো ছড়ায়।"
+material:
+  en: "Mirror panels"
+  bn: "আয়নার প্যানেল"
+images:
+  - photo: d-tbl-006
+    pos: "50% 55%"
+    caption:
+      en: "The table on its own"
+      bn: "শুধু টেবিলটি"
+  - photo: d-tbl-006-b
+    pos: "50% 60%"
+    caption:
+      en: "In a sitting room"
+      bn: "বসার ঘরে"
+  - photo: p-sitting-detail
+    pos: "50% 50%"
+    caption:
+      en: "Detail of the mirror panels"
+      bn: "আয়নার প্যানেলের খুঁটিনাটি"
+hoverPhoto: d-tbl-006-b
+featured: false
+order: 11
+status: published
+source: "https://www.facebook.com/photo/?fbid=1736102915189792"
+rights: pending
+clientApproved: false

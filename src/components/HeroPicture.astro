@@ -1,0 +1,58 @@
+---
+/**
+ * Art-directed hero (Master Plan §4): a phone crop below 768px and a landscape crop from 768px,
+ * not one image squeezed to fit. Loaded eagerly with high priority (it is the LCP image).
+ */
+import { getPhoto, type PhotoId } from "../data/photos";
+import type { Lang } from "../i18n";
+import { buildSrcset, dominantColor, fallbackImage } from "../lib/images";
+import Placeholder from "./Placeholder.astro";
+
+interface Props {
+  lang: Lang;
+  mobile: PhotoId;
+  desktop: PhotoId;
+  posMobile?: string;
+  posDesktop?: string;
+  class?: string;
+}
+const { lang, mobile, desktop, posMobile = "50% 50%", posDesktop = "50% 50%", class: className } = Astro.props;
+const m = getPhoto(mobile);
+const dk = getPhoto(desktop);
+const ok = m.publishable && dk.publishable;
+
+const MOBILE_WIDTHS = [360, 480, 640, 800, 1024];
+const DESKTOP_WIDTHS = [768, 1024, 1280, 1600];
+const [mAvif, mWebp, dAvif, dWebp, fallback, color] = ok
+  ? await Promise.all([
+      buildSrcset(m.src, "avif", MOBILE_WIDTHS),
+      buildSrcset(m.src, "webp", MOBILE_WIDTHS),
+      buildSrcset(dk.src, "avif", DESKTOP_WIDTHS),
+      buildSrcset(dk.src, "webp", DESKTOP_WIDTHS),
+      fallbackImage(m.src),
+      dominantColor(desktop),
+    ])
+  : [];
+---
+
+{ok && fallback ? (
+  <div class:list={["ph has-img hero__ph", className]} style={`--pos-m: ${posMobile}; --pos-d: ${posDesktop}; --dominant: ${color}`}>
+    <picture>
+      <source media="(min-width: 768px)" type="image/avif" srcset={dAvif} sizes="(min-width: 1440px) 1344px, calc(100vw - 64px)" />
+      <source media="(min-width: 768px)" type="image/webp" srcset={dWebp} sizes="(min-width: 1440px) 1344px, calc(100vw - 64px)" />
+      <source type="image/avif" srcset={mAvif} sizes="100vw" />
+      <source type="image/webp" srcset={mWebp} sizes="100vw" />
+      <img
+        class="ph__img"
+        src={fallback.src}
+        width={m.src.width}
+        height={m.src.height}
+        alt={dk.alt[lang]}
+        fetchpriority="high"
+        decoding="sync"
+      />
+    </picture>
+  </div>
+) : (
+  <Placeholder lang={lang} label={dk.alt[lang]} variant="scene" class:list={["hero__ph", className]} />
+)}

@@ -1,0 +1,135 @@
+---
+/** Visit & Contact (Master Plan §7.9, design/pages/visit.html): showroom card(s), every channel, "before you visit". */
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import CustomList from "../../components/CustomList.astro";
+import Icon from "../../components/Icon.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import ShowroomCard from "../../components/ShowroomCard.astro";
+import { settings } from "../../content/settings";
+import { dict } from "../../i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { contactTrack, type Channel } from "../../lib/analytics";
+import type { IconName } from "../../lib/icons";
+import { contactLinks } from "../../lib/links";
+import { langParam, langPaths } from "../../lib/paths";
+import { localUrl } from "../../lib/urls";
+
+export const getStaticPaths = langPaths;
+const lang = langParam(Astro.params.lang);
+const d = dict(lang);
+const v = d.visit;
+const links = contactLinks(lang);
+
+type Row = {
+  icon: IconName;
+  label: string;
+  hint: string;
+  href: string;
+  channel?: Channel;
+  external?: boolean;
+  hintLang?: string;
+  badge?: string;
+};
+const rows: Row[] = [
+  {
+    icon: "whatsapp",
+    label: d.contact.whatsapp,
+    hint: v.channelHints.whatsapp,
+    href: links.whatsapp,
+    channel: "whatsapp",
+    badge: d.contact.fastest,
+  },
+  {
+    icon: "messenger",
+    label: d.contact.messenger,
+    hint: v.channelHints.messenger,
+    href: links.messenger,
+    channel: "messenger",
+    external: true,
+  },
+  {
+    icon: "instagram",
+    label: d.contact.instagram,
+    hint: v.channelHints.instagram,
+    href: links.instagram,
+    channel: "instagram",
+    external: true,
+  },
+  { icon: "phone", label: d.contact.call, hint: links.phoneDisplay, href: links.tel, channel: "call" },
+  { icon: "mail", label: d.contact.email, hint: settings.email, href: links.email, channel: "email", hintLang: "en" },
+  { icon: "facebook", label: d.contact.facebook, hint: v.channelHints.facebook, href: links.facebook, external: true },
+  { icon: "youtube", label: d.contact.youtube, hint: v.channelHints.youtube, href: links.youtube, external: true },
+];
+const tipIcons: IconName[] = ["ruler", "image", "grid", "calendar"];
+---
+
+<BaseLayout
+  lang={lang}
+  title={v.title}
+  description={v.description}
+  current="visit"
+  crumbs={[{ label: d.nav.visit, href: localUrl(lang, "visit") }]}
+>
+  <div class="container">
+    <Breadcrumbs lang={lang} current={d.nav.visit} />
+    <header class="page-head">
+      <h1 class="t-display">{v.heroTitle}</h1>
+      <p class="page-head__intro t-body-lg">{v.intro}</p>
+    </header>
+  </div>
+
+  <section class="container pb-section grid gap-6" aria-labelledby="sr-title">
+    <h2 class="sr-only" id="sr-title">
+      {v.showroomEyebrow}
+    </h2>
+    {settings.showrooms.map((s) => (
+      <ShowroomCard lang={lang} showroom={s} links={links} placement="visit_page" variant="visit" bothLanguages />
+    ))}
+  </section>
+
+  <section class="section section--sunken" aria-labelledby="ch-title">
+    <div class="container">
+      <SectionHead id="ch-title" eyebrow={v.channelsEyebrow} title={v.channelsTitle} />
+      <div class="contact-rows">
+        {rows.map((r, i) => (
+          <a
+            class:list={["channel", i === 0 && "channel--rec"]}
+            href={r.href}
+            {...(r.external ? { target: "_blank", rel: "noopener" } : {})}
+            {...(r.channel ? contactTrack(r.channel, "visit_page", lang) : {})}
+          >
+            <span class="channel__ico">
+              <Icon name={r.icon} />
+            </span>
+            <span>
+              <b>
+                {r.label}
+                {r.badge && <span class="badge-rec">{r.badge}</span>}
+              </b>
+              <span class:list={[r.channel === "call" && "t-num"]} lang={r.hintLang}>
+                {r.hint}
+              </span>
+            </span>
+            <Icon name="chev-right" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="bv-title">
+    <div class="split items-start">
+      <div class="stack-lg">
+        <p class="t-eyebrow">{v.beforeEyebrow}</p>
+        <h2 class="t-h1" id="bv-title">
+          {v.beforeTitle}
+        </h2>
+        <a class="link-arrow" href={localUrl(lang, "faq")}>
+          {v.readFaq}
+          <Icon name="arrow" />
+        </a>
+      </div>
+      <CustomList items={v.tips.map((t, i) => ({ ...t, icon: tipIcons[i]! }))} />
+    </div>
+  </section>
+</BaseLayout>

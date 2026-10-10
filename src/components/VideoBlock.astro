@@ -1,0 +1,68 @@
+---
+/**
+ * Video block (Design Brief §5.23). With a YouTube ID it is click-to-load: the poster is our own photo
+ * and the YouTube player (about 1 MB) only loads after a tap. Without an ID it links to the channel.
+ */
+import type { Video } from "../content/settings";
+import { settings } from "../content/settings";
+import { dict, fmt, type Lang } from "../i18n";
+import { track } from "../lib/analytics";
+import Icon from "./Icon.astro";
+import Photo from "./Photo.astro";
+
+interface Props {
+  lang: Lang;
+  video: Video;
+  pos?: string;
+}
+const { lang, video, pos = "50% 55%" } = Astro.props;
+const d = dict(lang);
+const label = fmt(d.common.playVideo, { title: video.title[lang] });
+const sizes = "(min-width: 1440px) 760px, (min-width: 768px) 50vw, 100vw";
+const poster = video.poster;
+---
+
+{video.youtubeId ? (
+  <div class="video__frame" data-video={video.youtubeId} data-title={video.title[lang]}>
+    <button class="video" type="button" aria-label={label} {...track("video_play", { video_id: video.youtubeId })}>
+      <Photo id={poster} lang={lang} pos={pos} sizes={sizes} alt="" />
+      <span class="video__play">
+        <Icon name="play" />
+      </span>
+    </button>
+  </div>
+) : (
+  <a
+    class="video"
+    href={settings.social.youtube}
+    target="_blank"
+    rel="noopener"
+    aria-label={`${video.title[lang]}: ${d.common.watchOnYoutube}`}
+  >
+    <Photo id={poster} lang={lang} pos={pos} sizes={sizes} alt="" />
+    <span class="video__play">
+      <Icon name="play" />
+    </span>
+    <span class="video__label">{d.common.watchOnYoutube}</span>
+  </a>
+)}
+
+<script>
+  import { $$ } from "../scripts/dom";
+
+  $$<HTMLElement>("[data-video]").forEach((frame) => {
+    frame.querySelector("button")?.addEventListener(
+      "click",
+      () => {
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube-nocookie.com/embed/${frame.dataset.video}?autoplay=1&rel=0`;
+        iframe.title = frame.dataset.title ?? "";
+        iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+        iframe.allowFullscreen = true;
+        frame.replaceChildren(iframe);
+        iframe.focus();
+      },
+      { once: true },
+    );
+  });
+</script>

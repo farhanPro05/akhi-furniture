@@ -1,0 +1,41 @@
+---
+/** Privacy notice (Master Plan §17, design/pages/privacy.html). */
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { settings } from "../../content/settings";
+import { dict, fmt } from "../../i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { localDigits } from "../../lib/digits";
+import { langParam, langPaths } from "../../lib/paths";
+import { localUrl } from "../../lib/urls";
+
+export const getStaticPaths = langPaths;
+const lang = langParam(Astro.params.lang);
+const d = dict(lang);
+const p = d.privacy;
+const date = settings.privacyUpdated ? localDigits(settings.privacyUpdated, lang) : d.common.toBeConfirmed;
+---
+
+<BaseLayout
+  lang={lang}
+  title={p.metaTitle}
+  description={p.description}
+  sticky="none"
+  crumbs={[{ label: p.metaTitle, href: localUrl(lang, "privacy") }]}
+>
+  <div class="container pb-section">
+    <Breadcrumbs lang={lang} current={p.metaTitle} />
+    <header class="page-head">
+      <h1 class="t-h1">{p.title}</h1>
+      <p class="t-caption">{fmt(p.updated, { date })}</p>
+    </header>
+    <div class="prose">
+      {p.sections.map((s) => (
+        <>
+          {s.title && <h2 class="t-h2">{s.title}</h2>}
+          <!-- prettier-ignore -->
+          <p>{s.text.split("{email}").map((part, i, parts) => <>{part}{i < parts.length - 1 && <a class="link" href={`mailto:${settings.email}`} lang="en">{settings.email}</a>}</>)}</p>
+        </>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

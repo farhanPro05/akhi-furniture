@@ -1,0 +1,38 @@
+---
+/** Project card (Design Brief §5.20): 3:2 photo, type tag, area (only with permission), title. */
+import { dict, type Lang } from "../i18n";
+import type { Project } from "../lib/content";
+import { localUrl } from "../lib/urls";
+import Photo from "./Photo.astro";
+
+interface Props {
+  project: Project;
+  lang: Lang;
+  titleClass?: string;
+  headingLevel?: "h2" | "h3";
+  showScope?: boolean;
+  sizes?: string;
+}
+const {
+  project,
+  lang,
+  titleClass = "t-h3",
+  headingLevel: H = "h3",
+  showScope = false,
+  sizes = "(min-width: 1440px) 440px, (min-width: 1024px) 33vw, (min-width: 600px) 50vw, 100vw",
+} = Astro.props;
+const d = dict(lang);
+const data = project.data;
+---
+
+<a class="p-card" href={localUrl(lang, `our-work/${project.id}`)} data-type={data.type}>
+  <div class="zoom-wrap">
+    <Photo id={data.cover.photo} lang={lang} pos={data.cover.pos} sizes={sizes} widths={[480, 640, 800, 1024, 1280]} />
+  </div>
+  <div class="p-card__meta">
+    <span class="tag tag--plain">{d.projectTypes[data.type]}</span>
+    {data.area && <span class="t-caption">{data.area[lang]}</span>}
+  </div>
+  <H class={titleClass}>{data.title[lang]}</H>
+  {showScope && <p class="t-caption">{data.scope[lang]}</p>}
+</a>

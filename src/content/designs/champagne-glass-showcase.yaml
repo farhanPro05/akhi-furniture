@@ -1,0 +1,26 @@
+# AF-SHW-009 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-SHW-009
+title:
+  en: "Champagne glass showcase"
+  bn: "শ্যাম্পেন রঙের কাচের শোকেস"
+room: living
+type: showcases
+kind: design-reference
+summary:
+  en: "A display cabinet with a carved champagne frame and glass shelves for your best pieces."
+  bn: "খোদাই করা শ্যাম্পেন রঙের ফ্রেম আর কাচের তাকের শোকেস, প্রিয় জিনিস সাজিয়ে রাখার জন্য।"
+material:
+  en: "Carved frame, glass shelves"
+  bn: "খোদাই ফ্রেম, কাচের তাক"
+images:
+  - photo: c-shw-009
+    pos: "50% 50%"
+    caption:
+      en: "The showcase on its own"
+      bn: "শুধু শোকেসটি"
+featured: true
+order: 7
+status: published
+source: "https://www.facebook.com/photo/?fbid=1736099765190107"
+rights: pending
+clientApproved: false

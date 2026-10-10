@@ -1,0 +1,31 @@
+---
+import { dict, type Lang } from "../i18n";
+import { track } from "../lib/analytics";
+import { switchLang } from "../lib/urls";
+
+interface Props {
+  lang: Lang;
+  /** Path of the current page, e.g. "/en/designs/". */
+  path: string;
+}
+const { lang, path } = Astro.props;
+const d = dict(lang);
+const options: { to: Lang; label: string }[] = [
+  { to: "en", label: "EN" },
+  { to: "bn", label: "বাং" },
+];
+---
+
+<nav class="lang-switch" aria-label={d.nav.language}>
+  {options.map(({ to, label }) =>
+    to === lang ? (
+      <a href={path} lang={to} hreflang={to} aria-current="true">
+        {label}
+      </a>
+    ) : (
+      <a href={switchLang(path, to)} lang={to} hreflang={to} {...track("language_switch", { from: lang, to })}>
+        {label}
+      </a>
+    ),
+  )}
+</nav>

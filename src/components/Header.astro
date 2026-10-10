@@ -1,0 +1,185 @@
+---
+/**
+ * Site header (design/README §7.1–7.3): sticky, solid surface, hairline after scrolling.
+ * From 1200px: full navigation, Designs dropdown (opens on click) and a WhatsApp button.
+ * Below 1200px: menu button opening a full-screen menu with all channels and the showroom address.
+ */
+import { settings } from "../content/settings";
+import { TYPES } from "../content.config";
+import { dict, type Lang } from "../i18n";
+import { contactTrack } from "../lib/analytics";
+import { getDesigns, getRooms } from "../lib/content";
+import { pageEnabled } from "../lib/launch-gate";
+import type { ContactLinks } from "../lib/links";
+import { localUrl } from "../lib/urls";
+import Brand from "./Brand.astro";
+import Icon from "./Icon.astro";
+import LangSwitch from "./LangSwitch.astro";
+import Photo from "./Photo.astro";
+import Placeholder from "./Placeholder.astro";
+
+export type NavKey = "designs" | "custom" | "work" | "business" | "about" | "visit" | "";
+
+interface Props {
+  lang: Lang;
+  path: string;
+  current: NavKey;
+  links: ContactLinks;
+}
+const { lang, path, current, links } = Astro.props;
+const d = dict(lang);
+const rooms = await getRooms();
+const featured = (await getDesigns()).find((x) => x.data.featured);
+const showroom = settings.showrooms[0]!;
+
+const nav: { key: Exclude<NavKey, "">; label: string; href: string }[] = [
+  { key: "designs", label: d.nav.designs, href: localUrl(lang, "designs") },
+  { key: "custom", label: d.nav.custom, href: localUrl(lang, "custom-furniture") },
+  { key: "work", label: d.nav.work, href: localUrl(lang, "our-work") },
+  ...(pageEnabled.forBusiness ? [{ key: "business" as const, label: d.nav.business, href: localUrl(lang, "for-business") }] : []),
+  { key: "about", label: d.nav.about, href: localUrl(lang, "about") },
+  { key: "visit", label: d.nav.visit, href: localUrl(lang, "visit") },
+];
+---
+
+<header class="site-header" data-header>
+  <div class="container site-header__bar">
+    <Brand lang={lang} />
+    <nav class="nav" aria-label={d.nav.main}>
+      {nav.map((item) =>
+        item.key === "designs" ? (
+          <div class="nav__drop">
+            <button
+              type="button"
+              aria-expanded="false"
+              aria-controls="designs-dd"
+              class:list={[current === "designs" && "is-current"]}
+              data-dropdown-toggle
+            >
+              {item.label}
+              <Icon name="chev-down" />
+            </button>
+          </div>
+        ) : (
+          <a href={item.href} aria-current={current === item.key ? "page" : undefined}>
+            {item.label}
+          </a>
+        ),
+      )}
+    </nav>
+    <LangSwitch lang={lang} path={path} />
+    <a class="btn btn--primary btn--sm header-wa" href={links.whatsapp} {...contactTrack("whatsapp", "header", lang)}>
+      <Icon name="whatsapp" />
+      {d.contact.whatsappUs}
+    </a>
+    <button
+      class="btn-icon btn-icon--bare menu-btn"
+      type="button"
+      aria-label={d.nav.menu}
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-open
+    >
+      <Icon name="menu" size={24} />
+    </button>
+  </div>
+
+  <div class="dropdown" id="designs-dd" data-dropdown>
+    <div class="container dropdown__inner">
+      <div>
+        <p class="t-eyebrow mb-4">{d.nav.byRoom}</p>
+        <div class="dropdown__rooms">
+          {rooms.map((room) => (
+            <a class="dropdown__room" href={localUrl(lang, `designs/${room.id}`)}>
+              {room.data.cover ? (
+                <Photo id={room.data.cover.photo} lang={lang} pos={room.data.cover.pos} sizes="160px" widths={[320]} ratio="4 / 5" alt="" />
+              ) : (
+                <Placeholder lang={lang} label={d.common.noPhotoYet} variant="alt" ratio="4 / 5" />
+              )}
+              <span class="t-label">{d.rooms[room.id as keyof typeof d.rooms]}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p class="t-eyebrow mb-4">{d.nav.byType}</p>
+        <div class="dropdown__types">
+          {TYPES.map((type) => (
+            <a href={`${localUrl(lang, "designs")}?type=${type}`}>{d.types[type]}</a>
+          ))}
+          <a class="link-arrow" href={localUrl(lang, "designs")}>
+            {d.nav.viewAll}
+            <Icon name="arrow" size={16} />
+          </a>
+        </div>
+      </div>
+      {featured && (
+        <a class="d-card" href={localUrl(lang, `designs/${featured.id}`)}>
+          <Photo
+            id={featured.data.images[0]!.photo}
+            lang={lang}
+            pos={featured.data.images[0]!.pos}
+            sizes="320px"
+            widths={[480, 640]}
+            ratio="4 / 3"
+            alt=""
+          />
+          <span class="d-card__meta">
+            <span class="t-caption">{d.nav.featured}</span>
+            <span class="d-card__name">{featured.data.title[lang]}</span>
+            <span class="d-card__code">{featured.data.code}</span>
+          </span>
+        </a>
+      )}
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label={d.nav.menu} data-menu hidden>
+  <div class="container mobile-menu__top">
+    <Brand lang={lang} />
+    <LangSwitch lang={lang} path={path} />
+    <button class="btn-icon btn-icon--bare" type="button" aria-label={d.nav.close} data-menu-close>
+      <Icon name="x" size={24} />
+    </button>
+  </div>
+  <nav class="container mobile-menu__links" aria-label={d.nav.main}>
+    {nav.map((item) => (
+      <>
+        <a href={item.href} aria-current={current === item.key ? "page" : undefined}>
+          {item.label}
+          <Icon name="arrow" />
+        </a>
+        {item.key === "designs" && (
+          <div class="mobile-menu__sub">
+            {rooms.map((room) => (
+              <a class="chip" href={localUrl(lang, `designs/${room.id}`)}>
+                {d.rooms[room.id as keyof typeof d.rooms]}
+              </a>
+            ))}
+          </div>
+        )}
+      </>
+    ))}
+  </nav>
+  <div class="mobile-menu__foot">
+    <div class="container grid gap-3">
+      <a class="btn btn--primary btn--lg btn--block" href={links.whatsapp} {...contactTrack("whatsapp", "menu", lang)}>
+        <Icon name="whatsapp" />
+        {d.contact.whatsappUs}
+      </a>
+      <a class="btn btn--secondary btn--lg btn--block" href={links.tel} {...contactTrack("call", "menu", lang)}>
+        <Icon name="phone" />
+        {d.contact.call} <span class="t-num">{links.phoneDisplay}</span>
+      </a>
+      <p class="t-caption mt-1 flex items-start gap-2">
+        <Icon name="pin" size={16} />
+        <span>
+          {showroom.address[lang]}
+          <br />
+          {showroom.hours ? showroom.hours[lang] : `${d.common.openingHours}: ${d.common.toBeConfirmed}`}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>

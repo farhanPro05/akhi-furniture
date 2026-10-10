@@ -1,0 +1,116 @@
+---
+/**
+ * For Business (Master Plan §7.6, design/pages/for-business.html).
+ * Built now; generated for production only once settings.pages.forBusiness is true (needs real office projects).
+ */
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Btn from "../../components/Btn.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import Placeholder from "../../components/Placeholder.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import Steps from "../../components/Steps.astro";
+import { settings } from "../../content/settings";
+import { dict } from "../../i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { contactTrack } from "../../lib/analytics";
+import { getProjects } from "../../lib/content";
+import type { IconName } from "../../lib/icons";
+import { pageEnabled } from "../../lib/launch-gate";
+import { contactLinks } from "../../lib/links";
+import { langParam, langPaths } from "../../lib/paths";
+import { localUrl } from "../../lib/urls";
+
+export function getStaticPaths() {
+  return pageEnabled.forBusiness ? langPaths() : [];
+}
+const lang = langParam(Astro.params.lang);
+const d = dict(lang);
+const b = d.business;
+const links = contactLinks(lang, { kind: "business" });
+const offices = (await getProjects()).filter((p) => p.data.type === "office");
+const makeIcons: IconName[] = ["conference", "desk", "grid", "store", "storage"];
+---
+
+<BaseLayout
+  lang={lang}
+  title={b.title}
+  description={b.description}
+  current="business"
+  message={{ kind: "business" }}
+  crumbs={[{ label: d.nav.business, href: localUrl(lang, "for-business") }]}
+>
+  <section class="theme-dark" aria-labelledby="b-title">
+    <div class="container">
+      <Breadcrumbs lang={lang} current={d.nav.business} />
+      <div class="inner-hero">
+        <div class="inner-hero__copy">
+          <p class="t-eyebrow">{b.eyebrow}</p>
+          <h1 class="t-display" id="b-title">
+            {b.heroTitle}
+          </h1>
+          <p class="t-body-lg">{b.heroText}</p>
+          <div class="btn-row">
+            <Btn href={links.whatsapp} size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "hero", lang)}>
+              {b.discuss}
+            </Btn>
+            <Btn href={links.email} variant="secondary" size="lg" icon="mail" attrs={contactTrack("email", "hero", lang)}>
+              {d.contact.emailUs}
+            </Btn>
+          </div>
+        </div>
+        <Placeholder lang={lang} label={`${d.projectTypes.office}, ${d.common.noPhotoYet}`} variant="scene" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="bm-title">
+    <SectionHead id="bm-title" eyebrow={b.makeEyebrow} title={b.makeTitle} />
+    <ul class="make-grid make-grid--fit" role="list">
+      {b.make.map((label, i) => (
+        <li class="make">
+          <Icon name={makeIcons[i]!} />
+          <b>{label}</b>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section section--sunken" aria-labelledby="bp-title">
+    <div class="container">
+      <SectionHead id="bp-title" eyebrow={b.processEyebrow} title={b.processTitle} />
+      <Steps lang={lang} steps={b.steps} />
+    </div>
+  </section>
+
+  {offices.length > 0 && (
+    <section class="section container" aria-labelledby="bo-title">
+      <SectionHead
+        id="bo-title"
+        eyebrow={b.projectsEyebrow}
+        title={b.projectsTitle}
+        action={{ label: d.common.allProjects, href: localUrl(lang, "our-work") }}
+      />
+      <div class="p-grid">
+        {offices.slice(0, 3).map((p) => (
+          <ProjectCard project={p} lang={lang} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="container pb-section">
+    <CtaBand dark title={b.ctaTitle} text={b.ctaText} fine={settings.email}>
+      <Btn href={links.whatsapp} size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "cta_band", lang)}>
+        {d.contact.whatsappUs}
+      </Btn>
+      <Btn href={links.tel} variant="secondary" size="lg" icon="phone" attrs={contactTrack("call", "cta_band", lang)}>
+        {d.contact.call}
+      </Btn>
+      <Btn href={links.email} variant="secondary" size="lg" icon="mail" attrs={contactTrack("email", "cta_band", lang)}>
+        {d.contact.email}
+      </Btn>
+    </CtaBand>
+  </section>
+</BaseLayout>

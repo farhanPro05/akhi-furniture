@@ -1,0 +1,70 @@
+/** JSON-LD builders (Master Plan §14). No Product markup: nothing is sold here. */
+import { settings } from "../content/settings";
+import { dict, type Lang } from "../i18n";
+import { absoluteUrl, localUrl } from "./urls";
+
+export function furnitureStore(lang: Lang) {
+  const showroom = settings.showrooms[0]!;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FurnitureStore",
+    "@id": `${settings.siteUrl}/#store`,
+    name: settings.brand[lang],
+    alternateName: settings.brand[lang === "en" ? "bn" : "en"],
+    url: absoluteUrl(localUrl(lang)),
+    logo: absoluteUrl("/icon-512.png"),
+    image: absoluteUrl("/og-default.jpg"),
+    telephone: settings.phone.e164,
+    email: settings.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: showroom.address[lang],
+      addressLocality: showroom.locality,
+      addressCountry: showroom.country,
+    },
+    hasMap: showroom.mapUrl,
+    sameAs: Object.values(settings.social),
+  };
+}
+
+export function website(lang: Lang) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: settings.brand[lang],
+    url: absoluteUrl(localUrl(lang)),
+    inLanguage: lang,
+    publisher: { "@id": `${settings.siteUrl}/#store` },
+  };
+}
+
+export type Crumb = { label: string; href: string };
+
+export function breadcrumbList(lang: Lang, crumbs: Crumb[]) {
+  const home = { label: dict(lang).nav.home, href: localUrl(lang) };
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [home, ...crumbs].map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.label, item: absoluteUrl(c.href) })),
+  };
+}
+
+export function faqPage(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
+  };
+}
+
+export function videoObject(lang: Lang, video: { youtubeId: string; title: { en: string; bn: string } }, thumbnail: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: video.title[lang],
+    description: video.title[lang],
+    thumbnailUrl: absoluteUrl(thumbnail),
+    contentUrl: `https://www.youtube.com/watch?v=${video.youtubeId}`,
+    embedUrl: `https://www.youtube-nocookie.com/embed/${video.youtubeId}`,
+  };
+}

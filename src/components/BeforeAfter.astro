@@ -1,0 +1,51 @@
+---
+/**
+ * Before/after slider (Design Brief §5.21): an invisible full-size range input sits on top,
+ * so drag, tap and arrow keys all work. Placeholders until real renewal photos exist.
+ */
+import type { PhotoId } from "../data/photos";
+import { dict, type Lang } from "../i18n";
+import Photo from "./Photo.astro";
+import Placeholder from "./Placeholder.astro";
+
+interface Props {
+  lang: Lang;
+  before?: PhotoId | undefined;
+  after?: PhotoId | undefined;
+}
+const { lang, before, after } = Astro.props;
+const d = dict(lang);
+const sizes = "(min-width: 1024px) 55vw, 100vw";
+---
+
+<div class="ba" data-ba>
+  {before ? (
+    <Photo id={before} lang={lang} ratio="4 / 3" sizes={sizes} />
+  ) : (
+    <Placeholder lang={lang} label={d.renewal.before} ratio="4 / 3" />
+  )}
+  <div class="ba__after">
+    {after ? (
+      <Photo id={after} lang={lang} ratio="4 / 3" sizes={sizes} />
+    ) : (
+      <Placeholder lang={lang} label={d.renewal.after} ratio="4 / 3" variant="alt" />
+    )}
+  </div>
+  <div class="ba__handle" aria-hidden="true"></div>
+  <span class="ba__lbl ba__lbl--b" aria-hidden="true">
+    {d.renewal.before}
+  </span>
+  <span class="ba__lbl ba__lbl--a" aria-hidden="true">
+    {d.renewal.after}
+  </span>
+  <input type="range" min="0" max="100" value="50" aria-label={d.renewal.compare} />
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-ba]").forEach((ba) => {
+    const range = ba.querySelector("input");
+    const update = () => ba.style.setProperty("--pos", `${range?.value ?? 50}%`);
+    range?.addEventListener("input", update);
+    update();
+  });
+</script>

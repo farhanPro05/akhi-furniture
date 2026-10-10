@@ -1,0 +1,32 @@
+# Sample entry made from the mockups and real photos. Details need AKHI's confirmation; area and year only with the customer's permission.
+title:
+  en: "A kitchen with a lit glass cabinet"
+  bn: "আলো জ্বলা কাচের কেবিনেটসহ রান্নাঘর"
+shortTitle:
+  en: "Kitchen with a glass cabinet"
+  bn: "কাচের কেবিনেটসহ রান্নাঘর"
+type: home
+scope:
+  en: "Kitchen cabinets and a glass-front display unit"
+  bn: "কিচেন কেবিনেট ও কাচের ডিসপ্লে ইউনিট"
+made:
+  en: "Kitchen cabinets with a glass-front display unit lit from inside, so the family can show their best crockery."
+  bn: "ভেতর থেকে আলো জ্বলা কাচের ডিসপ্লে ইউনিটসহ কিচেন কেবিনেট, যাতে পরিবারের সবচেয়ে সুন্দর বাসনপত্র সাজিয়ে রাখা যায়।"
+cover:
+  photo: p-kitchen-b
+  pos: "50% 40%"
+hero:
+  photo: p-kitchen-b
+  pos: "50% 40%"
+gallery:
+  - photo: p-kitchen-b
+    pos: "50% 40%"
+  - photo: p-kitchen
+    pos: "50% 50%"
+designs: []
+featured: true
+order: 3
+status: published
+source: "https://www.facebook.com/photo/?fbid=1739938258139591"
+rights: pending
+clientApproved: false

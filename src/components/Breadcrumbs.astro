@@ -1,0 +1,39 @@
+---
+/** Breadcrumbs (Design Brief §5.28). On phones the middle steps fold into "…" so the trail stays on one line. */
+import { dict, type Lang } from "../i18n";
+import type { Crumb } from "../lib/schema";
+import { localUrl } from "../lib/urls";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+  /** Steps between Home and the current page. */
+  trail?: Crumb[];
+  current: string;
+}
+const { lang, trail = [], current } = Astro.props;
+const d = dict(lang);
+const fold = trail.length > 1;
+---
+
+<nav class="crumbs" aria-label={d.nav.breadcrumb}>
+  <a href={localUrl(lang)}>{d.nav.home}</a>
+  <Icon name="chev-right" />
+  {fold && (
+    <span class="crumbs__ellipsis" aria-hidden="true">
+      …
+    </span>
+  )}
+  {trail.length > 0 && (
+    <span class:list={[fold && "crumbs__far"]}>
+      {trail.map((c, i) => (
+        <>
+          <a href={c.href}>{c.label}</a>
+          {i < trail.length - 1 && <Icon name="chev-right" />}
+        </>
+      ))}
+    </span>
+  )}
+  {trail.length > 0 && <Icon name="chev-right" />}
+  <span aria-current="page">{current}</span>
+</nav>

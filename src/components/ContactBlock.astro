@@ -1,0 +1,47 @@
+---
+/**
+ * Contact block on design pages (Master Plan §7.3, §8.2): a large WhatsApp button whose message names
+ * this design, plus Messenger / Instagram (which copy the code first) and Call.
+ */
+import { dict, fmt, type Lang } from "../i18n";
+import { contactTrack } from "../lib/analytics";
+import { clipboardText } from "../lib/contact";
+import type { ContactLinks } from "../lib/links";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+  links: ContactLinks;
+  code: string;
+  url: string;
+}
+const { lang, links, code, url } = Astro.props;
+const d = dict(lang);
+const copy = {
+  "data-copy": clipboardText(code, url),
+  "data-toast": fmt(d.contact.toastCopied, { code }),
+  "data-toast-fail": fmt(d.contact.toastCopyFailed, { code }),
+};
+---
+
+<div class="contact-block">
+  <a class="btn btn--primary btn--lg btn--block" href={links.whatsapp} {...contactTrack("whatsapp", "design_page", lang, code)}>
+    <Icon name="whatsapp" />
+    {d.contact.askThisDesign}
+  </a>
+  <div class="contact-block__row">
+    <a class="btn btn--secondary btn--sm" href={links.messenger} {...copy} {...contactTrack("messenger", "design_page", lang, code)}>
+      <Icon name="messenger" />
+      {d.contact.messenger}
+    </a>
+    <a class="btn btn--secondary btn--sm" href={links.instagram} {...copy} {...contactTrack("instagram", "design_page", lang, code)}>
+      <Icon name="instagram" />
+      {d.contact.instagram}
+    </a>
+    <a class="btn btn--secondary btn--sm" href={links.tel} {...contactTrack("call", "design_page", lang, code)}>
+      <Icon name="phone" />
+      {d.contact.call}
+    </a>
+  </div>
+  <p class="contact-block__hint">{fmt(d.contact.blockHint, { code })}</p>
+</div>

@@ -1,0 +1,152 @@
+# FAQ (Master Plan §7.10). Every answer needs AKHI's confirmation before launch.
+# status: draft hides a question until AKHI gives the real answer (warranty, delivery, installation).
+# showOn adds a question to the short FAQ on design pages and/or the Custom Furniture page.
+
+- id: why-no-prices
+  group: custom
+  order: 1
+  showOn: [design, custom]
+  status: published
+  question:
+    en: "Why don't you show prices online?"
+    bn: "অনলাইনে দাম কেন দেওয়া নেই?"
+  answer:
+    en: "Every piece is made to your size, material and finish, so we give you an exact quote once we understand what you need. Message us on WhatsApp for a quick estimate."
+    bn: "প্রতিটি আসবাব আপনার মাপ, ম্যাটেরিয়াল ও ফিনিশ অনুযায়ী তৈরি হয়, তাই আপনার প্রয়োজন বুঝে আমরা সঠিক দাম জানাই। দ্রুত ধারণা পেতে হোয়াটসঅ্যাপে মেসেজ করুন।"
+
+- id: change-size
+  group: custom
+  order: 2
+  showOn: [design]
+  status: published
+  question:
+    en: "Can I change the size?"
+    bn: "মাপ কি বদলানো যাবে?"
+  answer:
+    en: "Yes. Tell us your room size and how you will use the piece, and we will make it to fit."
+    bn: "হ্যাঁ। ঘরের মাপ আর আসবাবটি কীভাবে ব্যবহার করবেন জানালে সেই অনুযায়ী বানিয়ে দেব।"
+
+- id: copy-from-photo
+  group: custom
+  order: 3
+  showOn: [custom]
+  status: published
+  question:
+    en: "Can you make a design I found online?"
+    bn: "অনলাইনে দেখা কোনো ডিজাইন কি বানিয়ে দিতে পারবেন?"
+  answer:
+    en: "Send us the photo. We will tell you what we can make and how we would adapt it to your room."
+    bn: "ছবিটা পাঠান। আমরা জানাব কী বানানো সম্ভব আর আপনার ঘরের জন্য কীভাবে মানিয়ে নেব।"
+
+- id: how-long
+  group: custom
+  order: 4
+  showOn: [custom]
+  status: published
+  question:
+    en: "How long does a custom piece take?"
+    bn: "একটি কাস্টম আসবাব বানাতে কত সময় লাগে?"
+  answer:
+    en: "It depends on the piece and the wood. You get a clear timeline with your quote."
+    bn: "আসবাব আর কাঠের ওপর নির্ভর করে। দামের সঙ্গে পরিষ্কার সময়সূচিও পাবেন।"
+
+- id: which-woods
+  group: materials
+  order: 1
+  status: published
+  question:
+    en: "Which woods do you use?"
+    bn: "কোন কাঠ ব্যবহার করেন?"
+  answer:
+    en: "We discuss material options during your consultation and show samples at the showroom."
+    bn: "পরামর্শের সময় ম্যাটেরিয়ালের অপশন নিয়ে কথা বলি, আর শোরুমে স্যাম্পল দেখাই।"
+
+- id: warranty
+  group: materials
+  order: 2
+  status: draft
+  question:
+    en: "Do you offer a warranty?"
+    bn: "ওয়ারেন্টি আছে কি?"
+  answer:
+    en: "TODO-VERIFY: waiting for AKHI's written warranty terms."
+    bn: "TODO-VERIFY: আখি ফার্নিচারের লিখিত ওয়ারেন্টির শর্তের অপেক্ষায়।"
+
+- id: outside-dhaka
+  group: delivery
+  order: 1
+  showOn: [custom]
+  status: published
+  question:
+    en: "Do you deliver outside Dhaka?"
+    bn: "ঢাকার বাইরে ডেলিভারি দেন?"
+  answer:
+    en: "Ask us on WhatsApp with your area and we will tell you what is possible."
+    bn: "আপনার এলাকা জানিয়ে হোয়াটসঅ্যাপে জিজ্ঞেস করুন, কী সম্ভব আমরা জানাব।"
+
+- id: set-up
+  group: delivery
+  order: 2
+  status: draft
+  question:
+    en: "Do you set up the furniture?"
+    bn: "আসবাব কি জায়গামতো বসিয়ে দেন?"
+  answer:
+    en: "TODO-VERIFY: waiting for AKHI to confirm installation details."
+    bn: "TODO-VERIFY: স্থাপনের বিস্তারিত নিশ্চিত হওয়ার অপেক্ষায়।"
+
+- id: see-before
+  group: showroom
+  order: 1
+  showOn: [design]
+  status: published
+  question:
+    en: "Can I see a piece before ordering?"
+    bn: "অর্ডারের আগে কি আসবাবটি দেখা যাবে?"
+  answer:
+    en: "Visit our showroom to see similar pieces, woods and finishes in person."
+    bn: "শোরুমে এসে একই রকম আসবাব, কাঠ ও ফিনিশ নিজের চোখে দেখুন।"
+
+- id: appointment
+  group: showroom
+  order: 2
+  status: published
+  question:
+    en: "Do I need an appointment?"
+    bn: "অ্যাপয়েন্টমেন্ট লাগবে কি?"
+  answer:
+    en: "You are welcome any time during opening hours. Message us first if you want to talk to a designer."
+    bn: "খোলার সময়ে যেকোনো সময় আসতে পারেন। ডিজাইনারের সঙ্গে কথা বলতে চাইলে আগে একটি মেসেজ দিন।"
+
+- id: what-to-bring
+  group: showroom
+  order: 3
+  status: published
+  question:
+    en: "What should I bring?"
+    bn: "সঙ্গে কী আনব?"
+  answer:
+    en: "Room measurements and a few photos of your space help us give useful advice."
+    bn: "ঘরের মাপ আর কয়েকটি ছবি থাকলে আমরা কাজের পরামর্শ দিতে পারি।"
+
+- id: large-orders
+  group: business
+  order: 1
+  status: published
+  question:
+    en: "Do you take large office orders?"
+    bn: "অফিসের বড় অর্ডার নেন?"
+  answer:
+    en: "Yes. We visit the site, prepare drawings and give one quote for the whole order."
+    bn: "হ্যাঁ। আমরা সাইট দেখি, ড্রয়িং তৈরি করি আর পুরো অর্ডারের জন্য একটি কোটেশন দিই।"
+
+- id: quote-by-email
+  group: business
+  order: 2
+  status: published
+  question:
+    en: "Can I get the quote by email?"
+    bn: "ইমেইলে কোটেশন পাওয়া যাবে?"
+  answer:
+    en: "Yes, send your requirements to our email and we will reply there."
+    bn: "হ্যাঁ, আমাদের ইমেইলে প্রয়োজনগুলো পাঠান, সেখানেই উত্তর দেব।"

@@ -1,0 +1,26 @@
+# AF-DRS-008 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-DRS-008
+title:
+  en: "Triple-mirror dressing table"
+  bn: "তিন আয়নার ড্রেসিং টেবিল"
+room: bedroom
+type: dressing-tables
+kind: design-reference
+summary:
+  en: "A dressing table with three mirrors in a champagne finish."
+  bn: "শ্যাম্পেন ফিনিশের তিন আয়নার ড্রেসিং টেবিল।"
+material:
+  en: "Champagne finish"
+  bn: "শ্যাম্পেন ফিনিশ"
+images:
+  - photo: d-drs-008
+    pos: "50% 50%"
+    caption:
+      en: "The dressing table"
+      bn: "ড্রেসিং টেবিলটি"
+featured: false
+order: 12
+status: published
+source: "https://www.facebook.com/photo/?fbid=1725921322874618"
+rights: pending
+clientApproved: false

@@ -1,0 +1,92 @@
+---
+/**
+ * Showroom card (Design Brief §5.26): map preview that opens Google Maps (no embedded map on load),
+ * address, hours, phone, "Get directions" and "Call".
+ */
+import type { Showroom } from "../content/settings";
+import { dict, type Lang } from "../i18n";
+import { contactTrack, directionsTrack, type Placement } from "../lib/analytics";
+import type { ContactLinks } from "../lib/links";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+  showroom: Showroom;
+  links: ContactLinks;
+  placement: Placement;
+  /** Visit page: eyebrow + large area name; elsewhere a plain card title. */
+  variant?: "home" | "visit";
+  /** Also show the address in the other language (Visit page). */
+  bothLanguages?: boolean;
+}
+const { lang, showroom, links, placement, variant = "home", bothLanguages = false } = Astro.props;
+const d = dict(lang);
+const other = lang === "en" ? "bn" : "en";
+---
+
+<div class="showroom">
+  <a
+    class="ph ph--map"
+    href={showroom.mapUrl}
+    target="_blank"
+    rel="noopener"
+    aria-label={d.common.mapPreview}
+    {...directionsTrack(placement)}
+  >
+    <span class="ph__label">
+      <Icon name="pin" />
+      {showroom.name[lang]}
+    </span>
+  </a>
+  <div class="showroom__body">
+    {variant === "visit" ? (
+      <div>
+        <p class="t-eyebrow">{d.visit.showroomEyebrow}</p>
+        <h3 class="t-h1 mt-3">{showroom.name[lang]}</h3>
+      </div>
+    ) : (
+      <h3 class="t-h2">{d.common.showroomName}</h3>
+    )}
+    <div class="showroom__rows">
+      <div class="showroom__row">
+        <Icon name="pin" />
+        <div>
+          <b>{d.common.address}</b>
+          {showroom.address[lang]}
+          {bothLanguages && (
+            <>
+              <br />
+              <span class="t-muted" lang={other}>
+                {showroom.address[other]}
+              </span>
+            </>
+          )}
+        </div>
+      </div>
+      <div class="showroom__row">
+        <Icon name="clock" />
+        <div>
+          <b>{d.common.openingHours}</b>
+          {showroom.hours ? showroom.hours[lang] : d.common.toBeConfirmed}
+        </div>
+      </div>
+      <div class="showroom__row">
+        <Icon name="phone" />
+        <div>
+          <b>{d.common.phone}</b>
+          <span class="t-num">{links.phoneDisplay}</span>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn--primary" href={showroom.mapUrl} target="_blank" rel="noopener" {...directionsTrack(placement)}>
+        <Icon name="nav" />
+        {d.contact.directions}
+      </a>
+      <a class="btn btn--secondary" href={links.tel} {...contactTrack("call", placement, lang)}>
+        <Icon name="phone" />
+        {d.contact.call}
+      </a>
+    </div>
+  </div>
+</div>

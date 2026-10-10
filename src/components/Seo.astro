@@ -1,0 +1,49 @@
+---
+/** Per-page, per-language SEO head (Master Plan §14): title, description, canonical, hreflang, Open Graph. */
+import { dict, type Lang } from "../i18n";
+import { PREVIEW } from "../lib/mode";
+import { absoluteUrl, switchLang } from "../lib/urls";
+
+interface Props {
+  lang: Lang;
+  /** Page title without the site name; omit on the home page. */
+  title?: string | undefined;
+  description: string;
+  path: string;
+  ogImage: string;
+  ogType?: "website" | "article" | undefined;
+  jsonLd?: object[];
+  noindex?: boolean | undefined;
+}
+const { lang, title, description, path, ogImage, ogType = "website", jsonLd = [], noindex = false } = Astro.props;
+const d = dict(lang);
+const fullTitle = title ? `${title} · ${d.meta.siteName}` : `${d.meta.siteName} · ${d.home.title}`;
+const canonical = absoluteUrl(path);
+const en = absoluteUrl(switchLang(path, "en"));
+const bn = absoluteUrl(switchLang(path, "bn"));
+const robots = PREVIEW || noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large";
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={robots} />
+<link rel="canonical" href={canonical} />
+<link rel="alternate" hreflang="en" href={en} />
+<link rel="alternate" hreflang="bn" href={bn} />
+<link rel="alternate" hreflang="x-default" href={en} />
+
+<meta property="og:site_name" content={d.meta.siteName} />
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title ?? d.meta.siteName} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={absoluteUrl(ogImage)} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={d.meta.ogLocale} />
+<meta property="og:locale:alternate" content={lang === "en" ? "bn_BD" : "en_US"} />
+<meta name="twitter:card" content="summary_large_image" />
+
+{jsonLd.map((data) => (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />
+))}

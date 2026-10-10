@@ -1,0 +1,103 @@
+---
+/** Our Work (Master Plan §7.5, design/pages/our-work.html): real projects, filter All / Home / Office / Renewal. */
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import Btn from "../../../components/Btn.astro";
+import CtaBand from "../../../components/CtaBand.astro";
+import Icon from "../../../components/Icon.astro";
+import ProjectCard from "../../../components/ProjectCard.astro";
+import { dict } from "../../../i18n";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { contactTrack } from "../../../lib/analytics";
+import { getProjects } from "../../../lib/content";
+import { localDigits } from "../../../lib/digits";
+import type { IconName } from "../../../lib/icons";
+import { contactLinks } from "../../../lib/links";
+import { langParam, langPaths } from "../../../lib/paths";
+import { localUrl } from "../../../lib/urls";
+
+export const getStaticPaths = langPaths;
+const lang = langParam(Astro.params.lang);
+const d = dict(lang);
+const w = d.work;
+const links = contactLinks(lang);
+const projects = await getProjects();
+const types: { key: "home" | "office" | "renewal"; icon: IconName }[] = [
+  { key: "home", icon: "home" },
+  { key: "office", icon: "building" },
+  { key: "renewal", icon: "refresh" },
+];
+const n = (v: number) => localDigits(v, lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={w.title}
+  description={w.description}
+  current="work"
+  crumbs={[{ label: w.title, href: localUrl(lang, "our-work") }]}
+>
+  <div class="container">
+    <Breadcrumbs lang={lang} current={w.title} />
+    <header class="page-head">
+      <h1 class="t-display">{w.title}</h1>
+      <p class="page-head__intro t-body-lg">{w.intro}</p>
+    </header>
+    <div class="chips mb-8" role="group" aria-label={w.filter} data-project-filter>
+      <button class="chip" type="button" aria-pressed="true" data-type="">
+        {w.all} <span class="chip__count">{n(projects.length)}</span>
+      </button>
+      {types.map((t) => (
+        <button class="chip" type="button" aria-pressed="false" data-type={t.key}>
+          <Icon name={t.icon} size={16} />
+          {d.projectTypes[t.key]} <span class="chip__count">{n(projects.filter((p) => p.data.type === t.key).length)}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <section class="container pb-section" aria-label={w.title}>
+    <div class="p-grid" data-project-grid>
+      {projects.map((p) => (
+        <ProjectCard project={p} lang={lang} headingLevel="h2" showScope />
+      ))}
+    </div>
+    <div class="empty" hidden={projects.length > 0} data-project-empty>
+      <Icon name="image" />
+      <h2 class="t-h2">{w.emptyTitle}</h2>
+      <p class="t-muted measure">{w.emptyText}</p>
+      <Btn href={links.whatsapp} icon="whatsapp" attrs={contactTrack("whatsapp", "empty_state", lang)}>
+        {d.contact.askOnWhatsapp}
+      </Btn>
+    </div>
+  </section>
+
+  <section class="container pb-section">
+    <CtaBand title={w.ctaTitle} text={w.ctaText}>
+      <Btn href={links.whatsapp} size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "cta_band", lang)}>
+        {d.contact.discussIdea}
+      </Btn>
+      <Btn href={links.tel} variant="secondary" size="lg" icon="phone" attrs={contactTrack("call", "cta_band", lang)}>
+        {d.contact.call}
+      </Btn>
+    </CtaBand>
+  </section>
+</BaseLayout>
+
+<script>
+  import { $, $$ } from "../../../scripts/dom";
+
+  const filter = $<HTMLElement>("[data-project-filter]");
+  const grid = $<HTMLElement>("[data-project-grid]");
+  const empty = $<HTMLElement>("[data-project-empty]");
+  filter?.addEventListener("click", (e) => {
+    const chip = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-type]");
+    if (!chip || !grid || !empty) return;
+    const type = chip.dataset.type ?? "";
+    $$<HTMLButtonElement>("[data-type]", filter).forEach((c) => c.setAttribute("aria-pressed", String(c === chip)));
+    const cards = $$<HTMLElement>(".p-card", grid);
+    cards.forEach((card) => (card.hidden = Boolean(type) && card.dataset.type !== type));
+    const shown = cards.filter((card) => !card.hidden).length;
+    grid.hidden = shown === 0;
+    empty.hidden = shown > 0;
+  });
+</script>

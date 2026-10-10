@@ -1,0 +1,26 @@
+---
+/** Closing call-to-action band (Design Brief §5.25), light or dark. Buttons go in the default slot. */
+interface Props {
+  title: string;
+  text?: string | undefined;
+  eyebrow?: string | undefined;
+  dark?: boolean;
+  /** Extra line under the buttons, e.g. the email address. */
+  fine?: string | undefined;
+}
+const { title, text, eyebrow, dark = false, fine } = Astro.props;
+---
+
+<div class:list={["cta-band", dark && "theme-dark"]}>
+  {eyebrow && <p class="t-eyebrow">{eyebrow}</p>}
+  <h2 class="t-display">{title}</h2>
+  {text && <p class="t-body-lg">{text}</p>}
+  <div class="btn-row">
+    <slot />
+  </div>
+  {fine && (
+    <p class="cta-band__fine" lang="en">
+      {fine}
+    </p>
+  )}
+</div>

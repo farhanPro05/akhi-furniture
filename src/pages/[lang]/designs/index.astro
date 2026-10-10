@@ -1,0 +1,9 @@
+---
+import { langParam, langPaths } from "../../../lib/paths";
+import CatalogView from "../../../views/CatalogView.astro";
+
+export const getStaticPaths = langPaths;
+const lang = langParam(Astro.params.lang);
+---
+
+<CatalogView lang={lang} />

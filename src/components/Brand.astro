@@ -1,0 +1,20 @@
+---
+/** Header lockup (design/README §3.6): AF mark + "Akhi Furniture" set in Space Grotesk + city label. */
+import { Image } from "astro:assets";
+import mark from "../assets/brand/akhi-mark.png";
+import { dict, type Lang } from "../i18n";
+import { localUrl } from "../lib/urls";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = dict(lang);
+---
+
+<a class="brand" href={localUrl(lang)} aria-label={d.nav.homeLabel}>
+  <Image src={mark} alt="" width={57} height={42} densities={[1, 2]} loading="eager" />
+  <span class="brand__word" lang="en">
+    Akhi Furniture<small lang={lang}>{d.meta.city}</small>
+  </span>
+</a>

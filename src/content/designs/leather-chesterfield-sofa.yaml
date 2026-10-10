@@ -1,0 +1,32 @@
+# AF-SOF-012 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-SOF-012
+title:
+  en: "Leather Chesterfield sofa"
+  bn: "লেদার চেস্টারফিল্ড সোফা"
+room: living
+type: sofas
+kind: design-reference
+summary:
+  en: "A classic Chesterfield sofa with deep button tufting and rolled arms."
+  bn: "গভীর বাটন টাফটিং আর গোল হাতলের ক্লাসিক চেস্টারফিল্ড সোফা।"
+material:
+  en: "Leather, button tufted"
+  bn: "লেদার, বাটন টাফটেড"
+images:
+  - photo: d-sof-012
+    pos: "50% 55%"
+    caption:
+      en: "The sofa from the front"
+      bn: "সামনে থেকে সোফা"
+  - photo: d-sof-012-b
+    pos: "50% 55%"
+    caption:
+      en: "Another angle"
+      bn: "অন্য দিক থেকে"
+hoverPhoto: d-sof-012-b
+featured: true
+order: 6
+status: published
+source: "https://www.facebook.com/photo/?fbid=1736108575189226"
+rights: pending
+clientApproved: false

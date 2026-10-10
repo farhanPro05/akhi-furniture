@@ -1,0 +1,30 @@
+# Sample entry made from the mockups and real photos. Details need AKHI's confirmation; area and year only with the customer's permission.
+title:
+  en: "White wardrobes with mirror doors"
+  bn: "আয়না দরজার সাদা ওয়ার্ডরোব"
+shortTitle:
+  en: "White mirror wardrobes"
+  bn: "আয়না দরজার সাদা ওয়ার্ডরোব"
+type: home
+scope:
+  en: "Floor-to-ceiling wardrobe wall"
+  bn: "মেঝে থেকে ছাদ পর্যন্ত ওয়ার্ডরোব"
+made:
+  en: "A floor-to-ceiling wall of white wardrobes with mirror doors that make the bedroom feel larger."
+  bn: "মেঝে থেকে ছাদ পর্যন্ত আয়না দরজার সাদা ওয়ার্ডরোব, যাতে বেডরুমটা আরও বড় লাগে।"
+cover:
+  photo: p-wardrobes
+  pos: "50% 45%"
+hero:
+  photo: p-wardrobes
+  pos: "50% 45%"
+gallery:
+  - photo: p-wardrobes
+    pos: "50% 45%"
+designs: []
+featured: false
+order: 4
+status: published
+source: "https://www.facebook.com/photo/?fbid=1739937921472958"
+rights: pending
+clientApproved: false

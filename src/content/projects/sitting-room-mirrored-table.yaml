@@ -1,0 +1,40 @@
+# Sample entry made from the mockups and real photos. Details need AKHI's confirmation; area and year only with the customer's permission.
+title:
+  en: "A sitting room set with a mirrored table"
+  bn: "আয়না বসানো টেবিলসহ বসার ঘরের সেট"
+shortTitle:
+  en: "Sitting room set"
+  bn: "বসার ঘরের সেট"
+type: home
+pieces: 4
+scope:
+  en: "Loveseat, two armchairs and a coffee table"
+  bn: "লাভসিট, দুটি আর্মচেয়ার ও কফি টেবিল"
+made:
+  en: "A carved loveseat and two oval-back armchairs in a painted finish with damask upholstery, and a mirror-panelled coffee table that reflects light around the room."
+  bn: "রঙিন ফিনিশ আর ড্যামাস্ক কাপড়ে একটি খোদাই করা লাভসিট ও দুটি ডিম্বাকৃতি পিঠের আর্মচেয়ার, সঙ্গে আয়নার প্যানেল বসানো একটি কফি টেবিল, যা ঘরজুড়ে আলো ছড়ায়।"
+cover:
+  photo: d-tbl-006-b
+  pos: "50% 62%"
+hero:
+  photo: d-tbl-006-b
+  pos: "50% 58%"
+gallery:
+  - photo: d-sof-015
+    pos: "50% 60%"
+  - photo: d-sof-015-b
+    pos: "50% 55%"
+  - photo: d-tbl-006
+    pos: "50% 55%"
+  - photo: p-sitting-detail
+    pos: "50% 50%"
+  - photo: p-sitting-chair
+    pos: "50% 50%"
+designs: ["AF-SOF-015", "AF-TBL-006"]
+testimonial: sitting-room
+featured: true
+order: 2
+status: published
+source: "https://www.facebook.com/photo/?fbid=1736102945189789"
+rights: pending
+clientApproved: false

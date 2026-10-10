@@ -1,0 +1,123 @@
+---
+/** About (Master Plan §7.8, design/pages/about.html). Honest wording: no "best in Bangladesh", no unverified guarantees. */
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Btn from "../../components/Btn.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import Icon from "../../components/Icon.astro";
+import Photo from "../../components/Photo.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import VideoBlock from "../../components/VideoBlock.astro";
+import { settings } from "../../content/settings";
+import { dict } from "../../i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { contactTrack } from "../../lib/analytics";
+import type { IconName } from "../../lib/icons";
+import { contactLinks } from "../../lib/links";
+import { langParam, langPaths } from "../../lib/paths";
+import { localUrl } from "../../lib/urls";
+
+export const getStaticPaths = langPaths;
+const lang = langParam(Astro.params.lang);
+const d = dict(lang);
+const a = d.about;
+const links = contactLinks(lang);
+const valueIcons: IconName[] = ["ruler", "hammer", "shield", "users"];
+const mosaic = [
+  { id: "ws-wardrobe-b", pos: "50% 62%" },
+  { id: "craft-carving", pos: "50% 50%" },
+  { id: "ws-sofa", pos: "50% 55%" },
+  { id: "showroom-2", pos: "50% 55%" },
+  { id: "showroom-3", pos: "50% 55%" },
+] as const;
+---
+
+<BaseLayout
+  lang={lang}
+  title={a.title}
+  description={a.description}
+  current="about"
+  crumbs={[{ label: a.title, href: localUrl(lang, "about") }]}
+>
+  <div class="container">
+    <Breadcrumbs lang={lang} current={a.title} />
+    <header class="page-head max-w-[900px]">
+      <p class="t-eyebrow">{a.eyebrow}</p>
+      <h1 class="t-display">{a.heroTitle}</h1>
+    </header>
+  </div>
+  <div class="container">
+    <Photo id="showroom-1" lang={lang} pos="50% 55%" class="r-21x9 hero-ph" eager sizes="(min-width: 1440px) 1344px, 100vw" />
+  </div>
+
+  <section class="section container" aria-labelledby="story-title">
+    <div class="split items-start">
+      <div>
+        <p class="t-eyebrow" id="story-title">
+          {a.storyEyebrow}
+        </p>
+      </div>
+      <div class="prose">
+        {a.story.map((para) => (
+          <p>{para}</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sunken" aria-labelledby="val-title">
+    <div class="container">
+      <SectionHead id="val-title" eyebrow={a.valuesEyebrow} title={a.valuesTitle} />
+      <div class="values">
+        {a.values.map((v, i) => (
+          <div class="value">
+            <Icon name={valueIcons[i]!} />
+            <h3 class="t-h3">{v.title}</h3>
+            <p>{v.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="mos-title">
+    <SectionHead id="mos-title" eyebrow={a.mosaicEyebrow} title={a.mosaicTitle} />
+    <div class="mosaic">
+      {mosaic.map((m, i) => (
+        <Photo
+          id={m.id}
+          lang={lang}
+          pos={m.pos}
+          class={i === 0 ? "r-4x3" : "r-1x1"}
+          sizes={i === 0 ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 25vw, 50vw"}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="section theme-dark" aria-labelledby="yt-title">
+    <div class="container split">
+      <VideoBlock lang={lang} video={settings.videos.tour} />
+      <div class="stack-lg">
+        <p class="t-eyebrow">{a.youtubeEyebrow}</p>
+        <h2 class="t-h1" id="yt-title">
+          {a.youtubeTitle}
+        </h2>
+        <p class="t-body-lg t-muted">{a.youtubeText}</p>
+        <Btn href={settings.social.youtube} variant="secondary" icon="youtube" external>
+          {a.visitChannel}
+        </Btn>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section">
+    <CtaBand title={a.ctaTitle} text={a.ctaText}>
+      <Btn href={links.whatsapp} size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "cta_band", lang)}>
+        {d.contact.whatsappUs}
+      </Btn>
+      <Btn href={localUrl(lang, "visit")} variant="secondary" size="lg" icon="pin">
+        {a.visitShowroom}
+      </Btn>
+    </CtaBand>
+  </section>
+</BaseLayout>

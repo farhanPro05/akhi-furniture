@@ -1,0 +1,157 @@
+---
+/** Footer (design/README §7.15): accordion groups on phones, open columns from 768px. */
+import { Image } from "astro:assets";
+import logo from "../assets/brand/akhi-logo-full.png";
+import { settings } from "../content/settings";
+import { dict, fmt, type Lang } from "../i18n";
+import { contactTrack, directionsTrack } from "../lib/analytics";
+import { getRooms } from "../lib/content";
+import { localDigits } from "../lib/digits";
+import { pageEnabled } from "../lib/launch-gate";
+import type { ContactLinks } from "../lib/links";
+import { localUrl } from "../lib/urls";
+import Icon from "./Icon.astro";
+import LangSwitch from "./LangSwitch.astro";
+
+interface Props {
+  lang: Lang;
+  path: string;
+  links: ContactLinks;
+}
+const { lang, path, links } = Astro.props;
+const d = dict(lang);
+const rooms = await getRooms();
+const showroom = settings.showrooms[0]!;
+const year = localDigits(new Date().getFullYear(), lang);
+
+const company = [
+  { label: d.footer.customFurniture, href: localUrl(lang, "custom-furniture") },
+  { label: d.footer.ourWork, href: localUrl(lang, "our-work") },
+  ...(pageEnabled.forBusiness ? [{ label: d.footer.forBusiness, href: localUrl(lang, "for-business") }] : []),
+  ...(pageEnabled.sofaRenewal ? [{ label: d.footer.renewal, href: localUrl(lang, "sofa-renewal") }] : []),
+  { label: d.footer.about, href: localUrl(lang, "about") },
+  { label: d.footer.faq, href: localUrl(lang, "faq") },
+];
+---
+
+<footer class="site-footer" data-footer>
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <Image src={logo} alt={d.meta.siteName} height={72} width={109} densities={[1, 2]} />
+        <p>{d.footer.blurb}</p>
+      </div>
+      <div class="site-footer__cols">
+        <details class="f-col">
+          <summary>
+            {d.footer.colDesigns}
+            <Icon name="chev-down" />
+          </summary>
+          <ul role="list">
+            <li>
+              <a href={localUrl(lang, "designs")}>{d.common.allDesigns}</a>
+            </li>
+            {rooms.map((r) => (
+              <li>
+                <a href={localUrl(lang, `designs/${r.id}`)}>{d.rooms[r.id as keyof typeof d.rooms]}</a>
+              </li>
+            ))}
+          </ul>
+        </details>
+        <details class="f-col">
+          <summary>
+            {d.footer.colCompany}
+            <Icon name="chev-down" />
+          </summary>
+          <ul role="list">
+            {company.map((c) => (
+              <li>
+                <a href={c.href}>{c.label}</a>
+              </li>
+            ))}
+          </ul>
+        </details>
+        <details class="f-col">
+          <summary>
+            {d.footer.colContact}
+            <Icon name="chev-down" />
+          </summary>
+          <ul role="list">
+            <li>
+              <a href={links.whatsapp} {...contactTrack("whatsapp", "footer", lang)}>
+                <Icon name="whatsapp" />
+                {d.contact.whatsapp}
+              </a>
+            </li>
+            <li>
+              <a href={links.messenger} {...contactTrack("messenger", "footer", lang)}>
+                <Icon name="messenger" />
+                {d.contact.messenger}
+              </a>
+            </li>
+            <li>
+              <a href={links.instagram} {...contactTrack("instagram", "footer", lang)}>
+                <Icon name="instagram" />
+                {d.contact.instagram}
+              </a>
+            </li>
+            <li>
+              <a href={links.tel} {...contactTrack("call", "footer", lang)}>
+                <Icon name="phone" />
+                <span class="t-num">{links.phoneDisplay}</span>
+              </a>
+            </li>
+            <li>
+              <a href={links.email} {...contactTrack("email", "footer", lang)}>
+                <Icon name="mail" />
+                <span lang="en">{settings.email}</span>
+              </a>
+            </li>
+          </ul>
+        </details>
+        <details class="f-col">
+          <summary>
+            {d.footer.colShowroom}
+            <Icon name="chev-down" />
+          </summary>
+          <ul role="list">
+            <li>
+              <p>{showroom.address[lang]}</p>
+            </li>
+            <li>
+              <p>{showroom.hours ? showroom.hours[lang] : `${d.common.openingHours}: ${d.common.toBeConfirmed}`}</p>
+            </li>
+            <li>
+              <a class="link" href={links.directions} target="_blank" rel="noopener" {...directionsTrack("footer")}>
+                <Icon name="nav" size={16} />
+                {d.contact.directions}
+              </a>
+            </li>
+          </ul>
+        </details>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <span>
+        {fmt(d.footer.copyright, { year })} ·{" "}
+        <a href={localUrl(lang, "privacy")} class="text-inherit">
+          {d.footer.privacy}
+        </a>
+      </span>
+      <div class="cluster">
+        <LangSwitch lang={lang} path={path} />
+        <div class="socials">
+          <a class="btn-icon" href={settings.social.facebook} aria-label={d.contact.facebook} rel="noopener" target="_blank">
+            <Icon name="facebook" />
+          </a>
+          <a class="btn-icon" href={settings.social.instagram} aria-label={d.contact.instagram} rel="noopener" target="_blank">
+            <Icon name="instagram" />
+          </a>
+          <a class="btn-icon" href={settings.social.youtube} aria-label={d.contact.youtube} rel="noopener" target="_blank">
+            <Icon name="youtube" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

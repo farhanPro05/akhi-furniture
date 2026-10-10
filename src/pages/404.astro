@@ -1,0 +1,39 @@
+---
+/** Bilingual "page not found" (Master Plan §6). Served by Cloudflare for any unknown URL. */
+import Btn from "../components/Btn.astro";
+import { dict } from "../i18n";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contactTrack } from "../lib/analytics";
+import { contactLinks } from "../lib/links";
+import { localUrl } from "../lib/urls";
+
+const en = dict("en").notFound;
+const bn = dict("bn").notFound;
+const links = contactLinks("en");
+---
+
+<BaseLayout lang="en" title={en.title} description={en.text} noindex path="/en/">
+  <div class="container section grid justify-items-center gap-6 pt-16 text-center">
+    <p class="big-404" aria-hidden="true">
+      404
+    </p>
+    <h1 class="t-h1">{en.heading}</h1>
+    <p class="t-body-lg t-muted measure -mt-2">{en.text}</p>
+    <p class="t-body-lg t-muted measure -mt-2" lang="bn">
+      {bn.text}
+    </p>
+    <div class="btn-row justify-center">
+      <Btn href={localUrl("en", "designs")} size="lg" icon="grid">
+        {en.browse}
+      </Btn>
+      <Btn href={links.whatsapp} variant="secondary" size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "page", "en")}>
+        {dict("en").contact.askOnWhatsapp}
+      </Btn>
+      <Btn href={localUrl("en")} variant="ghost" size="lg">
+        {en.home}
+      </Btn>
+    </div>
+    <!-- prettier-ignore -->
+    <p class="t-caption" lang="bn"><a class="link" href={localUrl("bn")}>{bn.home}</a></p>
+  </div>
+</BaseLayout>

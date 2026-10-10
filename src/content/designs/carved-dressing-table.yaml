@@ -1,0 +1,32 @@
+# AF-DRS-003 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-DRS-003
+title:
+  en: "Carved dressing table with stool"
+  bn: "টুলসহ খোদাই করা ড্রেসিং টেবিল"
+room: bedroom
+type: dressing-tables
+kind: design-reference
+summary:
+  en: "A dressing table with a carved mirror frame, drawers and a matching stool."
+  bn: "খোদাই করা আয়নার ফ্রেম, ড্রয়ার আর মিলিয়ে বানানো টুলসহ ড্রেসিং টেবিল।"
+material:
+  en: "Antique finish"
+  bn: "অ্যান্টিক ফিনিশ"
+images:
+  - photo: d-drs-003
+    pos: "50% 50%"
+    caption:
+      en: "The dressing table and stool"
+      bn: "ড্রেসিং টেবিল ও টুল"
+  - photo: d-drs-003-b
+    pos: "50% 50%"
+    caption:
+      en: "Another angle"
+      bn: "অন্য দিক থেকে"
+hoverPhoto: d-drs-003-b
+featured: true
+order: 8
+status: published
+source: "https://www.facebook.com/photo/?fbid=1746472074152876"
+rights: pending
+clientApproved: false

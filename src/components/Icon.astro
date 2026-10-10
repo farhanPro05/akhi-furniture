@@ -1,0 +1,31 @@
+---
+import { brandIcons, lineIcons, type IconName } from "../lib/icons";
+
+interface Props {
+  name: IconName;
+  size?: 16 | 20 | 24;
+  class?: string;
+}
+const { name, size = 20, class: className } = Astro.props;
+const brand = name in brandIcons ? brandIcons[name as keyof typeof brandIcons] : undefined;
+const line = brand ? undefined : lineIcons[name as keyof typeof lineIcons];
+---
+
+{brand ? (
+  <svg
+    class:list={["icon icon--brand", size !== 20 && `icon--${size}`, className]}
+    viewBox="-2.5 -2.5 29 29"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path d={brand} />
+  </svg>
+) : (
+  <svg
+    class:list={["icon", size !== 20 && `icon--${size}`, className]}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    focusable="false"
+    set:html={line}
+  />
+)}

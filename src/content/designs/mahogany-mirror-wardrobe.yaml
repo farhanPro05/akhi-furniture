@@ -1,0 +1,32 @@
+# AF-WRD-005 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-WRD-005
+title:
+  en: "Mahogany wardrobe with mirror doors"
+  bn: "আয়না দরজার মেহগনি ওয়ার্ডরোব"
+room: bedroom
+type: wardrobes
+kind: design-reference
+summary:
+  en: "A tall wardrobe in a rich mahogany finish with full-length mirror doors."
+  bn: "গাঢ় মেহগনি ফিনিশের উঁচু ওয়ার্ডরোব, সঙ্গে পুরো দৈর্ঘ্যের আয়না দরজা।"
+material:
+  en: "Mahogany finish, mirror doors"
+  bn: "মেহগনি ফিনিশ, আয়না দরজা"
+images:
+  - photo: c-wrd-005
+    pos: "50% 50%"
+    caption:
+      en: "The wardrobe on its own"
+      bn: "শুধু ওয়ার্ডরোবটি"
+  - photo: d-wrd-005-b
+    pos: "50% 50%"
+    caption:
+      en: "Detail of the doors"
+      bn: "দরজার খুঁটিনাটি"
+hoverPhoto: d-wrd-005-b
+featured: true
+order: 4
+status: published
+source: "https://www.facebook.com/photo/?fbid=1739565521510198"
+rights: pending
+clientApproved: false

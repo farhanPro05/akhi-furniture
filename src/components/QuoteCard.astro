@@ -1,0 +1,66 @@
+---
+/**
+ * Review card (Design Brief §5.22): the quote in its original language, with a
+ * "Show translation" toggle when it differs from the page language.
+ * Sample reviews (preview builds only) carry a visible "Sample" tag.
+ */
+import { dict, type Lang } from "../i18n";
+import type { Testimonial } from "../lib/content";
+import Icon from "./Icon.astro";
+
+interface Props {
+  testimonial: Testimonial;
+  lang: Lang;
+  large?: boolean;
+}
+const { testimonial, lang, large = false } = Astro.props;
+const d = dict(lang);
+const t = testimonial.data;
+const translate = t.quoteLang !== lang;
+---
+
+<figure class:list={["quote-card", large && "quote-card--lg"]}>
+  <span class="quote-card__mark" aria-hidden="true">
+    “
+  </span>
+  <blockquote lang={t.quoteLang}>{t.quote}</blockquote>
+  {translate && (
+    <p class="quote-card__tr" lang={lang} id={`tr-${testimonial.id}`}>
+      {t.translation}
+    </p>
+  )}
+  <figcaption class="quote-card__foot">
+    <span class="avatar" aria-hidden="true">
+      {t.initials}
+    </span>
+    <span class="quote-card__who">
+      <b>{t.name[lang]}</b>
+      <span>{t.context[lang]}</span>
+    </span>
+    {t.status === "sample" && <span class="sample-tag">{d.meta.sample}</span>}
+  </figcaption>
+  {(translate || t.sourceUrl) && (
+    <div class="cluster">
+      {translate && (
+        <button
+          class="text-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls={`tr-${testimonial.id}`}
+          data-translate
+          data-show={d.common.showTranslation}
+          data-hide={d.common.hideTranslation}
+        >
+          <Icon name="translate" />
+          <span>{d.common.showTranslation}</span>
+        </button>
+      )}
+      {t.sourceUrl && (
+        <a class="text-btn" href={t.sourceUrl} target="_blank" rel="noopener">
+          {d.common.viewOnFacebook}
+          <Icon name="external" size={16} />
+        </a>
+      )}
+    </div>
+  )}
+</figure>

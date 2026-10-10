@@ -1,0 +1,31 @@
+---
+/**
+ * Plain labelled block where no approved AKHI photo exists yet (CLAUDE.md §5: never stock or AI images).
+ * Preview builds spell out what photo belongs here; production shows only a quiet icon.
+ */
+import { dict, type Lang } from "../i18n";
+import { PREVIEW } from "../lib/mode";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+  label: string;
+  ratio?: string | undefined;
+  class?: string | undefined;
+  variant?: "alt" | "scene" | "map";
+  attrs?: Record<string, string | number | undefined>;
+}
+const { lang, label, ratio, class: className, variant, attrs = {} } = Astro.props;
+const d = dict(lang);
+---
+
+<div class:list={["ph", variant && `ph--${variant}`, className]} style={ratio ? `--ratio: ${ratio}` : undefined} {...attrs}>
+  {PREVIEW ? (
+    <span class="ph__label">
+      <Icon name="image" />
+      {d.meta.photoPlaceholder} · {label}
+    </span>
+  ) : (
+    <Icon name="image" class="ph__icon" />
+  )}
+</div>

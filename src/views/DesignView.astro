@@ -1,0 +1,235 @@
+---
+/**
+ * Design detail (Master Plan §7.3, design/pages/design-detail.html).
+ * Desktop: gallery ~60% and info panel ~40%, both sticky so the shorter column stays in view.
+ * Phones: swipe gallery, then the info; a sticky bar reads "Ask about AF-…".
+ */
+import Btn from "../components/Btn.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import ContactBlock from "../components/ContactBlock.astro";
+import CtaBand from "../components/CtaBand.astro";
+import CustomList from "../components/CustomList.astro";
+import DesignCard from "../components/DesignCard.astro";
+import FaqList from "../components/FaqList.astro";
+import Gallery from "../components/Gallery.astro";
+import Icon from "../components/Icon.astro";
+import Photo from "../components/Photo.astro";
+import SectionHead from "../components/SectionHead.astro";
+import Swatches from "../components/Swatches.astro";
+import VideoBlock from "../components/VideoBlock.astro";
+import { settings } from "../content/settings";
+import { getPhoto } from "../data/photos";
+import { dict, fmt, type Lang } from "../i18n";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contactTrack } from "../lib/analytics";
+import { getDesigns, getFaqs, getProjects, type Design } from "../lib/content";
+import { croppedImage } from "../lib/images";
+import type { IconName } from "../lib/icons";
+import { contactLinks } from "../lib/links";
+import { absoluteUrl, localUrl } from "../lib/urls";
+
+interface Props {
+  lang: Lang;
+  design: Design;
+}
+const { lang, design } = Astro.props;
+const d = dict(lang);
+const data = design.data;
+const name = data.title[lang];
+const path = localUrl(lang, `designs/${design.id}`);
+const url = absoluteUrl(path);
+const links = contactLinks(lang, { kind: "design", code: data.code, name, url });
+
+// Related: same room first, then same type, then anything else
+const others = (await getDesigns()).filter((x) => x.id !== design.id);
+const score = (x: Design) => (x.data.type === data.type ? 2 : 0) + (x.data.room === data.room ? 1 : 0);
+const related = [...others].sort((a, b) => score(b) - score(a)).slice(0, 4);
+const seenIn = (await getProjects()).find((p) => p.data.designs.includes(data.code));
+const faqs = await getFaqs("design");
+
+const customize = data.customize
+  ? data.customize.map((c) => ({ icon: c.icon as IconName, title: c.title[lang], text: c.text[lang] }))
+  : d.design.customizeDefault.map((c, i) => ({ ...c, icon: (["ruler", "wood", "finish", "sparkle"] as IconName[])[i]! }));
+
+const firstPhoto = getPhoto(data.images[0]!.photo);
+const og = firstPhoto.publishable ? (await croppedImage(firstPhoto.src, 1200, 630)).src : undefined;
+const crumbs = [
+  { label: d.nav.designs, href: localUrl(lang, "designs") },
+  { label: d.rooms[data.room], href: localUrl(lang, `designs/${data.room}`) },
+  { label: name, href: path },
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${name} (${data.code})`}
+  description={data.summary[lang]}
+  current="designs"
+  sticky="design"
+  message={{ kind: "design", code: data.code, name, url }}
+  design={{ code: data.code, url }}
+  ogImage={og}
+  crumbs={crumbs}
+>
+  <div class="container" data-design-view data-code={data.code} data-category={data.type}>
+    <Breadcrumbs lang={lang} trail={crumbs.slice(0, 2)} current={name} />
+
+    <div class="detail">
+      <Gallery lang={lang} images={data.images} />
+
+      <aside class="info-panel" aria-labelledby="design-title">
+        <div class="info-panel__head">
+          <p class="t-caption">
+            {d.rooms[data.room]} · {d.types[data.type]}
+          </p>
+          <h1 class="t-h1" id="design-title">
+            {name}
+          </h1>
+          <div class="info-panel__codes">
+            <button
+              class="code-chip"
+              type="button"
+              aria-label={fmt(d.contact.copyCode, { code: data.code })}
+              data-copy-code={data.code}
+              data-toast={fmt(d.contact.toastCopied, { code: data.code })}
+              data-toast-fail={fmt(d.contact.toastCopyFailed, { code: data.code })}
+              data-umami-event="code_copy"
+              data-umami-event-design_code={data.code}
+            >
+              <span lang="en">{data.code}</span>
+              <Icon name="copy" class="icon-copy" />
+              <Icon name="check" class="icon-check" />
+            </button>
+            <span class="tag">{d.common.customizable}</span>
+          </div>
+          <p class="t-body t-muted">{data.summary[lang]}</p>
+        </div>
+
+        <ContactBlock lang={lang} links={links} code={data.code} url={url} />
+
+        <div class="panel-section">
+          <h2>{d.design.customizeTitle}</h2>
+          <CustomList items={customize} />
+        </div>
+
+        <div class="panel-section">
+          <h2>{d.design.materialsTitle}</h2>
+          {data.swatches ? (
+            <Swatches lang={lang} items={data.swatches.map((s) => ({ name: s.name, detail: s.part, color: s.color }))} />
+          ) : (
+            <p class="t-body t-muted">
+              {data.material ? `${data.material[lang]}. ` : ""}
+              {d.design.materialsFallback}
+            </p>
+          )}
+        </div>
+
+        <div class="panel-section">
+          <h2>{d.design.sizeTitle}</h2>
+          <dl class="facts">
+            <div>
+              <dt>{d.design.sizeStandard}</dt>
+              <dd>{data.size ? data.size[lang] : d.design.sizeUnknown}</dd>
+            </div>
+            <div>
+              <dt>{d.design.sizeCustom}</dt>
+              <dd>{d.design.sizeCustomText}</dd>
+            </div>
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Making-of video + where to see it -->
+  <section class="section section--sunken" aria-labelledby="vid-title">
+    <div class="container split">
+      <VideoBlock lang={lang} video={data.youtubeId ? { ...settings.videos.making, youtubeId: data.youtubeId } : settings.videos.making} />
+      <div class="stack-lg">
+        <p class="t-eyebrow">{d.design.makingEyebrow}</p>
+        <h2 class="t-h1" id="vid-title">
+          {d.design.makingTitle}
+        </h2>
+        <p class="t-body-lg t-muted">{d.design.makingText}</p>
+        {seenIn ? (
+          <a class="mini-card" href={localUrl(lang, `our-work/${seenIn.id}`)}>
+            <Photo id={seenIn.data.cover.photo} lang={lang} pos={seenIn.data.cover.pos} sizes="120px" widths={[240]} alt="" />
+            <div>
+              <p class="t-caption">{d.design.seenInEyebrow}</p>
+              <p class="t-h3">{seenIn.data.title[lang]}</p>
+            </div>
+          </a>
+        ) : (
+          <a class="mini-card" href={localUrl(lang, "visit")}>
+            <Photo id="showroom-2" lang={lang} sizes="120px" widths={[240]} alt="" />
+            <div>
+              <p class="t-caption">{d.design.onDisplayEyebrow}</p>
+              <p class="t-h3">{d.design.onDisplayTitle}</p>
+            </div>
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section container" aria-labelledby="rel-title">
+      <SectionHead
+        id="rel-title"
+        eyebrow={d.design.relatedEyebrow}
+        title={d.design.relatedTitle}
+        action={{ label: d.common.allDesigns, href: localUrl(lang, "designs") }}
+      />
+      <div class="swipe-row swipe-row--grid cols-4">
+        {related.map((x) => (
+          <DesignCard
+            design={x}
+            lang={lang}
+            sizes="(min-width: 1440px) 330px, (min-width: 1200px) 25vw, (min-width: 768px) 33vw, (min-width: 600px) 44vw, 72vw"
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  {faqs.length > 0 && (
+    <section class="section section--sunken" aria-labelledby="faq-title">
+      <div class="container split items-start">
+        <div class="stack-lg">
+          <p class="t-eyebrow">{d.design.faqEyebrow}</p>
+          <h2 class="t-h1" id="faq-title">
+            {d.design.faqTitle}
+          </h2>
+          <a class="link-arrow" href={localUrl(lang, "faq")}>
+            {d.common.allQuestions}
+            <Icon name="arrow" />
+          </a>
+        </div>
+        <FaqList lang={lang} items={faqs} />
+      </div>
+    </section>
+  )}
+
+  <section class="container section">
+    <CtaBand dark title={d.design.ctaTitle} text={fmt(d.design.ctaText, { code: data.code })}>
+      <Btn href={links.whatsapp} size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "cta_band", lang, data.code)}>
+        {d.contact.askThisDesignShort}
+      </Btn>
+      <Btn href={links.tel} variant="secondary" size="lg" icon="phone" attrs={contactTrack("call", "cta_band", lang, data.code)}>
+        {d.contact.call}
+      </Btn>
+    </CtaBand>
+  </section>
+</BaseLayout>
+
+<script>
+  import { $, trackEvent } from "../scripts/dom";
+
+  // design_view (Master Plan §16): sent once Umami has loaded
+  const view = $<HTMLElement>("[data-design-view]");
+  if (view) {
+    const send = () => trackEvent("design_view", { design_code: view.dataset.code ?? "", category: view.dataset.category ?? "" });
+    if (window.umami) send();
+    else window.addEventListener("load", send, { once: true });
+  }
+</script>

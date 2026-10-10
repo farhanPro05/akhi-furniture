@@ -1,0 +1,145 @@
+---
+/**
+ * Page-level contact UI (design/README §7.4–7.6):
+ * - sticky contact bar for phones and tablet portrait (general or design variant), hidden while the footer shows
+ * - channel chooser: bottom sheet on phones, centred dialog from 768px; WhatsApp first and recommended
+ * - toast: "Design code … copied" after Messenger/Instagram copy the code first
+ */
+import { dict, fmt, type Lang } from "../i18n";
+import { contactTrack, directionsTrack } from "../lib/analytics";
+import { clipboardText } from "../lib/contact";
+import type { ContactLinks } from "../lib/links";
+import { settings } from "../content/settings";
+import Icon from "./Icon.astro";
+
+export type StickyVariant = "general" | "design" | "none";
+
+interface Props {
+  lang: Lang;
+  links: ContactLinks;
+  sticky: StickyVariant;
+  /** On design pages: the design code and the page's absolute URL. */
+  design?: { code: string; url: string } | undefined;
+}
+const { lang, links, sticky, design } = Astro.props;
+const d = dict(lang);
+const code = design?.code;
+const copy = design ? clipboardText(design.code, design.url) : undefined;
+const area = settings.showrooms[0]!.name[lang];
+const copyAttrs = copy ? { "data-copy": copy, "data-toast": fmt(d.contact.toastCopied, { code: code! }) } : {};
+---
+
+{sticky !== "none" && (
+  <div class="sticky-bar" role="region" aria-label={d.contact.region} data-sticky-bar>
+    {sticky === "general" ? (
+      <>
+        <a class="btn btn--secondary" href={links.tel} {...contactTrack("call", "sticky_bar", lang)}>
+          <Icon name="phone" />
+          {d.contact.call}
+        </a>
+        <a class="btn btn--primary" href={links.whatsapp} {...contactTrack("whatsapp", "sticky_bar", lang)}>
+          <Icon name="whatsapp" />
+          {d.contact.whatsappUs}
+        </a>
+      </>
+    ) : (
+      <a class="btn btn--primary" href={links.whatsapp} {...contactTrack("whatsapp", "sticky_bar", lang, code)}>
+        <Icon name="whatsapp" />
+        {fmt(d.contact.askDesignShort, { code: code ?? "" })}
+      </a>
+    )}
+    <button class="btn-icon" type="button" aria-label={d.contact.more} aria-haspopup="dialog" aria-controls="channel-sheet" data-sheet-open>
+      <Icon name="more" />
+    </button>
+  </div>
+)}
+
+<div class="overlay" data-sheet-close hidden></div>
+<div class="sheet" id="channel-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" data-sheet hidden>
+  <div class="sheet__grab"></div>
+  <div class="sheet__head">
+    <div>
+      <h2 class="t-h2" id="sheet-title">
+        {d.contact.sheetTitle}
+      </h2>
+      <p>{d.contact.sheetSub}</p>
+    </div>
+    <button class="btn-icon btn-icon--bare" type="button" aria-label={d.nav.close} data-sheet-close>
+      <Icon name="x" />
+    </button>
+  </div>
+  <div class="channel-list">
+    <a class="channel channel--rec" href={links.whatsapp} {...contactTrack("whatsapp", "chooser", lang, code)}>
+      <span class="channel__ico">
+        <Icon name="whatsapp" />
+      </span>
+      <span>
+        <b>
+          {d.contact.whatsapp}
+          <span class="badge-rec">{d.contact.recommended}</span>
+        </b>
+        <span>{code ? d.contact.hintWhatsappDesign : d.contact.hintWhatsappGeneral}</span>
+      </span>
+      <Icon name="chev-right" />
+    </a>
+    <a
+      class="channel"
+      href={links.messenger}
+      target="_blank"
+      rel="noopener"
+      {...copyAttrs}
+      {...contactTrack("messenger", "chooser", lang, code)}
+    >
+      <span class="channel__ico">
+        <Icon name="messenger" />
+      </span>
+      <span>
+        <b>{d.contact.messenger}</b>
+        <span>{code ? d.contact.hintMessengerDesign : d.contact.hintMessengerGeneral}</span>
+      </span>
+      <Icon name="chev-right" />
+    </a>
+    <a
+      class="channel"
+      href={links.instagram}
+      target="_blank"
+      rel="noopener"
+      {...copyAttrs}
+      {...contactTrack("instagram", "chooser", lang, code)}
+    >
+      <span class="channel__ico">
+        <Icon name="instagram" />
+      </span>
+      <span>
+        <b>{d.contact.instagram}</b>
+        <span>{code ? d.contact.hintInstagramDesign : d.contact.hintInstagramGeneral}</span>
+      </span>
+      <Icon name="chev-right" />
+    </a>
+    <a class="channel" href={links.tel} {...contactTrack("call", "chooser", lang, code)}>
+      <span class="channel__ico">
+        <Icon name="phone" />
+      </span>
+      <span>
+        <b>{d.contact.call}</b>
+        <span class="t-num">{links.phoneDisplay}</span>
+      </span>
+      <Icon name="chev-right" />
+    </a>
+    <a class="channel" href={links.directions} target="_blank" rel="noopener" {...directionsTrack("chooser")}>
+      <span class="channel__ico">
+        <Icon name="pin" />
+      </span>
+      <span>
+        <b>{d.contact.directions}</b>
+        <span>{fmt(d.contact.hintDirections, { area })}</span>
+      </span>
+      <Icon name="chev-right" />
+    </a>
+  </div>
+</div>
+
+<div class="toast" role="status" aria-live="polite" data-toast-el>
+  <Icon name="check-circle" />
+  <span data-toast-text></span>
+</div>

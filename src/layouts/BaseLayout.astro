@@ -1,0 +1,117 @@
+---
+/**
+ * Every page: <html lang>, SEO head, fonts, header, footer, sticky contact bar, channel chooser, toast.
+ */
+import "../styles/global.css";
+import ContactUI, { type StickyVariant } from "../components/ContactUI.astro";
+import Footer from "../components/Footer.astro";
+import Header, { type NavKey } from "../components/Header.astro";
+import Seo from "../components/Seo.astro";
+import { settings } from "../content/settings";
+import { dict, type Lang } from "../i18n";
+import type { MessageContext } from "../lib/contact";
+import { assertLaunchReady } from "../lib/launch-gate";
+import { contactLinks } from "../lib/links";
+import { PREVIEW } from "../lib/mode";
+import { breadcrumbList, furnitureStore, type Crumb } from "../lib/schema";
+
+assertLaunchReady();
+
+interface Props {
+  lang: Lang;
+  title?: string | undefined;
+  description: string;
+  current?: NavKey;
+  sticky?: StickyVariant;
+  message?: MessageContext;
+  /** Design pages: code + absolute URL for the sticky bar, chooser and clipboard. */
+  design?: { code: string; url: string } | undefined;
+  ogImage?: string | undefined;
+  ogType?: "website" | "article";
+  /** Breadcrumb trail after "Home"; also emitted as BreadcrumbList JSON-LD. */
+  crumbs?: Crumb[];
+  jsonLd?: object[];
+  noindex?: boolean;
+  /** Override for pages outside /en/ and /bn/ (the 404). */
+  path?: string;
+}
+const {
+  lang,
+  title,
+  description,
+  current = "",
+  sticky = "general",
+  message = { kind: "general" },
+  design,
+  ogImage = "/og-default.jpg",
+  ogType,
+  crumbs,
+  jsonLd = [],
+  noindex,
+  path: pathOverride,
+} = Astro.props;
+const d = dict(lang);
+const path = pathOverride ?? Astro.url.pathname;
+const links = contactLinks(lang, message);
+const structured = [furnitureStore(lang), ...(crumbs ? [breadcrumbList(lang, crumbs)] : []), ...jsonLd];
+const fonts =
+  lang === "bn"
+    ? ["anek-bangla-bengali-500-normal", "hind-siliguri-bengali-400-normal"]
+    : ["space-grotesk-latin-500-normal", "inter-latin-400-normal"];
+---
+
+<!doctype html>
+<html lang={lang} dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#faf6f0" />
+    <meta name="format-detection" content="telephone=no" />
+    {fonts.map((f) => (
+      <link rel="preload" href={`/fonts/${f}.woff2`} as="font" type="font/woff2" crossorigin />
+    ))}
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <Seo
+      lang={lang}
+      title={title}
+      description={description}
+      path={path}
+      ogImage={ogImage}
+      ogType={ogType}
+      jsonLd={structured}
+      noindex={noindex}
+    />
+    {settings.analytics.umamiWebsiteId && (
+      <script
+        is:inline
+        defer
+        src="https://cloud.umami.is/script.js"
+        data-website-id={settings.analytics.umamiWebsiteId}
+        data-domains={settings.analytics.domains}
+      />
+    )}
+  </head>
+  <body class:list={[sticky !== "none" && "has-sticky"]}>
+    <a class="skip-link" href="#main">
+      {d.meta.skip}
+    </a>
+    {PREVIEW && (
+      <div class="preview-bar" role="note">
+        <div class="container">
+          <b>{d.meta.previewLabel}</b> · {d.meta.previewText}
+        </div>
+      </div>
+    )}
+    <Header lang={lang} path={path} current={current} links={links} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} path={path} links={links} />
+    <ContactUI lang={lang} links={links} sticky={sticky} design={design} />
+    <script>
+      import "../scripts/shell";
+    </script>
+  </body>
+</html>

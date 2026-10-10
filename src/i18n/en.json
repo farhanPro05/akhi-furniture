@@ -1,0 +1,704 @@
+{
+  "meta": {
+    "siteName": "Akhi Furniture",
+    "city": "Dhaka",
+    "ogLocale": "en_US",
+    "defaultDescription": "Custom furniture and a showroom in Dhaka. Beds, sofas, dining sets and office furniture, made to your size and style.",
+    "skip": "Skip to content",
+    "previewLabel": "Preview build",
+    "previewText": "Photos and some details are still waiting for Akhi Furniture's approval.",
+    "sample": "Sample",
+    "photoPlaceholder": "AKHI photo"
+  },
+  "nav": {
+    "home": "Home",
+    "designs": "Designs",
+    "custom": "Custom Furniture",
+    "work": "Our Work",
+    "business": "For Business",
+    "about": "About",
+    "visit": "Visit Us",
+    "menu": "Menu",
+    "close": "Close",
+    "main": "Main",
+    "language": "Language",
+    "breadcrumb": "Breadcrumb",
+    "byRoom": "By room",
+    "byType": "By type",
+    "viewAll": "View all designs",
+    "featured": "Featured design",
+    "homeLabel": "Akhi Furniture home"
+  },
+  "rooms": {
+    "bedroom": "Bedroom",
+    "living": "Living",
+    "dining": "Dining",
+    "office": "Office"
+  },
+  "types": {
+    "beds": "Beds",
+    "sofas": "Sofas",
+    "dining-sets": "Dining sets",
+    "wardrobes": "Wardrobes & storage",
+    "dressing-tables": "Dressing tables",
+    "showcases": "Showcases & cabinets",
+    "tables": "Tables",
+    "chairs": "Chairs",
+    "office": "Office"
+  },
+  "projectTypes": {
+    "home": "Home",
+    "office": "Office",
+    "renewal": "Renewal"
+  },
+  "contact": {
+    "whatsappUs": "WhatsApp us",
+    "whatsapp": "WhatsApp",
+    "messenger": "Messenger",
+    "instagram": "Instagram",
+    "call": "Call",
+    "email": "Email",
+    "emailUs": "Email us",
+    "facebook": "Facebook",
+    "youtube": "YouTube",
+    "directions": "Get directions",
+    "discussIdea": "Discuss your idea on WhatsApp",
+    "askOnWhatsapp": "Ask on WhatsApp",
+    "askDesignShort": "Ask about {code}",
+    "askThisDesign": "Ask about this design on WhatsApp",
+    "askThisDesignShort": "Ask about this design",
+    "more": "More ways to reach us",
+    "region": "Contact",
+    "sheetTitle": "Choose how to reach us",
+    "sheetSub": "Pick the app you already use.",
+    "recommended": "Recommended",
+    "fastest": "Fastest",
+    "hintWhatsappDesign": "Your message opens with this design's code",
+    "hintWhatsappGeneral": "Easiest way to send photos and sizes",
+    "hintMessengerDesign": "We copy the design code for you to paste",
+    "hintMessengerGeneral": "Chat with our Facebook Page",
+    "hintInstagramDesign": "Same as Messenger: the code is copied first",
+    "hintInstagramGeneral": "Message us on Instagram",
+    "hintDirections": "{area} · opens Google Maps",
+    "toastCopied": "Design code {code} copied, paste it in your message",
+    "toastCopyFailed": "Could not copy automatically. The design code is {code}",
+    "copyCode": "Copy design code {code}",
+    "blockHint": "Your WhatsApp message will already include the code {code} and a link to this page. For Messenger and Instagram we copy the code for you to paste."
+  },
+  "messages": {
+    "general": "Hello Akhi Furniture! I found you through your website and would like to discuss a furniture idea.",
+    "design": "Hello Akhi Furniture! I saw design {code} ({name}) on your website and would like to know more.",
+    "project": "Hello Akhi Furniture! I saw your project \"{name}\" on your website and would like something similar.",
+    "business": "Hello Akhi Furniture! I would like to discuss furniture for our office.",
+    "renewal": "Hello Akhi Furniture! I would like to renew my sofa. I will send you a photo.",
+    "brief": "Hello Akhi Furniture! I'd like to discuss a custom piece from your website.",
+    "sentFrom": "— sent from akhifurniture.com"
+  },
+  "common": {
+    "address": "Address",
+    "openingHours": "Opening hours",
+    "phone": "Phone",
+    "toBeConfirmed": "To be confirmed",
+    "customizable": "Customizable",
+    "material": "Material",
+    "allDesigns": "All designs",
+    "viewAllDesigns": "View all designs",
+    "seeAllProjects": "See all projects",
+    "allProjects": "All projects",
+    "moreProjects": "More projects",
+    "allQuestions": "All questions",
+    "showTranslation": "Show translation",
+    "hideTranslation": "Hide translation",
+    "viewOnFacebook": "View on Facebook",
+    "readReviews": "Read reviews on Facebook",
+    "playVideo": "Play video: {title}",
+    "watchOnYoutube": "Watch on YouTube",
+    "photos": "Photos",
+    "gallery": "Photo gallery, swipe for more",
+    "viewFullScreen": "View full screen",
+    "pinchToZoom": "Pinch to zoom",
+    "previous": "Previous",
+    "next": "Next",
+    "showroomName": "Akhi Furniture showroom",
+    "mapPreview": "Map: open the showroom location in Google Maps",
+    "noPhotoYet": "no photo yet"
+  },
+  "footer": {
+    "blurb": "Custom furniture and a showroom in Dhaka. Beds, sofas, dining sets and office furniture, made to your size.",
+    "colDesigns": "Designs",
+    "colCompany": "Akhi Furniture",
+    "colContact": "Talk to us",
+    "colShowroom": "Showroom",
+    "customFurniture": "Custom furniture",
+    "ourWork": "Our work",
+    "forBusiness": "For business",
+    "renewal": "Sofa renewal",
+    "about": "About",
+    "faq": "FAQ",
+    "privacy": "Privacy",
+    "copyright": "© {year} Akhi Furniture. All work shown is our own."
+  },
+  "home": {
+    "title": "Custom furniture in Dhaka",
+    "description": "Beds, sofas, dining sets and office furniture, made to your size and style in our Dhaka workshop. Browse real work and message us on WhatsApp.",
+    "heroEyebrow": "Custom furniture · Dhaka",
+    "heroTitle": "Furniture made for your space.",
+    "heroText": "Beds, sofas, dining sets and office furniture, made to your size and style.",
+    "exploreDesigns": "Explore designs",
+    "trust": [
+      {
+        "title": "Made to your size",
+        "text": "Every piece built to your measurements"
+      },
+      {
+        "title": "Home & office",
+        "text": "From bedrooms to boardrooms"
+      },
+      {
+        "title": "Showroom in Bashundhara",
+        "text": "Come and see the work in person"
+      },
+      {
+        "title": "36K+ on Facebook",
+        "text": "Follow along as we build"
+      }
+    ],
+    "roomsEyebrow": "Browse by room",
+    "roomsTitle": "Find designs for every room",
+    "featuredEyebrow": "Featured designs",
+    "featuredTitle": "Pieces we are proud of",
+    "featuredIntro": "Real work from our workshop. Each one can be changed to fit your room.",
+    "measureEyebrow": "Made to your measure",
+    "measureTitle": "Your size, your wood, your finish",
+    "measureText": "Seen a design you like but your room is different? We change the size, the materials and the details, so the piece fits your space and the way you live.",
+    "measureList": [
+      {
+        "title": "Size",
+        "text": "Made to the exact measurements of your room"
+      },
+      {
+        "title": "Wood & material",
+        "text": "Choose from the woods we work with"
+      },
+      {
+        "title": "Finish & colour",
+        "text": "Natural, walnut, dark or painted finishes"
+      },
+      {
+        "title": "Fabric",
+        "text": "Pick the upholstery for sofas, beds and chairs"
+      },
+      {
+        "title": "Storage & details",
+        "text": "Drawers, shelves, carving and hardware"
+      }
+    ],
+    "measureLink": "How custom furniture works",
+    "howEyebrow": "How it works",
+    "howTitle": "How custom ordering works",
+    "howIntro": "Four simple steps from an idea on your phone to furniture in your home.",
+    "steps": [
+      {
+        "title": "Share your idea",
+        "text": "Send us a photo, a design code or a rough sketch on WhatsApp."
+      },
+      {
+        "title": "Consult & measure",
+        "text": "We talk through the details and take measurements of your space."
+      },
+      {
+        "title": "Design & quote",
+        "text": "You get a clear design and an exact price before anything is made."
+      },
+      {
+        "title": "Craft & deliver",
+        "text": "Our workshop builds your piece and we deliver it to your door."
+      }
+    ],
+    "projectsEyebrow": "Selected projects",
+    "projectsTitle": "Homes and offices we have furnished",
+    "workshopEyebrow": "From the workshop",
+    "workshopTitle": "Built by hand, one piece at a time",
+    "workshopText": "Watch our craftsmen cut, join, carve and finish real orders. What you see on our channel is what we make for you.",
+    "workshopVideo": "From the workshop",
+    "watchMore": "Watch more on YouTube",
+    "reviewsEyebrow": "What customers say",
+    "reviewsTitle": "In our customers' words",
+    "businessEyebrow": "For business",
+    "businessTitle": "Furnishing an office?",
+    "businessText": "Conference tables, executive desks, workstations and reception furniture, made for your floor plan and delivered on your schedule.",
+    "businessLink": "Furniture for business",
+    "visitEyebrow": "Visit the showroom",
+    "visitTitle": "See the work up close",
+    "ctaTitle": "Have something different in mind?",
+    "ctaText": "Send us a photo, a sketch or just an idea. We will help you shape it into a piece made for your space."
+  },
+  "designs": {
+    "title": "Designs",
+    "description": "Beds, sofas, dining sets, wardrobes and more from the Akhi Furniture workshop in Dhaka. Every design can be made to your size, wood and finish.",
+    "intro": "Real pieces from our workshop. Every design can be made to your size, wood and finish. Tap one to see details and ask us about it.",
+    "roomFilter": "Room",
+    "typeFilter": "Type",
+    "allRooms": "All rooms",
+    "allTypes": "All types",
+    "count": "Showing {count} designs · featured first",
+    "countOne": "Showing 1 design · featured first",
+    "countRoom": "Showing {count} designs in {room}",
+    "countRoomOne": "Showing 1 design in {room}",
+    "countNone": "No designs match these filters",
+    "clear": "Clear filters",
+    "emptyTitle": "No designs in this filter yet",
+    "emptyText": "We make far more than we show here. Tell us what you are looking for and we will send photos of similar work.",
+    "loadMore": "Load more designs",
+    "ctaEyebrow": "Can't find it?",
+    "ctaTitle": "We can make what you have in mind",
+    "ctaText": "Send a photo from anywhere, or describe your idea. Most of our work is made to order.",
+    "ctaCustom": "How custom works",
+    "roomTitle": {
+      "bedroom": "Bedroom designs",
+      "living": "Living room designs",
+      "dining": "Dining designs",
+      "office": "Office designs"
+    },
+    "roomIntro": {
+      "bedroom": "Beds, wardrobes and dressing tables, made to the size of your room. Pick a design and ask us about it, or tell us what you need.",
+      "living": "Sofas, armchairs, showcases and tables for the room where guests gather. Pick a design and ask us about it, or tell us what you need.",
+      "dining": "Dining tables and chairs sized for your family and your room. Pick a design and ask us about it, or tell us what you need.",
+      "office": "Desks, conference tables and storage for offices of every size. Tell us about your space and we will send ideas."
+    },
+    "roomDescription": {
+      "bedroom": "Beds, wardrobes and dressing tables by Akhi Furniture in Dhaka, made to your size, wood and finish.",
+      "living": "Sofas, armchairs, showcases and tables by Akhi Furniture in Dhaka, made to your size, wood and finish.",
+      "dining": "Dining tables and chairs by Akhi Furniture in Dhaka, made to your size, wood and finish.",
+      "office": "Office desks, conference tables and storage by Akhi Furniture in Dhaka, made for your floor plan."
+    },
+    "roomIn": {
+      "bedroom": "Bedroom",
+      "living": "Living",
+      "dining": "Dining",
+      "office": "Office"
+    }
+  },
+  "design": {
+    "customizeTitle": "What you can customize",
+    "customizeDefault": [
+      {
+        "title": "Size",
+        "text": "Made to fit your room"
+      },
+      {
+        "title": "Wood & material",
+        "text": "Options discussed during consultation"
+      },
+      {
+        "title": "Finish & colour",
+        "text": "Choose the polish or colour you like"
+      },
+      {
+        "title": "Details",
+        "text": "Carving, handles, storage and fabric"
+      }
+    ],
+    "materialsTitle": "Materials & finish",
+    "materialsFallback": "Material options are discussed during consultation.",
+    "sizeTitle": "Size",
+    "sizeStandard": "Standard",
+    "sizeCustom": "Custom",
+    "sizeCustomText": "Can be made to your measurements",
+    "sizeUnknown": "Ask us for the standard size",
+    "makingEyebrow": "Making of",
+    "makingTitle": "See how we build furniture",
+    "makingText": "From rough timber to the final polish, filmed in our workshop. The video only loads when you tap play.",
+    "onDisplayEyebrow": "See it in person",
+    "onDisplayTitle": "Visit our showroom",
+    "seenInEyebrow": "Seen in a project",
+    "relatedEyebrow": "More designs",
+    "relatedTitle": "You might also like",
+    "faqEyebrow": "Good to know",
+    "faqTitle": "Questions about this design",
+    "ctaTitle": "Like this piece, but different?",
+    "ctaText": "Send us the code {code} with your changes and we will tell you what is possible."
+  },
+  "custom": {
+    "title": "Custom furniture",
+    "description": "Bring a photo, a sketch or a size. Akhi Furniture designs and builds the piece in our Dhaka workshop to fit your room. Start a design brief on WhatsApp.",
+    "eyebrow": "Custom furniture",
+    "heroTitle": "Made to your measure",
+    "heroText": "Bring us a photo, a sketch or a size. We design and build the piece in our Dhaka workshop, so it fits your room, your taste and the way you live.",
+    "startBrief": "Start your design brief",
+    "justMessage": "Just message us",
+    "makeEyebrow": "What we make",
+    "makeTitle": "For every room in your home, and your office",
+    "make": [
+      "Beds",
+      "Sofas",
+      "Dining sets",
+      "Wardrobes & storage",
+      "Dressing tables",
+      "Showcases & cabinets",
+      "Tables & chairs",
+      "Office desks",
+      "Conference tables",
+      "Something else"
+    ],
+    "choicesEyebrow": "Your choices",
+    "choicesTitle": "What you can customize",
+    "choicesText": "Start from one of our designs or from scratch. These are the things customers change most often.",
+    "choices": [
+      {
+        "title": "Size",
+        "text": "Made to fit your room, to the centimetre"
+      },
+      {
+        "title": "Wood & material",
+        "text": "Solid wood, veneer and more"
+      },
+      {
+        "title": "Finish & colour",
+        "text": "Natural, walnut, dark or painted"
+      },
+      {
+        "title": "Fabric",
+        "text": "Upholstery for sofas, beds and chairs"
+      },
+      {
+        "title": "Storage",
+        "text": "Drawers, shelves, hidden compartments"
+      },
+      {
+        "title": "Details",
+        "text": "Carving, handles, legs and edges"
+      }
+    ],
+    "materialsEyebrow": "Materials & finishes",
+    "materialsTitle": "Woods and finishes we work with",
+    "materialsText": "See and touch the woods, finishes and fabrics at the showroom.",
+    "processEyebrow": "The process",
+    "processTitle": "How custom ordering works",
+    "processIntro": "Clear steps, and an exact quote before we start.",
+    "steps": [
+      {
+        "title": "Share your idea",
+        "text": "A photo, a design code or a sketch on WhatsApp."
+      },
+      {
+        "title": "Consult & measure",
+        "text": "We talk it through and measure your space."
+      },
+      {
+        "title": "Design & quote",
+        "text": "A clear design and an exact price, before we start."
+      },
+      {
+        "title": "Craft",
+        "text": "Built and finished by hand in our workshop."
+      },
+      {
+        "title": "Deliver & set up",
+        "text": "We bring it to your home and set it in place."
+      }
+    ],
+    "faqEyebrow": "Questions",
+    "faqTitle": "Custom orders, answered",
+    "ctaTitle": "Have something different in mind?",
+    "ctaText": "Send a photo, a sketch or just an idea. We will help you shape it."
+  },
+  "brief": {
+    "eyebrow": "Design brief",
+    "title": "Tell us what you have in mind",
+    "intro": "Four quick questions, all optional. We turn your answers into a clear WhatsApp message, so our team can reply with ideas faster.",
+    "step": "Step {n} of {total}",
+    "duration": "About a minute · nothing is stored",
+    "q1": "What would you like made?",
+    "q1Hint": "Pick one or more.",
+    "what": [
+      "Bed",
+      "Sofa",
+      "Dining set",
+      "Wardrobe",
+      "Dressing table",
+      "Showcase",
+      "Table",
+      "Chairs",
+      "Office desk",
+      "Conference table",
+      "Something else"
+    ],
+    "q2": "Is it for your home or office?",
+    "where": ["Home", "Office"],
+    "q2b": "Which room?",
+    "room": ["Bedroom", "Living room", "Dining", "Kids' room", "Office", "Other"],
+    "q3": "Size and material",
+    "q3Hint": "Rough is fine. You can send photos of your room in WhatsApp after this.",
+    "sizeLabel": "Size or room measurements",
+    "sizePlaceholder": "e.g. 6 × 7 ft bed, room is 12 × 14 ft",
+    "materialLabel": "Material you like",
+    "material": ["Solid wood", "Veneer", "Fabric / upholstered", "Not sure yet"],
+    "q4": "Where and when?",
+    "areaLabel": "Your area or city",
+    "areaPlaceholder": "e.g. Bashundhara, Dhaka",
+    "whenLabel": "When do you need it?",
+    "whenPlaceholder": "e.g. before Eid, or by December",
+    "optional": "(optional)",
+    "back": "Back",
+    "skip": "Skip",
+    "next": "Next",
+    "send": "Send on WhatsApp",
+    "escape": "Rather just chat?",
+    "escapeLink": "Just message us",
+    "escapeAfter": " and we will take it from there.",
+    "previewEyebrow": "Your message preview",
+    "previewNote": "You can edit the message in WhatsApp before sending. Nothing is saved on our website.",
+    "labelFurniture": "Furniture",
+    "labelFor": "For",
+    "labelSize": "Size",
+    "labelMaterial": "Material",
+    "labelArea": "Area",
+    "labelWhen": "Needed by"
+  },
+  "work": {
+    "title": "Our work",
+    "description": "Real homes and offices furnished by Akhi Furniture in Dhaka. Every photo shows furniture we made.",
+    "intro": "Real homes and offices we have furnished. Every photo here shows furniture we made.",
+    "filter": "Project type",
+    "all": "All",
+    "emptyTitle": "No projects of this type yet",
+    "emptyText": "Ask us on WhatsApp and we will send photos of similar work.",
+    "ctaTitle": "Want something similar?",
+    "ctaText": "Share a project you like and tell us about your space."
+  },
+  "project": {
+    "eyebrow": {
+      "home": "Home project",
+      "office": "Office project",
+      "renewal": "Renewal project"
+    },
+    "type": "Type",
+    "area": "Area",
+    "year": "Year",
+    "pieces": "Pieces",
+    "piecesCount": "{count} pieces",
+    "needEyebrow": "What they needed",
+    "madeEyebrow": "What we made",
+    "galleryLabel": "Project photos",
+    "designsEyebrow": "Designs in this project",
+    "designsTitle": "Make these for your home",
+    "ctaTitle": "Want something similar?",
+    "ctaText": "Tell us about your room and we will suggest what would work."
+  },
+  "business": {
+    "title": "Furniture for business",
+    "description": "Conference tables, executive desks, workstations and reception furniture made for your floor plan by Akhi Furniture in Dhaka.",
+    "eyebrow": "For business",
+    "heroTitle": "Office furniture, made for your floor plan",
+    "heroText": "Conference rooms, executive offices, workstations and reception areas. We visit your site, prepare drawings and deliver on your schedule.",
+    "discuss": "Discuss your project",
+    "makeEyebrow": "What we make for businesses",
+    "makeTitle": "From one desk to a whole floor",
+    "make": ["Conference tables", "Executive desks", "Workstations", "Reception counters", "Storage & cabinets"],
+    "processEyebrow": "How we work with businesses",
+    "processTitle": "A clear process for larger orders",
+    "steps": [
+      {
+        "title": "Site visit",
+        "text": "We measure the space and understand how your team works."
+      },
+      {
+        "title": "Drawings & samples",
+        "text": "Layouts, materials and finishes for your approval."
+      },
+      {
+        "title": "Quote & timeline",
+        "text": "One written quote covering every piece and the delivery plan."
+      },
+      {
+        "title": "Build & install",
+        "text": "Delivered and installed with minimal disruption to your office."
+      }
+    ],
+    "projectsEyebrow": "Office projects",
+    "projectsTitle": "Recent offices",
+    "ctaTitle": "Planning an office fit-out?",
+    "ctaText": "Send us your floor plan or the number of seats. We will reply with ideas and next steps."
+  },
+  "renewal": {
+    "title": "Sofa renewal",
+    "description": "New foam and fabric, a repaired frame and refinished wood. Akhi Furniture renews your sofa so it feels new without being replaced.",
+    "eyebrow": "Sofa renewal",
+    "heroTitle": "Love your old sofa again",
+    "heroText": "A good frame can last for decades. We replace the foam and fabric, repair the frame and refinish the wood, so your sofa feels new without being replaced.",
+    "sendPhoto": "Send us a photo of your sofa",
+    "before": "Before",
+    "after": "After",
+    "compare": "Compare before and after",
+    "includedEyebrow": "What's included",
+    "includedTitle": "Everything your sofa needs",
+    "included": [
+      {
+        "title": "New fabric",
+        "text": "Choose from our fabric samples at the showroom"
+      },
+      {
+        "title": "New foam",
+        "text": "Firm, comfortable seats and backs"
+      },
+      {
+        "title": "Frame repair",
+        "text": "Loose joints fixed, weak parts replaced"
+      },
+      {
+        "title": "Wood refinish",
+        "text": "Exposed wood polished to match"
+      }
+    ],
+    "processEyebrow": "How it works",
+    "processTitle": "Four steps to a renewed sofa",
+    "steps": [
+      {
+        "title": "Send a photo",
+        "text": "Show us the sofa on WhatsApp."
+      },
+      {
+        "title": "Choose fabric",
+        "text": "Pick fabric and foam, get a quote."
+      },
+      {
+        "title": "We collect",
+        "text": "We take it to the workshop."
+      },
+      {
+        "title": "Delivered back",
+        "text": "Renewed and returned to your home."
+      }
+    ],
+    "ctaTitle": "Send us a photo of your sofa",
+    "ctaText": "We will tell you what it needs and what it will take."
+  },
+  "about": {
+    "title": "About",
+    "description": "Akhi Furniture is a Dhaka workshop and showroom that designs and builds furniture for homes and offices, mostly made to order.",
+    "eyebrow": "About Akhi Furniture",
+    "heroTitle": "A Dhaka workshop that makes furniture for real rooms",
+    "storyEyebrow": "Our story",
+    "story": [
+      "Akhi Furniture began as a small workshop making beds and dining sets for families in Dhaka.",
+      "Today we design and build furniture for homes and offices, from a single bed to a full boardroom. Most of what we make is made to order: sized for the customer's room, in the wood and finish they choose.",
+      "We still work the way we started. Our own craftsmen cut, join, carve and finish every piece, and we show our real work, nothing else."
+    ],
+    "valuesEyebrow": "How we work",
+    "valuesTitle": "What you can expect from us",
+    "values": [
+      {
+        "title": "Made to fit",
+        "text": "We measure first and build to your room, not to a catalogue size."
+      },
+      {
+        "title": "Real craftsmanship",
+        "text": "Joinery, carving and finishing done by hand in our own workshop."
+      },
+      {
+        "title": "Honest answers",
+        "text": "A clear quote and timeline before we start. No surprises later."
+      },
+      {
+        "title": "One team",
+        "text": "The people you talk to are the people who make your furniture."
+      }
+    ],
+    "mosaicEyebrow": "Workshop & showroom",
+    "mosaicTitle": "Where your furniture is made",
+    "youtubeEyebrow": "On YouTube",
+    "youtubeTitle": "Watch us at work",
+    "youtubeText": "Making-of videos and showroom tours on the Akhi Furniture Official channel.",
+    "youtubeVideo": "Showroom tour",
+    "visitChannel": "Visit our channel",
+    "ctaTitle": "Come and see the work",
+    "ctaText": "Visit the showroom or message us with your idea.",
+    "visitShowroom": "Visit the showroom"
+  },
+  "visit": {
+    "title": "Visit & contact",
+    "description": "Visit the Akhi Furniture showroom in Bashundhara, Dhaka, or reach us on WhatsApp, Messenger, Instagram or by phone.",
+    "heroTitle": "Visit us or get in touch",
+    "intro": "See our work at the showroom, or reach us on the app you already use. WhatsApp is the quickest way to share photos and sizes.",
+    "showroomEyebrow": "Showroom",
+    "channelsEyebrow": "All channels",
+    "channelsTitle": "Talk to us",
+    "channelHints": {
+      "whatsapp": "Send photos, sizes or a design code",
+      "messenger": "Chat with our Facebook Page",
+      "instagram": "Message us on Instagram",
+      "facebook": "Our latest work and reviews",
+      "youtube": "Making-of videos and tours"
+    },
+    "beforeEyebrow": "Before you visit",
+    "beforeTitle": "Make the most of your visit",
+    "readFaq": "Read the FAQ",
+    "tips": [
+      {
+        "title": "Bring your measurements",
+        "text": "The length and width of the room, and where doors and windows are"
+      },
+      {
+        "title": "Bring photos of your space",
+        "text": "It helps us suggest sizes, woods and finishes that suit the room"
+      },
+      {
+        "title": "Note the design codes you like",
+        "text": "Codes like AF-BED-014 help us find the piece quickly"
+      },
+      {
+        "title": "Message us before you come",
+        "text": "So the right person is there to help you"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Questions and answers",
+    "metaTitle": "FAQ",
+    "description": "Answers about custom orders, materials, delivery, showroom visits and business orders at Akhi Furniture, and why we don't show prices online.",
+    "intro": "Can't find your answer?",
+    "introLink": "Ask us on WhatsApp",
+    "introEnd": ".",
+    "jumpTo": "Jump to",
+    "groups": {
+      "custom": "Custom orders",
+      "materials": "Materials & quality",
+      "delivery": "Delivery & installation",
+      "showroom": "Showroom visits",
+      "business": "Business orders"
+    },
+    "ctaTitle": "Still have a question?"
+  },
+  "privacy": {
+    "title": "Privacy notice",
+    "metaTitle": "Privacy",
+    "description": "How the Akhi Furniture website handles your privacy: no accounts, no stored forms, cookie-free analytics.",
+    "updated": "Last updated: {date}",
+    "sections": [
+      {
+        "title": "",
+        "text": "This website does not have accounts, forms that store your details, or a shop. When you contact us, you do it in WhatsApp, Messenger, Instagram, by phone or by email, and those apps handle your messages under their own policies."
+      },
+      {
+        "title": "What we measure",
+        "text": "We use cookie-free analytics to count page visits and clicks on our contact buttons. It does not identify you and does not follow you to other websites."
+      },
+      {
+        "title": "The design brief",
+        "text": "The design brief on our Custom Furniture page runs only in your browser. Nothing you type is sent to us until you choose to send the message in WhatsApp."
+      },
+      {
+        "title": "Questions",
+        "text": "Write to us at {email}."
+      }
+    ]
+  },
+  "notFound": {
+    "title": "Page not found",
+    "heading": "This page has moved or no longer exists",
+    "text": "The piece you were looking for may have a new home. Browse our designs, or send us the link and we will find it for you.",
+    "browse": "Browse designs",
+    "home": "Go to home"
+  }
+}

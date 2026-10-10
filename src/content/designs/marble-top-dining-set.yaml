@@ -1,0 +1,103 @@
+# AF-DIN-021 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-DIN-021
+title:
+  en: "Marble-top dining set"
+  bn: "মার্বেল টপ ডাইনিং সেট"
+room: dining
+type: dining-sets
+kind: design-reference
+summary:
+  en: "A long dining table with a marble-look top and carved champagne legs, with tall damask-upholstered chairs."
+  bn: "মার্বেল লুক টপ আর খোদাই করা শ্যাম্পেন পায়ার লম্বা ডাইনিং টেবিল, সঙ্গে ড্যামাস্ক কাপড়ের উঁচু চেয়ার।"
+material:
+  en: "Marble-look top, champagne finish"
+  bn: "মার্বেল লুক টপ, শ্যাম্পেন ফিনিশ"
+customize:
+  - icon: ruler
+    title:
+      en: "Size"
+      bn: "মাপ"
+    text:
+      en: "Table length and number of seats to suit your room"
+      bn: "ঘর অনুযায়ী টেবিলের দৈর্ঘ্য ও সিট সংখ্যা"
+  - icon: wood
+    title:
+      en: "Top"
+      bn: "টপ"
+    text:
+      en: "Options discussed during consultation"
+      bn: "পরামর্শের সময় অপশন জানানো হবে"
+  - icon: finish
+    title:
+      en: "Finish & colour"
+      bn: "ফিনিশ ও রং"
+    text:
+      en: "Champagne, gold or wood polish"
+      bn: "শ্যাম্পেন, গোল্ড বা কাঠের পলিশ"
+  - icon: fabric
+    title:
+      en: "Chair fabric"
+      bn: "চেয়ারের কাপড়"
+    text:
+      en: "Pick the upholstery for the chairs"
+      bn: "চেয়ারের কাপড় বেছে নিন"
+swatches:
+  - name:
+      en: "Champagne"
+      bn: "শ্যাম্পেন"
+    part:
+      en: "Frame finish"
+      bn: "ফ্রেম ফিনিশ"
+    color: "#c9b591"
+  - name:
+      en: "Marble look"
+      bn: "মার্বেল লুক"
+    part:
+      en: "Table top"
+      bn: "টেবিল টপ"
+    color: "#e8e1d5"
+  - name:
+      en: "Damask"
+      bn: "ড্যামাস্ক"
+    part:
+      en: "Chair fabric"
+      bn: "চেয়ারের কাপড়"
+    color: "#b9ad9b"
+images:
+  - photo: d-din-021
+    pos: "50% 55%"
+    caption:
+      en: "The full set in our showroom"
+      bn: "শোরুমে পুরো সেট"
+  - photo: d-din-021-c
+    pos: "50% 55%"
+    caption:
+      en: "From the end of the table"
+      bn: "টেবিলের মাথা থেকে"
+  - photo: d-din-021-d
+    pos: "50% 50%"
+    caption:
+      en: "Side view: carved champagne legs"
+      bn: "পাশ থেকে: খোদাই করা শ্যাম্পেন পায়া"
+  - photo: d-din-021-e
+    pos: "50% 50%"
+    caption:
+      en: "The table on its own"
+      bn: "শুধু টেবিলটি"
+  - photo: d-din-021-f
+    pos: "50% 55%"
+    caption:
+      en: "Damask-upholstered chairs"
+      bn: "ড্যামাস্ক কাপড়ের চেয়ার"
+  - photo: d-din-021-b
+    pos: "50% 55%"
+    caption:
+      en: "Wide view in the showroom"
+      bn: "শোরুমে প্রশস্ত ছবি"
+hoverPhoto: d-din-021-b
+featured: true
+order: 1
+status: published
+source: "https://www.facebook.com/photo/?fbid=1736334581833292"
+rights: pending
+clientApproved: false

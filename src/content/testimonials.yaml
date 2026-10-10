@@ -1,0 +1,43 @@
+# SAMPLE reviews from the mockups so the layout can be judged. They are not real customer quotes.
+# Replace each with a verified Facebook review used with written permission, then set
+# status: published and permission: true. Sample reviews never appear in a production build.
+- id: rafiq-bed
+  quote: "খাটটা ঠিক আমাদের ঘরের মাপে বানিয়ে দিয়েছে। কাঠের কাজ আর ফিনিশিং দুটোই খুব সুন্দর।"
+  quoteLang: bn
+  translation: "They made the bed to the exact size of our room. The woodwork and the finish are both beautiful."
+  name: { en: "Rafiq H.", bn: "রফিক হ." }
+  initials: RH
+  context: { en: "Bed, Bashundhara", bn: "খাট, বসুন্ধরা" }
+  permission: false
+  order: 1
+  status: sample
+- id: nusrat-office
+  quote: "We needed a conference table that fit an odd-shaped room. They visited, measured and delivered exactly what we discussed."
+  quoteLang: en
+  translation: "আমাদের অফিসের অসমান মাপের ঘরের জন্য কনফারেন্স টেবিল দরকার ছিল। তারা এসে মাপ নিয়েছেন এবং ঠিক যেমন কথা হয়েছিল, তেমনটাই দিয়েছেন।"
+  name: { en: "Nusrat S.", bn: "নুসরাত স." }
+  initials: NS
+  context: { en: "Office, Gulshan", bn: "অফিস, গুলশান" }
+  permission: false
+  order: 2
+  status: sample
+- id: tanjila-sofa
+  quote: "শোরুমে গিয়ে ডিজাইন দেখে অর্ডার দিয়েছিলাম। সময়মতো ডেলিভারি পেয়েছি, সোফাটা খুব আরামদায়ক।"
+  quoteLang: bn
+  translation: "I ordered after seeing the design at the showroom. It arrived on time and the sofa is very comfortable."
+  name: { en: "Tanjila A.", bn: "তানজিলা আ." }
+  initials: TA
+  context: { en: "Sofa, Uttara", bn: "সোফা, উত্তরা" }
+  permission: false
+  order: 3
+  status: sample
+- id: sitting-room
+  quote: "সোফা সেট আর টেবিলটা ঘরে খুব সুন্দর মানিয়েছে। অতিথিরা এলেই জিজ্ঞেস করেন কোথা থেকে বানিয়েছি।"
+  quoteLang: bn
+  translation: "The sofa set and the table suit the room beautifully. Every guest asks where we had them made."
+  name: { en: "Customer", bn: "গ্রাহক" }
+  initials: C
+  context: { en: "Dhaka", bn: "ঢাকা" }
+  permission: false
+  order: 4
+  status: sample

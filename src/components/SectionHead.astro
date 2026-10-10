@@ -1,0 +1,36 @@
+---
+/** Section header (Design Brief §5.24): eyebrow + title + optional intro + optional "view all" link. */
+import Icon from "./Icon.astro";
+
+interface Props {
+  id: string;
+  eyebrow?: string | undefined;
+  title: string;
+  intro?: string | undefined;
+  action?: { label: string; href: string; external?: boolean } | undefined;
+  center?: boolean;
+  /** Heading level; section titles are h2. */
+  as?: "h1" | "h2";
+  titleClass?: string;
+}
+const { id, eyebrow, title, intro, action, center = false, as: Tag = "h2", titleClass = "t-h1" } = Astro.props;
+---
+
+<div class:list={["section-head", action && "section-head--split", center && "section-head--center"]}>
+  {eyebrow && <p class="t-eyebrow">{eyebrow}</p>}
+  <Tag class={titleClass} id={id}>
+    {title}
+  </Tag>
+  {intro && (
+    <p class="section-head__intro">
+      {intro}
+      <slot name="intro-extra" />
+    </p>
+  )}
+  {action && (
+    <a class="link-arrow section-head__action" href={action.href} {...(action.external ? { target: "_blank", rel: "noopener" } : {})}>
+      {action.label}
+      <Icon name={action.external ? "external" : "arrow"} />
+    </a>
+  )}
+</div>

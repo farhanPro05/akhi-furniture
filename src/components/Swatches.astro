@@ -1,0 +1,21 @@
+---
+/** Material / finish swatches (Design Brief §5.18). */
+import type { Lang, Localized } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  items: { name: Localized; detail: Localized; color: string }[];
+  wide?: boolean;
+}
+const { lang, items, wide = false } = Astro.props;
+---
+
+<div class:list={["swatches", wide && "swatches--wide"]}>
+  {items.map((s) => (
+    <div class="swatch">
+      <i style={`background: ${s.color}`} aria-hidden="true" />
+      <b>{s.name[lang]}</b>
+      <small>{s.detail[lang]}</small>
+    </div>
+  ))}
+</div>

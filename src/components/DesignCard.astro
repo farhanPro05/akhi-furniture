@@ -1,0 +1,57 @@
+---
+/**
+ * Design card (Design Brief §5.12): 4:5 photo, code, name, room · type, "Customizable" tag.
+ * Desktop with a mouse: hover cross-fades to a second photo and shows the material.
+ * Touch screens: the material is always shown as a text line instead.
+ */
+import { getPhoto } from "../data/photos";
+import { dict, type Lang } from "../i18n";
+import type { Design } from "../lib/content";
+import { localUrl } from "../lib/urls";
+import Photo from "./Photo.astro";
+
+interface Props {
+  design: Design;
+  lang: Lang;
+  sizes?: string;
+  eager?: boolean;
+}
+const {
+  design,
+  lang,
+  sizes = "(min-width: 1440px) 330px, (min-width: 1200px) 25vw, (min-width: 768px) 33vw, 50vw",
+  eager = false,
+} = Astro.props;
+const d = dict(lang);
+const data = design.data;
+const main = data.images[0]!;
+const hover = data.hoverPhoto && getPhoto(data.hoverPhoto).publishable ? data.hoverPhoto : undefined;
+const widths = [320, 480, 640, 800];
+---
+
+<a class="d-card" href={localUrl(lang, `designs/${design.id}`)} data-room={data.room} data-type={data.type}>
+  <div class="d-card__media">
+    <Photo id={main.photo} lang={lang} pos={main.pos} sizes={sizes} widths={widths} eager={eager} />
+    {hover && <Photo id={hover} lang={lang} sizes={sizes} widths={widths} alt="" hoverOnly />}
+    {data.material && (
+      <div class="d-card__material" aria-hidden="true">
+        <span>
+          {d.common.material}: {data.material[lang]}
+        </span>
+      </div>
+    )}
+  </div>
+  <div class="d-card__meta">
+    <div class="d-card__top">
+      <span class="d-card__code" lang="en">
+        {data.code}
+      </span>
+      <span class="tag">{d.common.customizable}</span>
+    </div>
+    <span class="d-card__name">{data.title[lang]}</span>
+    <span class="d-card__sub">
+      {d.rooms[data.room]} · {d.types[data.type]}
+    </span>
+    {data.material && <span class="d-card__mat-touch">{data.material[lang]}</span>}
+  </div>
+</a>

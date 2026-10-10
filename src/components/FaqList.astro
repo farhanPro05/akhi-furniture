@@ -1,0 +1,26 @@
+---
+/** FAQ accordion (Design Brief §5.27), built on <details> so it works without JavaScript. */
+import type { Lang } from "../i18n";
+import type { Faq } from "../lib/content";
+import Icon from "./Icon.astro";
+
+interface Props {
+  lang: Lang;
+  items: Faq[];
+  /** Open the first question. */
+  openFirst?: boolean;
+}
+const { lang, items, openFirst = true } = Astro.props;
+---
+
+<div class="faq">
+  {items.map((f, i) => (
+    <details open={openFirst && i === 0}>
+      <summary>
+        {f.data.question[lang]}
+        <Icon name="plus" />
+      </summary>
+      <p class="faq__a">{f.data.answer[lang]}</p>
+    </details>
+  ))}
+</div>

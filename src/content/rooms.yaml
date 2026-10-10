@@ -1,0 +1,13 @@
+# Room categories (/designs/<room>/). Names and intros are UI strings in src/i18n/*.json.
+- id: bedroom
+  order: 1
+  cover: { photo: room-bedroom, pos: "50% 62%" }
+- id: living
+  order: 2
+  cover: { photo: room-living, pos: "50% 60%" }
+- id: dining
+  order: 3
+  cover: { photo: room-dining, pos: "50% 55%" }
+- id: office
+  order: 4
+  # No office photo yet: the tile shows a plain placeholder (never a stock photo).

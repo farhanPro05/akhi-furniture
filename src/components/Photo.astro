@@ -1,0 +1,69 @@
+---
+/**
+ * A real AKHI photo in a ratio box (the mockups' `.ph`), as AVIF/WebP/JPEG at responsive widths.
+ * If the build may not show the photo (production, not yet approved in the asset register),
+ * it renders the labelled placeholder instead. Never a stock image.
+ */
+import { getPhoto, type PhotoId } from "../data/photos";
+import type { Lang } from "../i18n";
+import { buildSrcset, dominantColor, fallbackImage, WIDTHS } from "../lib/images";
+import Placeholder from "./Placeholder.astro";
+
+interface Props {
+  id: PhotoId;
+  lang: Lang;
+  /** The `sizes` attribute: how wide the photo is shown at each breakpoint. */
+  sizes: string;
+  /** CSS aspect ratio, e.g. "4 / 5". Leave out to use a ratio class (r-4x5…) or the CSS default. */
+  ratio?: string;
+  /** CSS object-position, e.g. "50% 60%". */
+  pos?: string | undefined;
+  class?: string;
+  /** Empty string for decorative photos next to a text label. */
+  alt?: string;
+  eager?: boolean;
+  widths?: readonly number[];
+  /** Extra attributes for the box, e.g. data-* for galleries. */
+  attrs?: Record<string, string | number | undefined>;
+  /** Only download on desktops with a mouse (the design card's hover photo). */
+  hoverOnly?: boolean;
+}
+
+const { id, lang, sizes, ratio, pos, class: className, alt, eager = false, widths = WIDTHS, attrs = {}, hoverOnly = false } = Astro.props;
+const HOVER_MEDIA = "(hover: hover) and (min-width: 1024px)";
+const BLANK = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+const photo = getPhoto(id);
+
+let image: { avif: string; webp: string; src: string; width: number; height: number; color: string } | undefined;
+if (photo.publishable) {
+  const [avif, webp, fallback, color] = await Promise.all([
+    buildSrcset(photo.src, "avif", widths),
+    buildSrcset(photo.src, "webp", widths),
+    fallbackImage(photo.src),
+    dominantColor(id),
+  ]);
+  image = { avif, webp, src: fallback.src, width: photo.src.width, height: photo.src.height, color };
+}
+const style = [ratio && `--ratio: ${ratio}`, pos && `--pos: ${pos}`, image && `--dominant: ${image.color}`].filter(Boolean).join("; ");
+---
+
+{image ? (
+  <div class:list={["ph has-img", className]} style={style || undefined} {...attrs}>
+    <picture>
+      <source type="image/avif" srcset={image.avif} sizes={sizes} media={hoverOnly ? HOVER_MEDIA : undefined} />
+      <source type="image/webp" srcset={image.webp} sizes={sizes} media={hoverOnly ? HOVER_MEDIA : undefined} />
+      <img
+        class="ph__img"
+        src={hoverOnly ? BLANK : image.src}
+        width={image.width}
+        height={image.height}
+        alt={alt ?? photo.alt[lang]}
+        loading={eager ? "eager" : "lazy"}
+        decoding={eager ? "sync" : "async"}
+        fetchpriority={eager ? "high" : "auto"}
+      />
+    </picture>
+  </div>
+) : (
+  <Placeholder lang={lang} label={photo.alt[lang]} ratio={ratio} class={className} attrs={attrs} />
+)}

@@ -1,0 +1,82 @@
+---
+/**
+ * Sofa Renewal (Master Plan §7.7, design/pages/sofa-renewal.html).
+ * Built now; generated for production only once AKHI confirms the service (settings.pages.sofaRenewal).
+ */
+import BeforeAfter from "../../components/BeforeAfter.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Btn from "../../components/Btn.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import CustomList from "../../components/CustomList.astro";
+import SectionHead from "../../components/SectionHead.astro";
+import Steps from "../../components/Steps.astro";
+import { dict } from "../../i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { contactTrack } from "../../lib/analytics";
+import { getProjects } from "../../lib/content";
+import type { IconName } from "../../lib/icons";
+import { pageEnabled } from "../../lib/launch-gate";
+import { contactLinks } from "../../lib/links";
+import { langParam, langPaths } from "../../lib/paths";
+import { localUrl } from "../../lib/urls";
+
+export function getStaticPaths() {
+  return pageEnabled.sofaRenewal ? langPaths() : [];
+}
+const lang = langParam(Astro.params.lang);
+const d = dict(lang);
+const r = d.renewal;
+const links = contactLinks(lang, { kind: "renewal" });
+const example = (await getProjects()).find((p) => p.data.type === "renewal" && p.data.before && p.data.after);
+const icons: IconName[] = ["fabric", "wood", "sparkle", "finish"];
+---
+
+<BaseLayout
+  lang={lang}
+  title={r.title}
+  description={r.description}
+  message={{ kind: "renewal" }}
+  crumbs={[{ label: r.title, href: localUrl(lang, "sofa-renewal") }]}
+>
+  <div class="container">
+    <Breadcrumbs lang={lang} current={r.title} />
+    <section class="inner-hero" aria-labelledby="sr-title">
+      <div class="inner-hero__copy">
+        <p class="t-eyebrow">{r.eyebrow}</p>
+        <h1 class="t-display" id="sr-title">
+          {r.heroTitle}
+        </h1>
+        <p class="t-body-lg">{r.heroText}</p>
+        <div class="btn-row">
+          <Btn href={links.whatsapp} size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "hero", lang)}>
+            {r.sendPhoto}
+          </Btn>
+        </div>
+      </div>
+      <BeforeAfter lang={lang} before={example?.data.before} after={example?.data.after} />
+    </section>
+  </div>
+
+  <section class="section section--sunken" aria-labelledby="inc-title">
+    <div class="container">
+      <SectionHead id="inc-title" eyebrow={r.includedEyebrow} title={r.includedTitle} />
+      <CustomList twoCol class="max-w-[960px]" items={r.included.map((item, i) => ({ ...item, icon: icons[i]! }))} />
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="srp-title">
+    <SectionHead id="srp-title" eyebrow={r.processEyebrow} title={r.processTitle} />
+    <Steps lang={lang} steps={r.steps} />
+  </section>
+
+  <section class="container pb-section">
+    <CtaBand title={r.ctaTitle} text={r.ctaText}>
+      <Btn href={links.whatsapp} size="lg" icon="whatsapp" attrs={contactTrack("whatsapp", "cta_band", lang)}>
+        {d.contact.whatsappUs}
+      </Btn>
+      <Btn href={links.tel} variant="secondary" size="lg" icon="phone" attrs={contactTrack("call", "cta_band", lang)}>
+        {d.contact.call}
+      </Btn>
+    </CtaBand>
+  </section>
+</BaseLayout>

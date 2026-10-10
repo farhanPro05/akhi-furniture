@@ -1,0 +1,26 @@
+# AF-BED-019 · sample entry made from the mockups. Names, materials and copy need AKHI's confirmation.
+code: AF-BED-019
+title:
+  en: "Tufted pearl bed"
+  bn: "টাফটেড পার্ল খাট"
+room: bedroom
+type: beds
+kind: design-reference
+summary:
+  en: "A bed with a tall tufted headboard in a pearl tone and a carved frame."
+  bn: "পার্ল রঙের উঁচু টাফটেড হেডবোর্ড আর খোদাই করা ফ্রেমের খাট।"
+material:
+  en: "Tufted headboard, carved frame"
+  bn: "টাফটেড হেডবোর্ড, খোদাই ফ্রেম"
+images:
+  - photo: d-bed-019
+    pos: "50% 55%"
+    caption:
+      en: "The bed with its headboard"
+      bn: "হেডবোর্ডসহ খাট"
+featured: false
+order: 9
+status: published
+source: "https://www.facebook.com/photo/?fbid=1739915768141840"
+rights: pending
+clientApproved: false
