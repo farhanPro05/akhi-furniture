@@ -30,8 +30,8 @@ On 2026-10-11 the user decided to put the site live before AKHI Furniture can be
 
 | Item | Before | Now | To bring it back |
 |---|---|---|---|
-| Address | "Showroom address, Bashundhara R/A" | Real address, both languages; structured data has street, city and postcode | When AKHI shares its Google Maps place, put that link in `showrooms[0].mapUrl` |
-| Map link | Google Maps search for "Akhi Furniture Bashundhara" | Google Maps search for the name and the real address | Same as above |
+| Address | "Showroom address, Bashundhara R/A" | Real address, both languages; structured data has street, city and postcode | Nothing to do |
+| Map link | Google Maps search for "Akhi Furniture Bashundhara" | AKHI's own Google Maps listing (`https://maps.app.goo.gl/f2KSxvE2fxHBt3ni8`), on every "Get directions" button and the map tile | Nothing to do |
 | Opening hours | "To be confirmed" | "Open every day, 10 AM – 10 PM" on the showroom card, footer and phone menu, plus `openingHoursSpecification` in structured data. The FAQ "Do I need an appointment?" says to come during opening hours | Change `showrooms[0].hours` in `src/content/settings.ts` (display text and the structured days/times together) |
 | Email | `hello@akhifurniture.com` (made up) | Not shown anywhere (footer, Visit, privacy, structured data) | Set `settings.email` |
 | Instagram | Linked in the footer, Visit page, contact chooser and design pages | Not shown anywhere | Set `settings.instagramUsername` |
@@ -58,7 +58,7 @@ What the site shows in the meantime is in brackets.
 
 **Contact details**
 - [x] Opening hours: every day, 10 AM – 10 PM (Google Maps listing, 2026-10-11)
-- [ ] Exact Google Maps place *(map search by name and address)*
+- [x] Exact Google Maps place: AKHI's listing, share link from the user (2026-10-11)
 - [ ] Email address *(hidden; lead: `akhifurniture2019@gmail.com`)*
 - [ ] Instagram account *(hidden; lead: `@akhifurniture`, probably not theirs)*
 - [ ] YouTube channel *(removed; leads: `@akhifurnitureofficial`, and the Google Maps listing links to youtube.com)*
@@ -94,3 +94,4 @@ What the site shows in the meantime is in brackets.
 ## Changelog
 - **2026-10-11:** Written after the cleanup. Address found on AKHI's Facebook posts; hours, email, Instagram not confirmed; YouTube removed at the user's request.
 - **2026-10-11:** Opening hours confirmed from AKHI's Google Maps listing (every day, 10 AM – 10 PM) and added to the site and structured data. The listing also matches the address and phone, and links to youtube.com.
+- **2026-10-11:** "Get directions" now opens AKHI's Google Maps listing (share link from the user) instead of a map search.

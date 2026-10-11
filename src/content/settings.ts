@@ -69,8 +69,8 @@ export const settings = {
         opens: "10:00",
         closes: "22:00",
       },
-      mapUrl:
-        "https://www.google.com/maps/search/?api=1&query=Akhi%20Furniture%2C%20417%20Apollo%20Hospital%20Road%2C%20Bashundhara%2C%20Dhaka",
+      /** AKHI's Google Maps listing (share link from the user, 2026-10-11): opens the exact place. */
+      mapUrl: "https://maps.app.goo.gl/f2KSxvE2fxHBt3ni8",
       streetAddress: "417 Apollo Hospital Road, Dhalibari Kancha Bazar, Bashundhara",
       locality: "Dhaka",
       postalCode: "1212",
