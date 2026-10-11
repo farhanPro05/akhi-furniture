@@ -3,7 +3,7 @@
  * Brand glyphs (WhatsApp, Messenger, Instagram, Facebook, YouTube) are the official marks via
  * Simple Icons (CC0), as design/README.md §9.4 asks.
  */
-import { siFacebook, siInstagram, siMessenger, siWhatsapp, siYoutube } from "simple-icons";
+import { siFacebook, siInstagram, siMessenger, siWhatsapp } from "simple-icons";
 
 export const lineIcons = {
   menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
@@ -73,7 +73,6 @@ export const brandIcons = {
   messenger: siMessenger.path,
   instagram: siInstagram.path,
   facebook: siFacebook.path,
-  youtube: siYoutube.path,
 } as const;
 
 export type IconName = keyof typeof lineIcons | keyof typeof brandIcons;

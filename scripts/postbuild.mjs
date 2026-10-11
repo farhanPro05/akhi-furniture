@@ -39,7 +39,7 @@ const csp = [
   "img-src 'self' data:",
   "font-src 'self'",
   "connect-src 'self' https://cloud.umami.is https://api-gateway.umami.dev",
-  "frame-src https://www.youtube-nocookie.com",
+  "frame-src 'none'",
   "base-uri 'self'",
   "form-action 'none'",
   "frame-ancestors 'none'",

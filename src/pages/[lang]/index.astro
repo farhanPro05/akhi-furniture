@@ -14,7 +14,6 @@ import QuoteCard from "../../components/QuoteCard.astro";
 import SectionHead from "../../components/SectionHead.astro";
 import ShowroomCard from "../../components/ShowroomCard.astro";
 import Steps from "../../components/Steps.astro";
-import VideoBlock from "../../components/VideoBlock.astro";
 import { settings } from "../../content/settings";
 import { dict } from "../../i18n";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -183,15 +182,15 @@ const measureIcons: IconName[] = ["ruler", "wood", "finish", "fabric", "storage"
   <!-- 8 · From the workshop (dark band) -->
   <section class="section theme-dark" aria-labelledby="ws-title">
     <div class="container split">
-      <VideoBlock lang={lang} video={settings.videos.workshop} />
+      <Photo id="ws-sofa" lang={lang} ratio="16 / 10" pos="50% 55%" sizes="(min-width: 1440px) 680px, (min-width: 768px) 50vw, 100vw" />
       <div class="stack-lg">
         <p class="t-eyebrow">{h.workshopEyebrow}</p>
         <h2 class="t-h1" id="ws-title">
           {h.workshopTitle}
         </h2>
         <p class="t-body-lg t-muted">{h.workshopText}</p>
-        <Btn href={settings.social.youtube} variant="secondary" icon="youtube" external>
-          {h.watchMore}
+        <Btn href={settings.social.facebook} variant="secondary" icon="facebook" external>
+          {h.seeMoreFacebook}
         </Btn>
       </div>
     </div>

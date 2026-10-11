@@ -10,8 +10,6 @@ import Icon from "../../components/Icon.astro";
 import Photo from "../../components/Photo.astro";
 import SectionHead from "../../components/SectionHead.astro";
 import Steps from "../../components/Steps.astro";
-import Swatches from "../../components/Swatches.astro";
-import { settings } from "../../content/settings";
 import { dict } from "../../i18n";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { contactTrack } from "../../lib/analytics";
@@ -38,8 +36,6 @@ const make: { icon: IconName; href: string }[] = [
   { icon: "dresser", href: `${designs}?type=dressing-tables` },
   { icon: "showcase", href: `${designs}?type=showcases` },
   { icon: "chair", href: `${designs}?type=tables` },
-  { icon: "desk", href: localUrl(lang, "designs/office") },
-  { icon: "conference", href: localUrl(lang, "designs/office") },
   { icon: "sparkle", href: "#brief" },
 ];
 const choiceIcons: IconName[] = ["ruler", "wood", "finish", "fabric", "storage", "sparkle"];
@@ -102,28 +98,21 @@ const choiceIcons: IconName[] = ["ruler", "wood", "finish", "fabric", "storage",
     </div>
   </section>
 
-  <section class="section section--sunken" aria-labelledby="mat-title">
+  <section class="section section--sunken" aria-labelledby="proc-title">
     <div class="container">
-      <SectionHead id="mat-title" eyebrow={c.materialsEyebrow} title={c.materialsTitle} intro={c.materialsText} />
-      <Swatches lang={lang} wide items={settings.materials.map((m) => ({ name: m.name, detail: m.kind, color: m.color }))} />
+      <SectionHead id="proc-title" eyebrow={c.processEyebrow} title={c.processTitle} intro={c.processIntro} />
+      <Steps lang={lang} steps={c.steps} />
     </div>
   </section>
 
-  <section class="section container" aria-labelledby="proc-title">
-    <SectionHead id="proc-title" eyebrow={c.processEyebrow} title={c.processTitle} intro={c.processIntro} />
-    <Steps lang={lang} steps={c.steps} />
-  </section>
-
-  <section class="section section--sunken" aria-labelledby="brief-title">
-    <div class="container">
-      <SectionHead id="brief-title" eyebrow={d.brief.eyebrow} title={d.brief.title} intro={d.brief.intro} />
-      <BriefHelper lang={lang} links={links} />
-    </div>
+  <section class="section container" aria-labelledby="brief-title">
+    <SectionHead id="brief-title" eyebrow={d.brief.eyebrow} title={d.brief.title} intro={d.brief.intro} />
+    <BriefHelper lang={lang} links={links} />
   </section>
 
   {faqs.length > 0 && (
-    <section class="section container" aria-labelledby="cfaq-title">
-      <div class="split items-start">
+    <section class="section section--sunken" aria-labelledby="cfaq-title">
+      <div class="container split items-start">
         <div class="stack-lg">
           <p class="t-eyebrow">{c.faqEyebrow}</p>
           <h2 class="t-h1" id="cfaq-title">

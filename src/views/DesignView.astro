@@ -16,8 +16,6 @@ import Icon from "../components/Icon.astro";
 import Photo from "../components/Photo.astro";
 import SectionHead from "../components/SectionHead.astro";
 import Swatches from "../components/Swatches.astro";
-import VideoBlock from "../components/VideoBlock.astro";
-import { settings } from "../content/settings";
 import { getPhoto } from "../data/photos";
 import { dict, fmt, type Lang } from "../i18n";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -141,33 +139,25 @@ const crumbs = [
     </div>
   </div>
 
-  <!-- Making-of video + where to see it -->
-  <section class="section section--sunken" aria-labelledby="vid-title">
+  <!-- Where to see it: the project it was made for, or the showroom -->
+  <section class="section section--sunken" aria-labelledby="see-title">
     <div class="container split">
-      <VideoBlock lang={lang} video={data.youtubeId ? { ...settings.videos.making, youtubeId: data.youtubeId } : settings.videos.making} />
+      <Photo
+        id={seenIn ? seenIn.data.cover.photo : "showroom-2"}
+        lang={lang}
+        pos={seenIn ? seenIn.data.cover.pos : "50% 55%"}
+        ratio="4 / 3"
+        sizes="(min-width: 1440px) 680px, (min-width: 768px) 50vw, 100vw"
+      />
       <div class="stack-lg">
-        <p class="t-eyebrow">{d.design.makingEyebrow}</p>
-        <h2 class="t-h1" id="vid-title">
-          {d.design.makingTitle}
+        <p class="t-eyebrow">{seenIn ? d.design.seenInEyebrow : d.design.onDisplayEyebrow}</p>
+        <h2 class="t-h1" id="see-title">
+          {seenIn ? seenIn.data.title[lang] : d.design.onDisplayTitle}
         </h2>
-        <p class="t-body-lg t-muted">{d.design.makingText}</p>
-        {seenIn ? (
-          <a class="mini-card" href={localUrl(lang, `our-work/${seenIn.id}`)}>
-            <Photo id={seenIn.data.cover.photo} lang={lang} pos={seenIn.data.cover.pos} sizes="120px" widths={[240]} alt="" />
-            <div>
-              <p class="t-caption">{d.design.seenInEyebrow}</p>
-              <p class="t-h3">{seenIn.data.title[lang]}</p>
-            </div>
-          </a>
-        ) : (
-          <a class="mini-card" href={localUrl(lang, "visit")}>
-            <Photo id="showroom-2" lang={lang} sizes="120px" widths={[240]} alt="" />
-            <div>
-              <p class="t-caption">{d.design.onDisplayEyebrow}</p>
-              <p class="t-h3">{d.design.onDisplayTitle}</p>
-            </div>
-          </a>
-        )}
+        <p class="t-body-lg t-muted">{seenIn ? seenIn.data.made[lang] : d.design.onDisplayText}</p>
+        <Btn href={localUrl(lang, seenIn ? `our-work/${seenIn.id}` : "visit")} variant="secondary" iconAfter="arrow">
+          {seenIn ? d.design.seeProject : d.design.planVisit}
+        </Btn>
       </div>
     </div>
   </section>

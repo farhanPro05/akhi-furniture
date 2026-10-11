@@ -3,7 +3,8 @@
  * Pages only ever read content through these helpers.
  */
 import { getCollection, type CollectionEntry } from "astro:content";
-import { ROOMS } from "../content.config";
+import { ROOMS, TYPES } from "../content.config";
+import { settings } from "../content/settings";
 import { PREVIEW } from "./mode";
 
 export type Design = CollectionEntry<"designs">;
@@ -14,11 +15,14 @@ export type Room = (typeof ROOMS)[number];
 
 type Guarded = { status: "draft" | "sample" | "published"; rights: "approved" | "pending"; clientApproved: boolean };
 
-/** Preview builds show published and sample items; production shows only fully approved ones. */
+/**
+ * Preview builds show published and sample items. Production shows published items with approved rights,
+ * plus those still waiting for AKHI's written permission while `settings.publishPendingRights` is true.
+ */
 export function isPublishable(item: Guarded): boolean {
   if (item.status === "draft") return false;
   if (PREVIEW) return true;
-  return item.status === "published" && item.rights === "approved" && item.clientApproved;
+  return item.status === "published" && ((item.rights === "approved" && item.clientApproved) || settings.publishPendingRights);
 }
 
 const byFeaturedThenOrder = (a: { data: { featured: boolean; order: number } }, b: { data: { featured: boolean; order: number } }) =>
@@ -49,8 +53,18 @@ export async function getProjects(): Promise<Project[]> {
   return all.filter((p) => isPublishable(p.data)).sort(byFeaturedThenOrder);
 }
 
+/** Rooms that have at least one published design. A room without designs (e.g. office) gets no tile, link or page. */
 export async function getRooms() {
-  return (await getCollection("rooms")).sort((a, b) => a.data.order - b.data.order);
+  const designs = await getDesigns();
+  return (await getCollection("rooms"))
+    .filter((r) => designs.some((d) => d.data.room === r.id))
+    .sort((a, b) => a.data.order - b.data.order);
+}
+
+/** Furniture types that have at least one published design, in the order of TYPES. */
+export async function getTypes(): Promise<(typeof TYPES)[number][]> {
+  const designs = await getDesigns();
+  return TYPES.filter((t) => designs.some((d) => d.data.type === t));
 }
 
 /** Sample reviews show in preview builds only; production needs a published review with permission. */

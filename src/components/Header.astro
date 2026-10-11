@@ -5,10 +5,9 @@
  * Below 1200px: menu button opening a full-screen menu with all channels and the showroom address.
  */
 import { settings } from "../content/settings";
-import { TYPES } from "../content.config";
 import { dict, type Lang } from "../i18n";
 import { contactTrack } from "../lib/analytics";
-import { getDesigns, getRooms } from "../lib/content";
+import { getDesigns, getRooms, getTypes } from "../lib/content";
 import { pageEnabled } from "../lib/launch-gate";
 import type { ContactLinks } from "../lib/links";
 import { localUrl } from "../lib/urls";
@@ -29,6 +28,7 @@ interface Props {
 const { lang, path, current, links } = Astro.props;
 const d = dict(lang);
 const rooms = await getRooms();
+const types = await getTypes();
 const featured = (await getDesigns()).find((x) => x.data.featured);
 const showroom = settings.showrooms[0]!;
 
@@ -104,7 +104,7 @@ const nav: { key: Exclude<NavKey, "">; label: string; href: string }[] = [
       <div>
         <p class="t-eyebrow mb-4">{d.nav.byType}</p>
         <div class="dropdown__types">
-          {TYPES.map((type) => (
+          {types.map((type) => (
             <a href={`${localUrl(lang, "designs")}?type=${type}`}>{d.types[type]}</a>
           ))}
           <a class="link-arrow" href={localUrl(lang, "designs")}>
@@ -176,8 +176,12 @@ const nav: { key: Exclude<NavKey, "">; label: string; href: string }[] = [
         <Icon name="pin" size={16} />
         <span>
           {showroom.address[lang]}
-          <br />
-          {showroom.hours ? showroom.hours[lang] : `${d.common.openingHours}: ${d.common.toBeConfirmed}`}
+          {showroom.hours && (
+            <>
+              <br />
+              {showroom.hours[lang]}
+            </>
+          )}
         </span>
       </p>
     </div>

@@ -31,7 +31,6 @@ gallery:
   - photo: p-sitting-chair
     pos: "50% 50%"
 designs: ["AF-SOF-015", "AF-TBL-006"]
-testimonial: sitting-room
 featured: true
 order: 2
 status: published

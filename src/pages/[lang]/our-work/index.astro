@@ -21,11 +21,14 @@ const d = dict(lang);
 const w = d.work;
 const links = contactLinks(lang);
 const projects = await getProjects();
-const types: { key: "home" | "office" | "renewal"; icon: IconName }[] = [
-  { key: "home", icon: "home" },
-  { key: "office", icon: "building" },
-  { key: "renewal", icon: "refresh" },
-];
+// Filter chips only for project types that exist, and only when there is more than one
+const types = (
+  [
+    { key: "home", icon: "home" },
+    { key: "office", icon: "building" },
+    { key: "renewal", icon: "refresh" },
+  ] as const satisfies readonly { key: "home" | "office" | "renewal"; icon: IconName }[]
+).filter((t) => projects.some((p) => p.data.type === t.key));
 const n = (v: number) => localDigits(v, lang);
 ---
 
@@ -42,17 +45,19 @@ const n = (v: number) => localDigits(v, lang);
       <h1 class="t-display">{w.title}</h1>
       <p class="page-head__intro t-body-lg">{w.intro}</p>
     </header>
-    <div class="chips mb-8" role="group" aria-label={w.filter} data-project-filter>
-      <button class="chip" type="button" aria-pressed="true" data-type="">
-        {w.all} <span class="chip__count">{n(projects.length)}</span>
-      </button>
-      {types.map((t) => (
-        <button class="chip" type="button" aria-pressed="false" data-type={t.key}>
-          <Icon name={t.icon} size={16} />
-          {d.projectTypes[t.key]} <span class="chip__count">{n(projects.filter((p) => p.data.type === t.key).length)}</span>
+    {types.length > 1 && (
+      <div class="chips mb-8" role="group" aria-label={w.filter} data-project-filter>
+        <button class="chip" type="button" aria-pressed="true" data-type="">
+          {w.all} <span class="chip__count">{n(projects.length)}</span>
         </button>
-      ))}
-    </div>
+        {types.map((t) => (
+          <button class="chip" type="button" aria-pressed="false" data-type={t.key}>
+            <Icon name={t.icon} size={16} />
+            {d.projectTypes[t.key]} <span class="chip__count">{n(projects.filter((p) => p.data.type === t.key).length)}</span>
+          </button>
+        ))}
+      </div>
+    )}
   </div>
 
   <section class="container pb-section" aria-label={w.title}>

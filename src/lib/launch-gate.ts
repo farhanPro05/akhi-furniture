@@ -1,10 +1,13 @@
 import { settings } from "../content/settings";
-import { MODE, PREVIEW } from "./mode";
+import { MODE } from "./mode";
 
-/** Optional pages (Master Plan §23) are always built for preview, and in production only once confirmed. */
+/**
+ * Optional pages (Master Plan §23), built in every mode only once switched on in settings.pages.
+ * Both still have photo slots AKHI hasn't filled, which fail the build until real photos are added.
+ */
 export const pageEnabled = {
-  forBusiness: PREVIEW || settings.pages.forBusiness,
-  sofaRenewal: PREVIEW || settings.pages.sofaRenewal,
+  forBusiness: settings.pages.forBusiness,
+  sofaRenewal: settings.pages.sofaRenewal,
 };
 
 /** Build Plan M14: a production build must not ship while any business fact is still a placeholder. */

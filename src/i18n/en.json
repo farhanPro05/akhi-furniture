@@ -7,8 +7,7 @@
     "skip": "Skip to content",
     "previewLabel": "Preview build",
     "previewText": "Photos and some details are still waiting for Akhi Furniture's approval.",
-    "sample": "Sample",
-    "photoPlaceholder": "AKHI photo"
+    "sample": "Sample"
   },
   "nav": {
     "home": "Home",
@@ -60,7 +59,6 @@
     "email": "Email",
     "emailUs": "Email us",
     "facebook": "Facebook",
-    "youtube": "YouTube",
     "directions": "Get directions",
     "discussIdea": "Discuss your idea on WhatsApp",
     "askOnWhatsapp": "Ask on WhatsApp",
@@ -83,7 +81,7 @@
     "toastCopied": "Design code {code} copied, paste it in your message",
     "toastCopyFailed": "Could not copy automatically. The design code is {code}",
     "copyCode": "Copy design code {code}",
-    "blockHint": "Your WhatsApp message will already include the code {code} and a link to this page. For Messenger and Instagram we copy the code for you to paste."
+    "blockHint": "Your WhatsApp message will already include the code {code} and a link to this page. For other apps we copy the code for you to paste."
   },
   "messages": {
     "general": "Hello Akhi Furniture! I found you through your website and would like to discuss a furniture idea.",
@@ -98,7 +96,6 @@
     "address": "Address",
     "openingHours": "Opening hours",
     "phone": "Phone",
-    "toBeConfirmed": "To be confirmed",
     "customizable": "Customizable",
     "material": "Material",
     "allDesigns": "All designs",
@@ -111,8 +108,6 @@
     "hideTranslation": "Hide translation",
     "viewOnFacebook": "View on Facebook",
     "readReviews": "Read reviews on Facebook",
-    "playVideo": "Play video: {title}",
-    "watchOnYoutube": "Watch on YouTube",
     "photos": "Photos",
     "gallery": "Photo gallery, swipe for more",
     "viewFullScreen": "View full screen",
@@ -159,8 +154,8 @@
         "text": "Come and see the work in person"
       },
       {
-        "title": "36K+ on Facebook",
-        "text": "Follow along as we build"
+        "title": "Follow us on Facebook",
+        "text": "See our latest work"
       }
     ],
     "roomsEyebrow": "Browse by room",
@@ -182,7 +177,7 @@
       },
       {
         "title": "Finish & colour",
-        "text": "Natural, walnut, dark or painted finishes"
+        "text": "Choose the polish or colour you like"
       },
       {
         "title": "Fabric",
@@ -196,32 +191,31 @@
     "measureLink": "How custom furniture works",
     "howEyebrow": "How it works",
     "howTitle": "How custom ordering works",
-    "howIntro": "Four simple steps from an idea on your phone to furniture in your home.",
+    "howIntro": "Four simple steps from an idea on your phone to a finished piece.",
     "steps": [
       {
         "title": "Share your idea",
         "text": "Send us a photo, a design code or a rough sketch on WhatsApp."
       },
       {
-        "title": "Consult & measure",
-        "text": "We talk through the details and take measurements of your space."
+        "title": "Talk it through",
+        "text": "We discuss the size, material and finish with you."
       },
       {
-        "title": "Design & quote",
-        "text": "You get a clear design and an exact price before anything is made."
+        "title": "Get a quote",
+        "text": "You get a price for your piece before work starts."
       },
       {
-        "title": "Craft & deliver",
-        "text": "Our workshop builds your piece and we deliver it to your door."
+        "title": "We make it",
+        "text": "Your piece is built in our workshop."
       }
     ],
     "projectsEyebrow": "Selected projects",
-    "projectsTitle": "Homes and offices we have furnished",
+    "projectsTitle": "Homes we have furnished",
     "workshopEyebrow": "From the workshop",
-    "workshopTitle": "Built by hand, one piece at a time",
-    "workshopText": "Watch our craftsmen cut, join, carve and finish real orders. What you see on our channel is what we make for you.",
-    "workshopVideo": "From the workshop",
-    "watchMore": "Watch more on YouTube",
+    "workshopTitle": "Real orders, made in our workshop",
+    "workshopText": "Real pieces being built and finished in our workshop. We post new work on our Facebook Page.",
+    "seeMoreFacebook": "See more on Facebook",
     "reviewsEyebrow": "What customers say",
     "reviewsTitle": "In our customers' words",
     "businessEyebrow": "For business",
@@ -252,7 +246,7 @@
     "loadMore": "Load more designs",
     "ctaEyebrow": "Can't find it?",
     "ctaTitle": "We can make what you have in mind",
-    "ctaText": "Send a photo from anywhere, or describe your idea. Most of our work is made to order.",
+    "ctaText": "Send a photo from anywhere, or describe your idea, and we will tell you what we can make.",
     "ctaCustom": "How custom works",
     "roomTitle": {
       "bedroom": "Bedroom designs",
@@ -306,12 +300,12 @@
     "sizeCustom": "Custom",
     "sizeCustomText": "Can be made to your measurements",
     "sizeUnknown": "Ask us for the standard size",
-    "makingEyebrow": "Making of",
-    "makingTitle": "See how we build furniture",
-    "makingText": "From rough timber to the final polish, filmed in our workshop. The video only loads when you tap play.",
     "onDisplayEyebrow": "See it in person",
     "onDisplayTitle": "Visit our showroom",
+    "onDisplayText": "See our work in person at our showroom in Bashundhara. Message us before you come.",
+    "planVisit": "Plan your visit",
     "seenInEyebrow": "Seen in a project",
+    "seeProject": "See the project",
     "relatedEyebrow": "More designs",
     "relatedTitle": "You might also like",
     "faqEyebrow": "Good to know",
@@ -328,7 +322,7 @@
     "startBrief": "Start your design brief",
     "justMessage": "Just message us",
     "makeEyebrow": "What we make",
-    "makeTitle": "For every room in your home, and your office",
+    "makeTitle": "For every room in your home",
     "make": [
       "Beds",
       "Sofas",
@@ -337,25 +331,23 @@
       "Dressing tables",
       "Showcases & cabinets",
       "Tables & chairs",
-      "Office desks",
-      "Conference tables",
       "Something else"
     ],
     "choicesEyebrow": "Your choices",
     "choicesTitle": "What you can customize",
-    "choicesText": "Start from one of our designs or from scratch. These are the things customers change most often.",
+    "choicesText": "Start from one of our designs or from scratch. These are the things you can ask us to change.",
     "choices": [
       {
         "title": "Size",
-        "text": "Made to fit your room, to the centimetre"
+        "text": "Made to fit your room"
       },
       {
         "title": "Wood & material",
-        "text": "Solid wood, veneer and more"
+        "text": "Wood and board options for your piece"
       },
       {
         "title": "Finish & colour",
-        "text": "Natural, walnut, dark or painted"
+        "text": "Choose the polish or colour you like"
       },
       {
         "title": "Fabric",
@@ -363,39 +355,32 @@
       },
       {
         "title": "Storage",
-        "text": "Drawers, shelves, hidden compartments"
+        "text": "Drawers, shelves and compartments"
       },
       {
         "title": "Details",
         "text": "Carving, handles, legs and edges"
       }
     ],
-    "materialsEyebrow": "Materials & finishes",
-    "materialsTitle": "Woods and finishes we work with",
-    "materialsText": "See and touch the woods, finishes and fabrics at the showroom.",
     "processEyebrow": "The process",
     "processTitle": "How custom ordering works",
-    "processIntro": "Clear steps, and an exact quote before we start.",
+    "processIntro": "Clear steps, with a quote before work starts.",
     "steps": [
       {
         "title": "Share your idea",
         "text": "A photo, a design code or a sketch on WhatsApp."
       },
       {
-        "title": "Consult & measure",
-        "text": "We talk it through and measure your space."
+        "title": "Talk it through",
+        "text": "Size, material and finish, discussed with you."
       },
       {
-        "title": "Design & quote",
-        "text": "A clear design and an exact price, before we start."
+        "title": "Get a quote",
+        "text": "A price for your piece before work starts."
       },
       {
-        "title": "Craft",
-        "text": "Built and finished by hand in our workshop."
-      },
-      {
-        "title": "Deliver & set up",
-        "text": "We bring it to your home and set it in place."
+        "title": "We make it",
+        "text": "Built and finished in our workshop."
       }
     ],
     "faqEyebrow": "Questions",
@@ -458,8 +443,8 @@
   },
   "work": {
     "title": "Our work",
-    "description": "Real homes and offices furnished by Akhi Furniture in Dhaka. Every photo shows furniture we made.",
-    "intro": "Real homes and offices we have furnished. Every photo here shows furniture we made.",
+    "description": "Real homes furnished by Akhi Furniture in Dhaka. Every photo shows furniture we made.",
+    "intro": "Real homes we have furnished. Every photo here shows furniture we made.",
     "filter": "Project type",
     "all": "All",
     "emptyTitle": "No projects of this type yet",
@@ -576,49 +561,44 @@
   },
   "about": {
     "title": "About",
-    "description": "Akhi Furniture is a Dhaka workshop and showroom that designs and builds furniture for homes and offices, mostly made to order.",
+    "description": "Akhi Furniture is a furniture showroom and workshop in Bashundhara, Dhaka, making furniture for homes and offices, including pieces made to order.",
     "eyebrow": "About Akhi Furniture",
     "heroTitle": "A Dhaka workshop that makes furniture for real rooms",
     "storyEyebrow": "Our story",
     "story": [
-      "Akhi Furniture began as a small workshop making beds and dining sets for families in Dhaka.",
-      "Today we design and build furniture for homes and offices, from a single bed to a full boardroom. Most of what we make is made to order: sized for the customer's room, in the wood and finish they choose.",
-      "We still work the way we started. Our own craftsmen cut, join, carve and finish every piece, and we show our real work, nothing else."
+      "Akhi Furniture is a furniture showroom and workshop on Apollo Hospital Road in Bashundhara, Dhaka.",
+      "We make furniture for homes and offices, mostly in wood and board: beds, sofas, dining sets, wardrobes, dressing tables, showcases and more. We also make pieces to order, sized for the customer's room and in the finish they choose.",
+      "Everything shown on this website is our own work."
     ],
     "valuesEyebrow": "How we work",
     "valuesTitle": "What you can expect from us",
     "values": [
       {
         "title": "Made to fit",
-        "text": "We measure first and build to your room, not to a catalogue size."
+        "text": "Tell us your room size and we make the piece to fit, not just to a catalogue size."
       },
       {
-        "title": "Real craftsmanship",
-        "text": "Joinery, carving and finishing done by hand in our own workshop."
+        "title": "Real work only",
+        "text": "Every photo on this website shows furniture we made. No stock photos."
       },
       {
-        "title": "Honest answers",
-        "text": "A clear quote and timeline before we start. No surprises later."
+        "title": "A showroom you can visit",
+        "text": "Come to Apollo Hospital Road in Bashundhara and see the work in person."
       },
       {
-        "title": "One team",
-        "text": "The people you talk to are the people who make your furniture."
+        "title": "Easy to reach",
+        "text": "WhatsApp, Messenger or a phone call, whichever you already use."
       }
     ],
     "mosaicEyebrow": "Workshop & showroom",
     "mosaicTitle": "Where your furniture is made",
-    "youtubeEyebrow": "On YouTube",
-    "youtubeTitle": "Watch us at work",
-    "youtubeText": "Making-of videos and showroom tours on the Akhi Furniture Official channel.",
-    "youtubeVideo": "Showroom tour",
-    "visitChannel": "Visit our channel",
     "ctaTitle": "Come and see the work",
     "ctaText": "Visit the showroom or message us with your idea.",
     "visitShowroom": "Visit the showroom"
   },
   "visit": {
     "title": "Visit & contact",
-    "description": "Visit the Akhi Furniture showroom in Bashundhara, Dhaka, or reach us on WhatsApp, Messenger, Instagram or by phone.",
+    "description": "Visit the Akhi Furniture showroom in Bashundhara, Dhaka, or reach us on WhatsApp, Messenger or by phone.",
     "heroTitle": "Visit us or get in touch",
     "intro": "See our work at the showroom, or reach us on the app you already use. WhatsApp is the quickest way to share photos and sizes.",
     "showroomEyebrow": "Showroom",
@@ -628,8 +608,7 @@
       "whatsapp": "Send photos, sizes or a design code",
       "messenger": "Chat with our Facebook Page",
       "instagram": "Message us on Instagram",
-      "facebook": "Our latest work and reviews",
-      "youtube": "Making-of videos and tours"
+      "facebook": "Our latest work and reviews"
     },
     "beforeEyebrow": "Before you visit",
     "beforeTitle": "Make the most of your visit",
@@ -656,15 +635,15 @@
   "faq": {
     "title": "Questions and answers",
     "metaTitle": "FAQ",
-    "description": "Answers about custom orders, materials, delivery, showroom visits and business orders at Akhi Furniture, and why we don't show prices online.",
+    "description": "Answers about custom orders, materials, delivery and showroom visits at Akhi Furniture, and why we don't show prices online.",
     "intro": "Can't find your answer?",
     "introLink": "Ask us on WhatsApp",
     "introEnd": ".",
     "jumpTo": "Jump to",
     "groups": {
       "custom": "Custom orders",
-      "materials": "Materials & quality",
-      "delivery": "Delivery & installation",
+      "materials": "Materials",
+      "delivery": "Delivery",
       "showroom": "Showroom visits",
       "business": "Business orders"
     },
@@ -673,26 +652,17 @@
   "privacy": {
     "title": "Privacy notice",
     "metaTitle": "Privacy",
-    "description": "How the Akhi Furniture website handles your privacy: no accounts, no stored forms, cookie-free analytics.",
+    "description": "How the Akhi Furniture website handles your privacy: no accounts, no stored forms, no tracking.",
+    "descriptionAnalytics": "How the Akhi Furniture website handles your privacy: no accounts, no stored forms, cookie-free analytics.",
     "updated": "Last updated: {date}",
-    "sections": [
-      {
-        "title": "",
-        "text": "This website does not have accounts, forms that store your details, or a shop. When you contact us, you do it in WhatsApp, Messenger, Instagram, by phone or by email, and those apps handle your messages under their own policies."
-      },
-      {
-        "title": "What we measure",
-        "text": "We use cookie-free analytics to count page visits and clicks on our contact buttons. It does not identify you and does not follow you to other websites."
-      },
-      {
-        "title": "The design brief",
-        "text": "The design brief on our Custom Furniture page runs only in your browser. Nothing you type is sent to us until you choose to send the message in WhatsApp."
-      },
-      {
-        "title": "Questions",
-        "text": "Write to us at {email}."
-      }
-    ]
+    "intro": "This website does not have accounts, forms that store your details, or a shop. When you contact us, you do it in WhatsApp, Messenger or by phone, and those apps handle your messages under their own policies.",
+    "measureTitle": "What we measure",
+    "measureNone": "Nothing. This website does not use analytics or any other tracking.",
+    "measureAnalytics": "We use cookie-free analytics to count page visits and clicks on our contact buttons. It does not identify you and does not follow you to other websites.",
+    "briefTitle": "The design brief",
+    "briefText": "The design brief on our Custom Furniture page runs only in your browser. Nothing you type is sent to us until you choose to send the message in WhatsApp.",
+    "questionsTitle": "Questions",
+    "questionsText": "Call or WhatsApp us on {phone}."
   },
   "notFound": {
     "title": "Page not found",

@@ -7,8 +7,8 @@ room: living
 type: sofas
 kind: design-reference
 summary:
-  en: "A sofa with a hand-carved wooden frame and deep velvet upholstery."
-  bn: "হাতে খোদাই করা কাঠের ফ্রেম আর গাঢ় ভেলভেট কাপড়ের সোফা।"
+  en: "A sofa with a carved wooden frame and deep velvet upholstery."
+  bn: "খোদাই করা কাঠের ফ্রেম আর গাঢ় ভেলভেট কাপড়ের সোফা।"
 material:
   en: "Carved wood, velvet"
   bn: "খোদাই করা কাঠ, ভেলভেট"

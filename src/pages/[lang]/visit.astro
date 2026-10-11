@@ -30,6 +30,7 @@ type Row = {
   hintLang?: string;
   badge?: string;
 };
+// Instagram and email appear once set in settings (contactLinks leaves them undefined until then)
 const rows: Row[] = [
   {
     icon: "whatsapp",
@@ -47,18 +48,23 @@ const rows: Row[] = [
     channel: "messenger",
     external: true,
   },
-  {
-    icon: "instagram",
-    label: d.contact.instagram,
-    hint: v.channelHints.instagram,
-    href: links.instagram,
-    channel: "instagram",
-    external: true,
-  },
+  ...(links.instagram
+    ? [
+        {
+          icon: "instagram",
+          label: d.contact.instagram,
+          hint: v.channelHints.instagram,
+          href: links.instagram,
+          channel: "instagram",
+          external: true,
+        } satisfies Row,
+      ]
+    : []),
   { icon: "phone", label: d.contact.call, hint: links.phoneDisplay, href: links.tel, channel: "call" },
-  { icon: "mail", label: d.contact.email, hint: settings.email, href: links.email, channel: "email", hintLang: "en" },
+  ...(links.email
+    ? [{ icon: "mail", label: d.contact.email, hint: settings.email, href: links.email, channel: "email", hintLang: "en" } satisfies Row]
+    : []),
   { icon: "facebook", label: d.contact.facebook, hint: v.channelHints.facebook, href: links.facebook, external: true },
-  { icon: "youtube", label: d.contact.youtube, hint: v.channelHints.youtube, href: links.youtube, external: true },
 ];
 const tipIcons: IconName[] = ["ruler", "image", "grid", "calendar"];
 ---

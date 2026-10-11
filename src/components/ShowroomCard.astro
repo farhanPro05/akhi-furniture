@@ -1,7 +1,7 @@
 ---
 /**
  * Showroom card (Design Brief §5.26): map preview that opens Google Maps (no embedded map on load),
- * address, hours, phone, "Get directions" and "Call".
+ * address, hours (once confirmed), phone, "Get directions" and "Call".
  */
 import type { Showroom } from "../content/settings";
 import { dict, type Lang } from "../i18n";
@@ -63,13 +63,15 @@ const other = lang === "en" ? "bn" : "en";
           )}
         </div>
       </div>
-      <div class="showroom__row">
-        <Icon name="clock" />
-        <div>
-          <b>{d.common.openingHours}</b>
-          {showroom.hours ? showroom.hours[lang] : d.common.toBeConfirmed}
+      {showroom.hours && (
+        <div class="showroom__row">
+          <Icon name="clock" />
+          <div>
+            <b>{d.common.openingHours}</b>
+            {showroom.hours[lang]}
+          </div>
         </div>
-      </div>
+      )}
       <div class="showroom__row">
         <Icon name="phone" />
         <div>

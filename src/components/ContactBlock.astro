@@ -1,7 +1,7 @@
 ---
 /**
  * Contact block on design pages (Master Plan §7.3, §8.2): a large WhatsApp button whose message names
- * this design, plus Messenger / Instagram (which copy the code first) and Call.
+ * this design, plus Messenger / Instagram once set (which copy the code first) and Call.
  */
 import { dict, fmt, type Lang } from "../i18n";
 import { contactTrack } from "../lib/analytics";
@@ -34,10 +34,12 @@ const copy = {
       <Icon name="messenger" />
       {d.contact.messenger}
     </a>
-    <a class="btn btn--secondary btn--sm" href={links.instagram} {...copy} {...contactTrack("instagram", "design_page", lang, code)}>
-      <Icon name="instagram" />
-      {d.contact.instagram}
-    </a>
+    {links.instagram && (
+      <a class="btn btn--secondary btn--sm" href={links.instagram} {...copy} {...contactTrack("instagram", "design_page", lang, code)}>
+        <Icon name="instagram" />
+        {d.contact.instagram}
+      </a>
+    )}
     <a class="btn btn--secondary btn--sm" href={links.tel} {...contactTrack("call", "design_page", lang, code)}>
       <Icon name="phone" />
       {d.contact.call}

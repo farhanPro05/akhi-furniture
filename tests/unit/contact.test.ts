@@ -10,6 +10,7 @@ import {
   whatsappLink,
 } from "../../src/lib/contact";
 import { settings } from "../../src/content/settings";
+import { contactLinks } from "../../src/lib/links";
 
 const design = {
   kind: "design" as const,
@@ -80,8 +81,13 @@ describe("other channels", () => {
   });
   it("settings values produce valid links", () => {
     expect(() => messengerLink(settings.messengerUsername)).not.toThrow();
-    expect(() => instagramLink(settings.instagramUsername)).not.toThrow();
     expect(() => telLink(settings.phone.e164)).not.toThrow();
-    expect(() => mailtoLink(settings.email)).not.toThrow();
+    if (settings.instagramUsername) expect(() => instagramLink(settings.instagramUsername)).not.toThrow();
+    if (settings.email) expect(() => mailtoLink(settings.email)).not.toThrow();
+  });
+  it("leaves out Instagram and email while their settings are empty", () => {
+    const links = contactLinks("en");
+    expect(links.instagram === undefined).toBe(!settings.instagramUsername);
+    expect(links.email === undefined).toBe(!settings.email);
   });
 });

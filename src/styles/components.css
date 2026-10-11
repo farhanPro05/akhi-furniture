@@ -542,7 +542,7 @@ body.has-sticky { --sticky-space: 72px; }
 .info-panel__head { display: grid; gap: var(--space-3); }
 .info-panel__codes { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
 .contact-block { display: grid; gap: var(--space-3); padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-raised); }
-.contact-block__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2); }
+.contact-block__row { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--space-2); }
 .contact-block__row .btn { padding-inline: var(--space-2); }
 .contact-block__hint { font-size: var(--fs-caption); color: var(--ink-muted); line-height: var(--lh-caption); }
 .facts { display: grid; gap: 0; border-top: 1px solid var(--line); }
@@ -608,7 +608,8 @@ body.has-sticky { --sticky-space: 72px; }
 /* ---------- Contact rows (Visit page) ---------- */
 .contact-rows { display: grid; gap: var(--space-3); }
 @media (min-width: 768px) { .contact-rows { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1200px) { .contact-rows { grid-template-columns: repeat(3, 1fr); } }
+/* Four channels today (WhatsApp, Messenger, Call, Facebook): 2 × 2. Three columns once Instagram and email are added. */
+@media (min-width: 1200px) { .contact-rows:has(> :nth-child(5)) { grid-template-columns: repeat(3, 1fr); } }
 
 /* ---------- Facts row (project page) ---------- */
 .fact-row { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -633,8 +634,9 @@ body.has-sticky { --sticky-space: 72px; }
 
 /* Make-icons grid (what we make) */
 .make-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
-@media (min-width: 600px) { .make-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1024px) { .make-grid { grid-template-columns: repeat(5, 1fr); gap: var(--space-4); } }
+/* Eight tiles (Custom Furniture): 2 columns on phones, 4 from tablet up so every row is full */
+@media (min-width: 768px) { .make-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1024px) { .make-grid { gap: var(--space-4); } }
 .make { display: grid; gap: var(--space-3); padding: var(--space-5) var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-raised); text-decoration: none; color: var(--ink); min-height: 120px; align-content: space-between; }
 .make .icon { width: 28px; height: 28px; color: var(--swoosh); }
 .make b { font: 500 16px/1.3 var(--font-display); }

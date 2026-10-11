@@ -40,7 +40,7 @@ describe("URLs", () => {
     expect(localUrl("en", "/faq/")).toBe("/en/faq/");
   });
   it("the language switch keeps the same page", () => {
-    expect(switchLang("/en/designs/marble-top-dining-set/", "bn")).toBe("/bn/designs/marble-top-dining-set/");
+    expect(switchLang("/en/designs/marble-look-dining-set/", "bn")).toBe("/bn/designs/marble-look-dining-set/");
     expect(switchLang("/bn/", "en")).toBe("/en/");
     expect(pagePath("/bn/our-work/x/")).toBe("our-work/x");
   });

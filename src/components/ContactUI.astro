@@ -3,7 +3,7 @@
  * Page-level contact UI (design/README §7.4–7.6):
  * - sticky contact bar for phones and tablet portrait (general or design variant), hidden while the footer shows
  * - channel chooser: bottom sheet on phones, centred dialog from 768px; WhatsApp first and recommended
- * - toast: "Design code … copied" after Messenger/Instagram copy the code first
+ * - toast: "Design code … copied" after Messenger (and Instagram, once set) copy the code first
  */
 import { dict, fmt, type Lang } from "../i18n";
 import { contactTrack, directionsTrack } from "../lib/analytics";
@@ -99,23 +99,25 @@ const copyAttrs = copy ? { "data-copy": copy, "data-toast": fmt(d.contact.toastC
       </span>
       <Icon name="chev-right" />
     </a>
-    <a
-      class="channel"
-      href={links.instagram}
-      target="_blank"
-      rel="noopener"
-      {...copyAttrs}
-      {...contactTrack("instagram", "chooser", lang, code)}
-    >
-      <span class="channel__ico">
-        <Icon name="instagram" />
-      </span>
-      <span>
-        <b>{d.contact.instagram}</b>
-        <span>{code ? d.contact.hintInstagramDesign : d.contact.hintInstagramGeneral}</span>
-      </span>
-      <Icon name="chev-right" />
-    </a>
+    {links.instagram && (
+      <a
+        class="channel"
+        href={links.instagram}
+        target="_blank"
+        rel="noopener"
+        {...copyAttrs}
+        {...contactTrack("instagram", "chooser", lang, code)}
+      >
+        <span class="channel__ico">
+          <Icon name="instagram" />
+        </span>
+        <span>
+          <b>{d.contact.instagram}</b>
+          <span>{code ? d.contact.hintInstagramDesign : d.contact.hintInstagramGeneral}</span>
+        </span>
+        <Icon name="chev-right" />
+      </a>
+    )}
     <a class="channel" href={links.tel} {...contactTrack("call", "chooser", lang, code)}>
       <span class="channel__ico">
         <Icon name="phone" />

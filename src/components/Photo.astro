@@ -1,8 +1,7 @@
 ---
 /**
  * A real AKHI photo in a ratio box (the mockups' `.ph`), as AVIF/WebP/JPEG at responsive widths.
- * If the build may not show the photo (production, not yet approved in the asset register),
- * it renders the labelled placeholder instead. Never a stock image.
+ * If the build may not publish the photo, the build fails (see Placeholder.astro). Never a stock image.
  */
 import { getPhoto, type PhotoId } from "../data/photos";
 import type { Lang } from "../i18n";

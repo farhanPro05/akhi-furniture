@@ -9,11 +9,10 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
 import CtaBand from "../components/CtaBand.astro";
 import DesignCard from "../components/DesignCard.astro";
 import Icon from "../components/Icon.astro";
-import { TYPES } from "../content.config";
 import { dict, fmt, type Lang } from "../i18n";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { contactTrack } from "../lib/analytics";
-import { getDesigns, getRooms, type Room } from "../lib/content";
+import { getDesigns, getRooms, getTypes, type Room } from "../lib/content";
 import { localDigits } from "../lib/digits";
 import { contactLinks } from "../lib/links";
 import { localUrl } from "../lib/urls";
@@ -27,6 +26,8 @@ const d = dict(lang);
 const all = await getDesigns();
 const rooms = await getRooms();
 const designs = room ? all.filter((x) => x.data.room === room) : all;
+// Type chips only for types this page actually has
+const types = (await getTypes()).filter((t) => designs.some((x) => x.data.type === t));
 const links = contactLinks(lang);
 
 const title = room ? d.designs.roomTitle[room] : d.designs.title;
@@ -70,7 +71,7 @@ const countText = (count: number) => {
       <button class="chip" type="button" aria-pressed="true" data-type="">
         {d.designs.allTypes}
       </button>
-      {TYPES.map((type) => (
+      {types.map((type) => (
         <button class="chip" type="button" aria-pressed="false" data-type={type}>
           {d.types[type]}
         </button>

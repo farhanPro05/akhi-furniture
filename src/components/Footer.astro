@@ -89,24 +89,28 @@ const company = [
                 {d.contact.messenger}
               </a>
             </li>
-            <li>
-              <a href={links.instagram} {...contactTrack("instagram", "footer", lang)}>
-                <Icon name="instagram" />
-                {d.contact.instagram}
-              </a>
-            </li>
+            {links.instagram && (
+              <li>
+                <a href={links.instagram} {...contactTrack("instagram", "footer", lang)}>
+                  <Icon name="instagram" />
+                  {d.contact.instagram}
+                </a>
+              </li>
+            )}
             <li>
               <a href={links.tel} {...contactTrack("call", "footer", lang)}>
                 <Icon name="phone" />
                 <span class="t-num">{links.phoneDisplay}</span>
               </a>
             </li>
-            <li>
-              <a href={links.email} {...contactTrack("email", "footer", lang)}>
-                <Icon name="mail" />
-                <span lang="en">{settings.email}</span>
-              </a>
-            </li>
+            {links.email && (
+              <li>
+                <a href={links.email} {...contactTrack("email", "footer", lang)}>
+                  <Icon name="mail" />
+                  <span lang="en">{settings.email}</span>
+                </a>
+              </li>
+            )}
           </ul>
         </details>
         <details class="f-col">
@@ -118,9 +122,11 @@ const company = [
             <li>
               <p>{showroom.address[lang]}</p>
             </li>
-            <li>
-              <p>{showroom.hours ? showroom.hours[lang] : `${d.common.openingHours}: ${d.common.toBeConfirmed}`}</p>
-            </li>
+            {showroom.hours && (
+              <li>
+                <p>{showroom.hours[lang]}</p>
+              </li>
+            )}
             <li>
               <a class="link" href={links.directions} target="_blank" rel="noopener" {...directionsTrack("footer")}>
                 <Icon name="nav" size={16} />
@@ -144,12 +150,17 @@ const company = [
           <a class="btn-icon" href={settings.social.facebook} aria-label={d.contact.facebook} rel="noopener" target="_blank">
             <Icon name="facebook" />
           </a>
-          <a class="btn-icon" href={settings.social.instagram} aria-label={d.contact.instagram} rel="noopener" target="_blank">
-            <Icon name="instagram" />
-          </a>
-          <a class="btn-icon" href={settings.social.youtube} aria-label={d.contact.youtube} rel="noopener" target="_blank">
-            <Icon name="youtube" />
-          </a>
+          {settings.instagramUsername && (
+            <a
+              class="btn-icon"
+              href={`https://www.instagram.com/${settings.instagramUsername}/`}
+              aria-label={d.contact.instagram}
+              rel="noopener"
+              target="_blank"
+            >
+              <Icon name="instagram" />
+            </a>
+          )}
         </div>
       </div>
     </div>

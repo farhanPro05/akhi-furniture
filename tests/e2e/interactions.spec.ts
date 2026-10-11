@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const DESIGN = "/en/designs/marble-top-dining-set/";
+const DESIGN = "/en/designs/marble-look-dining-set/";
 
 test.describe("phone", () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
@@ -82,7 +82,9 @@ test.describe("phone", () => {
     await page.locator('[data-type-filter] [data-type="beds"]').tap();
     await expect(page).toHaveURL(/type=beds/);
     expect(await cards.count()).toBeLessThan(all);
-    await page.locator('[data-type-filter] [data-type="office"]').tap();
+    // Only types with designs get a chip; an old link to an empty type shows the empty state
+    await expect(page.locator('[data-type-filter] [data-type="office"]')).toHaveCount(0);
+    await page.goto("/en/designs/?type=office");
     await expect(page.locator("[data-empty]")).toBeVisible();
   });
 });

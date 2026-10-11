@@ -20,9 +20,9 @@ export const TYPES = ["beds", "sofas", "dining-sets", "wardrobes", "dressing-tab
 export const ICONS = ["ruler", "wood", "finish", "fabric", "storage", "sparkle"] as const;
 
 /**
- * Publish guard (Master Plan §9). An item reaches a production build only when
- * status is "published", rights are "approved" and the client approved it.
- * "sample" items (placeholder copy, e.g. reviews) show in preview builds only, with a visible tag.
+ * Publish guard (Master Plan §9). An item reaches a production build when status is "published" and
+ * either its rights are "approved" with the client's approval, or `settings.publishPendingRights` is true.
+ * "sample" items (placeholder copy) show in preview builds only, with a visible tag.
  * "draft" items never show.
  */
 const publishing = {
@@ -51,7 +51,6 @@ const designs = defineCollection({
     images: z.array(z.object({ photo, caption: localized, pos: focal })).min(1),
     /** Second photo shown when a mouse hovers the card. */
     hoverPhoto: photo.optional(),
-    youtubeId: z.string().optional(),
     featured: z.boolean().default(false),
     order: z.number().default(100),
     ...publishing,

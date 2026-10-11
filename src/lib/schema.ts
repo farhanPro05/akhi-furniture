@@ -15,15 +15,16 @@ export function furnitureStore(lang: Lang) {
     logo: absoluteUrl("/icon-512.png"),
     image: absoluteUrl("/og-default.jpg"),
     telephone: settings.phone.e164,
-    email: settings.email,
+    ...(settings.email ? { email: settings.email } : {}),
     address: {
       "@type": "PostalAddress",
-      streetAddress: showroom.address[lang],
+      streetAddress: showroom.streetAddress,
       addressLocality: showroom.locality,
+      postalCode: showroom.postalCode,
       addressCountry: showroom.country,
     },
     hasMap: showroom.mapUrl,
-    sameAs: Object.values(settings.social),
+    sameAs: [settings.social.facebook, ...(settings.instagramUsername ? [`https://www.instagram.com/${settings.instagramUsername}/`] : [])],
   };
 }
 
@@ -54,17 +55,5 @@ export function faqPage(items: { question: string; answer: string }[]) {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: items.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
-  };
-}
-
-export function videoObject(lang: Lang, video: { youtubeId: string; title: { en: string; bn: string } }, thumbnail: string) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "VideoObject",
-    name: video.title[lang],
-    description: video.title[lang],
-    thumbnailUrl: absoluteUrl(thumbnail),
-    contentUrl: `https://www.youtube.com/watch?v=${video.youtubeId}`,
-    embedUrl: `https://www.youtube-nocookie.com/embed/${video.youtubeId}`,
   };
 }

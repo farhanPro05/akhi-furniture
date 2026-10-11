@@ -1,5 +1,6 @@
-# FAQ (Master Plan §7.10). Every answer needs AKHI's confirmation before launch.
-# status: draft hides a question until AKHI gives the real answer (warranty, delivery, installation).
+# FAQ (Master Plan §7.10). Published answers promise nothing AKHI hasn't confirmed (no hours, timelines,
+# delivery terms or warranty). status: draft hides a question until AKHI gives the real answer
+# (warranty, installation, office orders). See plans/2026-10-11-launch-cleanup-and-unconfirmed-items.md.
 # showOn adds a question to the short FAQ on design pages and/or the Custom Furniture page.
 
 - id: why-no-prices
@@ -11,8 +12,8 @@
     en: "Why don't you show prices online?"
     bn: "অনলাইনে দাম কেন দেওয়া নেই?"
   answer:
-    en: "Every piece is made to your size, material and finish, so we give you an exact quote once we understand what you need. Message us on WhatsApp for a quick estimate."
-    bn: "প্রতিটি আসবাব আপনার মাপ, ম্যাটেরিয়াল ও ফিনিশ অনুযায়ী তৈরি হয়, তাই আপনার প্রয়োজন বুঝে আমরা সঠিক দাম জানাই। দ্রুত ধারণা পেতে হোয়াটসঅ্যাপে মেসেজ করুন।"
+    en: "The price depends on the size, material and finish you choose, so we quote once we understand what you need. Message us on WhatsApp with a photo or a design code."
+    bn: "দাম নির্ভর করে আপনার বেছে নেওয়া মাপ, ম্যাটেরিয়াল ও ফিনিশের ওপর, তাই আপনার প্রয়োজন বুঝে আমরা দাম জানাই। ছবি বা ডিজাইন কোডসহ হোয়াটসঅ্যাপে মেসেজ করুন।"
 
 - id: change-size
   group: custom
@@ -47,8 +48,8 @@
     en: "How long does a custom piece take?"
     bn: "একটি কাস্টম আসবাব বানাতে কত সময় লাগে?"
   answer:
-    en: "It depends on the piece and the wood. You get a clear timeline with your quote."
-    bn: "আসবাব আর কাঠের ওপর নির্ভর করে। দামের সঙ্গে পরিষ্কার সময়সূচিও পাবেন।"
+    en: "It depends on the piece and the material. Ask us when you discuss your order."
+    bn: "আসবাব আর ম্যাটেরিয়ালের ওপর নির্ভর করে। অর্ডার নিয়ে কথা বলার সময় আমাদের জিজ্ঞেস করুন।"
 
 - id: which-woods
   group: materials
@@ -58,8 +59,8 @@
     en: "Which woods do you use?"
     bn: "কোন কাঠ ব্যবহার করেন?"
   answer:
-    en: "We discuss material options during your consultation and show samples at the showroom."
-    bn: "পরামর্শের সময় ম্যাটেরিয়ালের অপশন নিয়ে কথা বলি, আর শোরুমে স্যাম্পল দেখাই।"
+    en: "We mostly work with wood and board. Tell us what you have in mind and we will talk through the options for your piece."
+    bn: "আমরা মূলত কাঠ ও বোর্ড দিয়ে কাজ করি। আপনার পছন্দ জানালে আপনার আসবাবের জন্য অপশনগুলো নিয়ে কথা বলব।"
 
 - id: warranty
   group: materials
@@ -104,8 +105,8 @@
     en: "Can I see a piece before ordering?"
     bn: "অর্ডারের আগে কি আসবাবটি দেখা যাবে?"
   answer:
-    en: "Visit our showroom to see similar pieces, woods and finishes in person."
-    bn: "শোরুমে এসে একই রকম আসবাব, কাঠ ও ফিনিশ নিজের চোখে দেখুন।"
+    en: "Visit our showroom in Bashundhara to see our work in person."
+    bn: "বসুন্ধরায় আমাদের শোরুমে এসে আমাদের কাজ নিজের চোখে দেখুন।"
 
 - id: appointment
   group: showroom
@@ -115,8 +116,8 @@
     en: "Do I need an appointment?"
     bn: "অ্যাপয়েন্টমেন্ট লাগবে কি?"
   answer:
-    en: "You are welcome any time during opening hours. Message us first if you want to talk to a designer."
-    bn: "খোলার সময়ে যেকোনো সময় আসতে পারেন। ডিজাইনারের সঙ্গে কথা বলতে চাইলে আগে একটি মেসেজ দিন।"
+    en: "Message or call us before you come, so we can make sure the right person is there to help you."
+    bn: "আসার আগে মেসেজ বা ফোন করুন, যাতে আপনাকে সাহায্য করার জন্য সঠিক মানুষটি উপস্থিত থাকেন।"
 
 - id: what-to-bring
   group: showroom
@@ -132,7 +133,7 @@
 - id: large-orders
   group: business
   order: 1
-  status: published
+  status: draft
   question:
     en: "Do you take large office orders?"
     bn: "অফিসের বড় অর্ডার নেন?"
@@ -143,7 +144,7 @@
 - id: quote-by-email
   group: business
   order: 2
-  status: published
+  status: draft
   question:
     en: "Can I get the quote by email?"
     bn: "ইমেইলে কোটেশন পাওয়া যাবে?"

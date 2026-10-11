@@ -1,16 +1,17 @@
 ---
 /** /designs/<room>/ (room category pages) and /designs/<design-slug>/ (design detail) share this level. */
-import { ROOMS } from "../../../content.config";
 import { LOCALES } from "../../../i18n";
-import { getDesigns, type Design, type Room } from "../../../lib/content";
+import { getDesigns, getRooms, type Design, type Room } from "../../../lib/content";
 import { langParam } from "../../../lib/paths";
 import CatalogView from "../../../views/CatalogView.astro";
 import DesignView from "../../../views/DesignView.astro";
 
 export async function getStaticPaths() {
   const designs = await getDesigns();
+  // Only rooms with designs get a page (getRooms)
+  const rooms = (await getRooms()).map((r) => r.id as Room);
   return LOCALES.flatMap((lang) => [
-    ...ROOMS.map((room) => ({ params: { lang, slug: room }, props: { room, design: undefined } })),
+    ...rooms.map((room) => ({ params: { lang, slug: room }, props: { room, design: undefined } })),
     ...designs.map((design) => ({ params: { lang, slug: design.id }, props: { room: undefined, design } })),
   ]);
 }

@@ -7,11 +7,13 @@
  *   media_status starts with "authorized" or "approved",
  *   client_approval is "approved", and
  *   ownership_confirmed is "yes" or "confirmed".
- * Production builds show a plain placeholder instead of any photo that is not approved.
+ * Production builds publish only approved photos, plus pending ones while `settings.publishPendingRights`
+ * is true. A page that uses a photo it may not publish fails the build (no placeholder is ever shown).
  */
 import fs from "node:fs";
 import path from "node:path";
 import type { ImageMetadata } from "astro";
+import { settings } from "../content/settings";
 import type { Localized } from "../i18n";
 import { PREVIEW } from "../lib/mode";
 
@@ -19,30 +21,30 @@ const files = import.meta.glob<{ default: ImageMetadata }>("../assets/images/*.j
 
 export const photoAlt = {
   "hero-living": {
-    en: "Living room with a carved sofa set, armchairs and a marble-top center table",
-    bn: "খোদাই করা সোফা সেট, আর্মচেয়ার ও মার্বেল টপ সেন্টার টেবিলসহ লিভিং রুম",
+    en: "Living room with a carved sofa set, armchairs and a center table",
+    bn: "খোদাই করা সোফা সেট, আর্মচেয়ার ও সেন্টার টেবিলসহ লিভিং রুম",
   },
   "hero-living-m": { en: "Carved sofa and armchair in a living room", bn: "লিভিং রুমে খোদাই করা সোফা ও আর্মচেয়ার" },
   "room-bedroom": { en: "Carved bed in the showroom", bn: "শোরুমে খোদাই করা খাট" },
   "room-living": { en: "Pink velvet sofa set in the showroom", bn: "শোরুমে গোলাপি ভেলভেটের সোফা সেট" },
   "room-dining": { en: "Glass-top dining set in the showroom", bn: "শোরুমে কাচের টপের ডাইনিং সেট" },
   "d-din-021": {
-    en: "Marble-top dining table with carved champagne legs and damask chairs",
-    bn: "খোদাই করা শ্যাম্পেন পায়া ও ড্যামাস্ক চেয়ারসহ মার্বেল টপ ডাইনিং টেবিল",
+    en: "Marble-look dining table with carved champagne legs and damask chairs",
+    bn: "খোদাই করা শ্যাম্পেন পায়া ও ড্যামাস্ক চেয়ারসহ মার্বেল লুক ডাইনিং টেবিল",
   },
-  "d-din-021-b": { en: "Marble-top dining set, wide view in the showroom", bn: "শোরুমে মার্বেল টপ ডাইনিং সেট, প্রশস্ত ছবি" },
-  "d-din-021-c": { en: "Marble-top dining set seen from the end of the table", bn: "টেবিলের মাথা থেকে মার্বেল টপ ডাইনিং সেট" },
+  "d-din-021-b": { en: "Marble-look dining set, wide view in the showroom", bn: "শোরুমে মার্বেল লুক ডাইনিং সেট, প্রশস্ত ছবি" },
+  "d-din-021-c": { en: "Marble-look dining set seen from the end of the table", bn: "টেবিলের মাথা থেকে মার্বেল লুক ডাইনিং সেট" },
   "d-din-021-d": {
     en: "Side view of the dining set showing the carved champagne legs",
     bn: "পাশ থেকে ডাইনিং সেট, খোদাই করা শ্যাম্পেন পায়া",
   },
-  "d-din-021-e": { en: "The marble-top dining table on its own", bn: "শুধু মার্বেল টপ ডাইনিং টেবিলটি" },
+  "d-din-021-e": { en: "The marble-look dining table on its own", bn: "শুধু মার্বেল লুক ডাইনিং টেবিলটি" },
   "d-din-021-f": { en: "Damask-upholstered dining chairs", bn: "ড্যামাস্ক কাপড়ের ডাইনিং চেয়ার" },
   "c-sof-007": { en: "Carved sofa upholstered in velvet", bn: "ভেলভেট কাপড়ের খোদাই করা সোফা" },
   "d-sof-007-b": { en: "Carved velvet sofa in a room setting", bn: "ঘরে সাজানো খোদাই করা ভেলভেট সোফা" },
   "d-bed-014": { en: "Bed with a velvet upholstered headboard and base", bn: "ভেলভেট কুশনের হেডবোর্ড ও বেসসহ খাট" },
   "d-bed-014-b": { en: "Velvet upholstered bed, another angle", bn: "ভেলভেট কুশন খাট, অন্য দিক থেকে" },
-  "c-wrd-005": { en: "Wardrobe with mirror doors in a mahogany finish", bn: "মেহগনি ফিনিশের আয়না দরজার ওয়ার্ডরোব" },
+  "c-wrd-005": { en: "Wardrobe with mirror doors in a dark wood finish", bn: "গাঢ় কাঠ রঙের ফিনিশের আয়না দরজার ওয়ার্ডরোব" },
   "d-wrd-005-b": { en: "Mirror-door wardrobe, detail", bn: "আয়না দরজার ওয়ার্ডরোব, খুঁটিনাটি" },
   "c-chr-004": { en: "Carved armchair upholstered in velvet", bn: "ভেলভেট কাপড়ের খোদাই করা আর্মচেয়ার" },
   "d-sof-012": { en: "Button-tufted Chesterfield sofa", bn: "বাটন টাফটেড চেস্টারফিল্ড সোফা" },
@@ -68,8 +70,8 @@ export const photoAlt = {
   "p-sitting-chair": { en: "Oval-back armchair, detail", bn: "ডিম্বাকৃতি পিঠের আর্মচেয়ার, খুঁটিনাটি" },
   "ws-sofa": { en: "Gold carved sofa in the workshop", bn: "কারখানায় সোনালি খোদাই করা সোফা" },
   "ws-sofa-b": { en: "Gold carved sofa in the workshop, another view", bn: "কারখানায় সোনালি খোদাই করা সোফা, অন্য দিক থেকে" },
-  "ws-wardrobe": { en: "Mahogany wardrobes being finished in the workshop", bn: "কারখানায় ফিনিশিং চলছে মেহগনি ওয়ার্ডরোবের" },
-  "ws-wardrobe-b": { en: "Mahogany wardrobe in the workshop", bn: "কারখানায় মেহগনি ওয়ার্ডরোব" },
+  "ws-wardrobe": { en: "Wardrobes being finished in the workshop", bn: "কারখানায় ওয়ার্ডরোবের ফিনিশিং চলছে" },
+  "ws-wardrobe-b": { en: "Wardrobe in the workshop", bn: "কারখানায় একটি ওয়ার্ডরোব" },
   "showroom-1": { en: "Sideboard on display in the showroom", bn: "শোরুমে সাজানো সাইডবোর্ড" },
   "showroom-2": { en: "Dining set and armchair in the showroom", bn: "শোরুমে ডাইনিং সেট ও আর্মচেয়ার" },
   "showroom-3": { en: "Console table and mirror in the showroom", bn: "শোরুমে কনসোল টেবিল ও আয়না" },
@@ -85,7 +87,7 @@ export type Photo = {
   alt: Localized;
   source: string;
   approved: boolean;
-  /** True when this build may show the photo (always in preview, approved only in production). */
+  /** True when this build may show the photo (always in preview; in production approved, or pending while allowed). */
   publishable: boolean;
 };
 
@@ -158,7 +160,7 @@ export function getPhoto(id: PhotoId): Photo {
     alt: photoAlt[id],
     source: row.source_url ?? "",
     approved,
-    publishable: PREVIEW || approved,
+    publishable: PREVIEW || approved || settings.publishPendingRights,
   };
   cache.set(id, photo);
   return photo;

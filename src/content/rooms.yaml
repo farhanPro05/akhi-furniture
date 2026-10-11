@@ -10,4 +10,5 @@
   cover: { photo: room-dining, pos: "50% 55%" }
 - id: office
   order: 4
-  # No office photo yet: the tile shows a plain placeholder (never a stock photo).
+  # No office designs or photos yet, so the office room has no tile, link or page (getRooms skips rooms
+  # without designs). Add a real cover photo here together with the first office design.
