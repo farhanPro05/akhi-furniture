@@ -24,6 +24,16 @@ export function furnitureStore(lang: Lang) {
       addressCountry: showroom.country,
     },
     hasMap: showroom.mapUrl,
+    ...(showroom.hours
+      ? {
+          openingHoursSpecification: {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: showroom.hours.days,
+            opens: showroom.hours.opens,
+            closes: showroom.hours.closes,
+          },
+        }
+      : {}),
     sameAs: [settings.social.facebook, ...(settings.instagramUsername ? [`https://www.instagram.com/${settings.instagramUsername}/`] : [])],
   };
 }

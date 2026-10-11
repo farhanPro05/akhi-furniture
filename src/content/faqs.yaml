@@ -116,8 +116,8 @@
     en: "Do I need an appointment?"
     bn: "অ্যাপয়েন্টমেন্ট লাগবে কি?"
   answer:
-    en: "Message or call us before you come, so we can make sure the right person is there to help you."
-    bn: "আসার আগে মেসেজ বা ফোন করুন, যাতে আপনাকে সাহায্য করার জন্য সঠিক মানুষটি উপস্থিত থাকেন।"
+    en: "No, come any time during opening hours. Message or call us first if you want to be sure the right person is there to help you."
+    bn: "না, খোলার সময়ে যেকোনো সময় আসতে পারেন। সাহায্যের জন্য সঠিক মানুষটি যেন থাকেন, তা নিশ্চিত করতে চাইলে আগে মেসেজ বা ফোন করুন।"
 
 - id: what-to-bring
   group: showroom

@@ -11,12 +11,17 @@
  */
 import type { Localized } from "../i18n";
 
+type Day = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
+
 export type Showroom = {
   id: string;
   name: Localized;
   address: Localized;
-  /** null until AKHI confirms the hours; the hours line is hidden until then. */
-  hours: Localized | null;
+  /**
+   * Opening hours: `text` is what visitors read, the rest feeds structured data (keep them in step).
+   * null hides the hours line everywhere.
+   */
+  hours: { text: Localized; days: Day[]; opens: string; closes: string } | null;
   /** Google Maps link (opens the app on phones). */
   mapUrl: string;
   streetAddress: string;
@@ -53,7 +58,17 @@ export const settings = {
         en: "417 Apollo Hospital Road, Dhalibari Kancha Bazar, Bashundhara, Dhaka 1212",
         bn: "৪১৭ অ্যাপোলো হাসপাতাল রোড, ঢালীবাড়ি কাঁচাবাজার, বসুন্ধরা, ঢাকা ১২১২",
       },
-      hours: null,
+      /** From AKHI's Google Maps listing (screenshot from the user, 2026-10-11). */
+      hours: {
+        // No-break spaces and a word joiner (\u2060) after the dash keep the time range on one line
+        text: {
+          en: "Open every day, 10\u00a0AM\u00a0–\u2060\u00a010\u00a0PM",
+          bn: "প্রতিদিন খোলা, সকাল\u00a0১০টা\u00a0–\u2060\u00a0রাত\u00a0১০টা",
+        },
+        days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        opens: "10:00",
+        closes: "22:00",
+      },
       mapUrl:
         "https://www.google.com/maps/search/?api=1&query=Akhi%20Furniture%2C%20417%20Apollo%20Hospital%20Road%2C%20Bashundhara%2C%20Dhaka",
       streetAddress: "417 Apollo Hospital Road, Dhalibari Kancha Bazar, Bashundhara",

@@ -21,10 +21,10 @@ On 2026-10-11 the user decided to put the site live before AKHI Furniture can be
 | Showroom address | **417 Apollo Hospital Road, Dhalibari Kancha Bazar, Bashundhara, Dhaka 1212**. Now on the site in English and Bengali. | AKHI's own Facebook video posts ("Address: 417, Apollo hospital road, Dhalibari kancha Bazar, Bashundhara, Dhaka"); "Dhaka-1212" from a public listing of the same business |
 | Phone / WhatsApp | 01600-297923, "WhatsApp and Imo". Unchanged. | AKHI's Facebook posts |
 | What AKHI makes | Home and office furniture, mostly wood and board, customization available | Public listing (Facebook intro) |
-| Opening hours | **Not found.** The Google Maps listing needs a browser. The hours that show up in search belong to other shops ("Akhi Furniture BD", "Akhi Home Furniture", both in Badda). | Web search, 2026-10-11 |
+| Opening hours | **Every day, 10 AM – 10 PM.** Now on the site. (Web search only found other "Akhi" shops in Badda; the user then sent a screenshot of AKHI's own listing.) | AKHI's Google Maps listing, screenshot from the user, 2026-10-11. The same listing shows "dhalibari kancha bazar, 417 apollo hospital road, Dhaka 1212", phone 01600-297923 and **youtube.com** as its website |
 | Email | **Not confirmed.** A search summary of AKHI's Facebook intro mentions `akhifurniture2019@gmail.com`, but no page showing it could be loaded. Not used. | Web search |
 | Instagram | **Not confirmed.** `@akhifurniture` exists but has 10 followers and no link to AKHI. Not linked. | instagram.com/akhifurniture |
-| YouTube | **Removed from the site** at the user's request (they believe AKHI has no channel). Note: the discovery research found "Akhi Furniture Official" (`youtube.com/@akhifurnitureofficial`) using the same phone number. Ask AKHI before adding it back. | Discovery file; user, 2026-10-11 |
+| YouTube | **Removed from the site** at the user's request (they believe AKHI has no channel). Note: the discovery research found "Akhi Furniture Official" (`youtube.com/@akhifurnitureofficial`) using the same phone number, and AKHI's Google Maps listing gives youtube.com as its website. Ask AKHI before adding it back. | Discovery file; Google Maps listing; user, 2026-10-11 |
 
 ## 2. What changed on the site
 
@@ -32,7 +32,7 @@ On 2026-10-11 the user decided to put the site live before AKHI Furniture can be
 |---|---|---|---|
 | Address | "Showroom address, Bashundhara R/A" | Real address, both languages; structured data has street, city and postcode | When AKHI shares its Google Maps place, put that link in `showrooms[0].mapUrl` |
 | Map link | Google Maps search for "Akhi Furniture Bashundhara" | Google Maps search for the name and the real address | Same as above |
-| Opening hours | "To be confirmed" | Not shown (showroom card, footer, phone menu) | Set `showrooms[0].hours` in `src/content/settings.ts` |
+| Opening hours | "To be confirmed" | "Open every day, 10 AM – 10 PM" on the showroom card, footer and phone menu, plus `openingHoursSpecification` in structured data. The FAQ "Do I need an appointment?" says to come during opening hours | Change `showrooms[0].hours` in `src/content/settings.ts` (display text and the structured days/times together) |
 | Email | `hello@akhifurniture.com` (made up) | Not shown anywhere (footer, Visit, privacy, structured data) | Set `settings.email` |
 | Instagram | Linked in the footer, Visit page, contact chooser and design pages | Not shown anywhere | Set `settings.instagramUsername` |
 | YouTube | Footer icon, Visit page row, video blocks on Home, About and every design page | Removed. Home's workshop band shows a workshop photo and links to Facebook; design pages show the project the design appears in, or the showroom | Restore `src/components/VideoBlock.astro` from git (commit `4c509e9`), add video IDs to settings, restore the CSP `frame-src` |
@@ -57,11 +57,11 @@ What the site shows in the meantime is in brackets.
 - [ ] Who answers 01600-297923 and WhatsApp *(shown; AKHI publishes this number)*
 
 **Contact details**
-- [ ] Opening hours *(hidden)*
+- [x] Opening hours: every day, 10 AM – 10 PM (Google Maps listing, 2026-10-11)
 - [ ] Exact Google Maps place *(map search by name and address)*
 - [ ] Email address *(hidden; lead: `akhifurniture2019@gmail.com`)*
 - [ ] Instagram account *(hidden; lead: `@akhifurniture`, probably not theirs)*
-- [ ] YouTube channel *(removed; lead: `@akhifurnitureofficial`)*
+- [ ] YouTube channel *(removed; leads: `@akhifurnitureofficial`, and the Google Maps listing links to youtube.com)*
 - [ ] Second branch (a 2024 YouTube description mentioned Banani) *(only Bashundhara shown)*
 
 **Services and content**
@@ -93,3 +93,4 @@ What the site shows in the meantime is in brackets.
 
 ## Changelog
 - **2026-10-11:** Written after the cleanup. Address found on AKHI's Facebook posts; hours, email, Instagram not confirmed; YouTube removed at the user's request.
+- **2026-10-11:** Opening hours confirmed from AKHI's Google Maps listing (every day, 10 AM – 10 PM) and added to the site and structured data. The listing also matches the address and phone, and links to youtube.com.
